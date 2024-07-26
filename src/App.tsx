@@ -1,5 +1,5 @@
-import './App.css'
 import {BrowserRouter} from "react-router-dom";
+import '@fontsource/inter'
 import AppRouter from "./routers/AppRouter.tsx";
 
 function App() {

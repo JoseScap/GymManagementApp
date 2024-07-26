@@ -1,15 +1,11 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import {Typography} from "@mui/joy";
+import PageLayout from "../../common/layouts/PageLayout.tsx";
 
 const DummyPage = () => {
-  const navigate = useNavigate();
-
-  return <>
-    <h1>Dummy</h1>
-    <div>
-      <button onClick={() => navigate("/")}>Go to dashboard page</button>
-    </div>
-  </>;
+  return <PageLayout>
+    <Typography level="h2">Dummy</Typography>
+  </PageLayout>;
 }
 
 export default DummyPage;

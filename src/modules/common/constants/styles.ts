@@ -1,0 +1,1 @@
+export const brandColor = "#C0FF72"
