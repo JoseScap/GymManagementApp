@@ -1,0 +1,19 @@
+{
+  "fakeEntities": [
+    {
+      "id": 1,
+      "title": "Test 1",
+      "description": null
+    },
+    {
+      "id": 2,
+      "title": "Test 2",
+      "description": null
+    },
+    {
+      "id": 3,
+      "title": "Test 3",
+      "description": null
+    }
+  ]
+}
