@@ -1,107 +1,35 @@
-import React, {PropsWithChildren, useState} from "react";
+import React, {PropsWithChildren} from "react";
 import {
-  Box,
-  Divider,
-  Drawer,
-  IconButton,
-  List,
-  ListItem,
-  ListItemButton,
-  Typography
+  Box, CssVarsProvider
 } from "@mui/joy";
-import {brandColor} from "../constants/styles.ts";
-import {CloseOutlined, MenuOutlined} from "@mui/icons-material";
-import {useNavigate} from "react-router-dom";
-
-type SectionItem = {
-  title: string;
-  navigateTo: string;
-}
-
-const mainSections: SectionItem[] = [
-  { title: "Inicio", navigateTo: "/" }
-]
-
-const testSections: SectionItem[] = [
-  { title: "Dummy", navigateTo: "/dummy" },
-  { title: "Test", navigateTo: "/test" },
-]
+import Sidebar from "../components/Sidebar.tsx";
 
 const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
-  const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-
-  return <Box>
-    <Box
-      bgcolor={brandColor}
-      padding={"12px"}
-
-    >
-      <Box
-        width={"100%"}
-        maxWidth={"90vw"}
-        margin={"0 auto"}
-        display={"flex"}
-        justifyContent={"space-between"}
-      >
-        <IconButton onClick={() => setOpen(!open)}>
-          <MenuOutlined />
-        </IconButton>
-        <Typography level="h2">Orellana</Typography>
-      </Box>
-    </Box>
-    <Box width={"100%"} maxWidth={"90vw"} margin={"16px auto"}>
-      {children}
-    </Box>
-    <Drawer
-      open={open}
-      onClose={() => setOpen(false)}
-      anchor="left"
-      size="sm"
-      variant="outlined"
-    >
-      <Box height={"100%"}>
-        <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} padding={"16px"}>
-          <Typography level="title-lg">Orellana</Typography>
-          <IconButton onClick={() => setOpen(false)}>
-            <CloseOutlined />
-          </IconButton>
-        </Box>
-        <Divider />
-        <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} padding={"16px"}>
-          <List>
-            {
-              mainSections.map(({ title, navigateTo }, index) => (
-                <ListItem key={index}>
-                  <ListItemButton onClick={() => navigate(navigateTo)}>
-                    <Typography level="body-lg" fontWeight="bold">
-                      {title}
-                    </Typography>
-                  </ListItemButton>
-                </ListItem>
-              ))
-            }
-          </List>
-        </Box>
-        <Divider />
-        <Box display={"flex"} justifyContent={"space-between"} alignItems={"center"} padding={"16px"}>
-          <List>
-            {
-              testSections.map(({ title, navigateTo }, index) => (
-                <ListItem key={index}>
-                  <ListItemButton onClick={() => navigate(navigateTo)}>
-                    <Typography level="body-lg" fontWeight="bold">
-                      {title}
-                    </Typography>
-                  </ListItemButton>
-                </ListItem>
-              ))
-            }
-          </List>
+  return(
+    <CssVarsProvider disableTransitionOnChange>
+      <Box sx={{ display: 'flex', minHeight: '100dvh' }}>
+        <Sidebar />
+        <Box
+          component="main"
+          className="MainContent"
+          sx={{
+            px: 6,
+            pt: 3,
+            pb: { xs: 2, sm: 2, md: 3 },
+            flex: 1,
+            display: 'flex',
+            flexDirection: 'column',
+            minWidth: 0,
+            height: '100dvh',
+            gap: 1,
+          }}
+          bgcolor={"background.body"}
+        >
+          {children}
         </Box>
       </Box>
-    </Drawer>
-  </Box>
+    </CssVarsProvider>
+  )
 }
 
 export default PageLayout
