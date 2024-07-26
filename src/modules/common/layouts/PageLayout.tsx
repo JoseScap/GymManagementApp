@@ -1,7 +1,6 @@
 import React, {PropsWithChildren, useState} from "react";
 import {
   Box,
-  Button,
   Divider,
   Drawer,
   IconButton,
@@ -11,7 +10,7 @@ import {
   Typography
 } from "@mui/joy";
 import {brandColor} from "../constants/styles.ts";
-import {CloseOutlined, LabelOutlined, MenuOutlined, QuizOutlined} from "@mui/icons-material";
+import {CloseOutlined, MenuOutlined} from "@mui/icons-material";
 import {useNavigate} from "react-router-dom";
 
 type SectionItem = {
