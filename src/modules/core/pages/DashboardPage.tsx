@@ -8,9 +8,6 @@ const DashboardPage: React.FC = () => {
 
   return <PageLayout>
     <Typography level="h2">Dashboard</Typography>
-    <div>
-      <Button onClick={() => navigate("/dummy")}>Go to dummy page</Button>
-    </div>
   </PageLayout>;
 }
 
