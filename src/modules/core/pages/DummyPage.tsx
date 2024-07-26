@@ -1,13 +1,14 @@
 import React from "react";
 import {useNavigate} from "react-router-dom";
+import {Button, Typography} from "@mui/joy";
 
 const DummyPage = () => {
   const navigate = useNavigate();
 
   return <>
-    <h1>Dummy</h1>
+    <Typography level="h2">Dummy</Typography>
     <div>
-      <button onClick={() => navigate("/")}>Go to dashboard page</button>
+      <Button onClick={() => navigate("/")}>Go to dashboard page</Button>
     </div>
   </>;
 }
