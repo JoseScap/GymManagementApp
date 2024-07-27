@@ -1,4 +1,3 @@
-import React from "react";
 import {Typography} from "@mui/joy";
 
 const HomePage: React.FC = () => {
