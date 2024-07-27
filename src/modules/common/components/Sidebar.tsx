@@ -1,4 +1,3 @@
-import * as React from 'react';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import Box from '@mui/joy/Box';
 import Chip from '@mui/joy/Chip';
