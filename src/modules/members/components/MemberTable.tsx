@@ -1,8 +1,29 @@
-import {Box, Table} from "@mui/joy";
-import useMemberListContext from "../hooks/useMemberListHook.ts";
+import {Box, ColorPaletteProp, Table} from "@mui/joy";
+import { useMemberList } from "../hooks/useMemberListHooks.ts";
+import Chip from "@mui/joy/Chip";
+import InactiveIcon from "@mui/icons-material/Block"
+import DayIcon from "@mui/icons-material/WbSunny"
+import WeekIcon from "@mui/icons-material/Filter7"
+import MonthIcon from "@mui/icons-material/CalendarMonth"
+import {MemberStatus} from "../../common/types/members";
+import {ReactNode} from "react";
+
+const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
+  Inactivo: <InactiveIcon />,
+  Dia: <DayIcon />,
+  Semana: <WeekIcon />,
+  Mes: <MonthIcon />,
+}
+
+const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
+  Inactivo: "danger",
+  Dia: "primary",
+  Semana: "primary",
+  Mes: "primary",
+}
 
 const MemberTable: React.FC = () => {
-  const { members } = useMemberListContext()
+  const { members } = useMemberList()
 
   return (
       <Table
@@ -57,7 +78,7 @@ const MemberTable: React.FC = () => {
                 </td>
               </tr>
             ) : (
-              members.map(({ id, dni, isActive, phoneNumber, fullName }) => (
+              members.map(({ id, dni, status, phoneNumber, fullName }) => (
                 <tr key={id}>
                   <td scope="col">
                     <Box width="100%" height="100%" display="flex" alignItems="center">
@@ -66,7 +87,14 @@ const MemberTable: React.FC = () => {
                   </td>
                   <td scope="col">
                     <Box width="100%" height="100%" display="flex" alignItems="center">
-                      {isActive}
+                      <Chip
+                        variant="soft"
+                        size="md"
+                        startDecorator={startDecoratorDictionary[status]}
+                        color={colorDictionary[status]}
+                      >
+                        {status}
+                      </Chip>
                     </Box>
                   </td>
                   <td scope="col">

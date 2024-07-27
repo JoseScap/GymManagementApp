@@ -1,29 +1,25 @@
-import {createContext, PropsWithChildren, SetStateAction, useState} from "react";
+import {createContext, Dispatch, PropsWithChildren, SetStateAction, useState} from "react";
 import {Member} from "../../common/types/members";
 
 type MemberListContextType = {
   members: Member[],
-  changeMembers: (members: SetStateAction<Member[]>) => void
+  setMembers: Dispatch<SetStateAction<Member[]>>,
 }
 
 const MemberListContext = createContext<MemberListContextType>({
   members: [],
-  changeMembers: () => undefined
+  setMembers: () => undefined
 })
 const Provider = MemberListContext.Provider
 
 const MemberListProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [members, setMembers] = useState<Member[]>([])
 
-  const changeMembers = (members: SetStateAction<Member[]>) => {
-    setMembers(members)
-  }
-
   return (
       <Provider
         value={{
           members,
-          changeMembers,
+          setMembers,
         }}
       >
         {children}
