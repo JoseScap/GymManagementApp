@@ -6,7 +6,8 @@
       "birthdate": "16/07/1990",
       "address": "Avenue evergreen",
       "phoneNumber": "+5438165554433",
-      "isActive": true
+      "isActive": true,
+      "dni": "40404041"
     },
     {
       "id": 2,
@@ -14,7 +15,8 @@
       "birthdate": "25/03/1985",
       "address": "Maple Street 123",
       "phoneNumber": "+5438165551234",
-      "isActive": true
+      "isActive": true,
+      "dni": "40404042"
     },
     {
       "id": 3,
@@ -22,7 +24,8 @@
       "birthdate": "02/11/1978",
       "address": "Oak Road 456",
       "phoneNumber": "+5438165555678",
-      "isActive": false
+      "isActive": false,
+      "dni": "40404043"
     },
     {
       "id": 4,
@@ -30,7 +33,8 @@
       "birthdate": "14/05/1992",
       "address": "Pine Avenue 789",
       "phoneNumber": "+5438165557890",
-      "isActive": true
+      "isActive": true,
+      "dni": "40404044"
     },
     {
       "id": 5,
@@ -38,7 +42,8 @@
       "birthdate": "30/08/1988",
       "address": "Birch Lane 101",
       "phoneNumber": "+5438165551011",
-      "isActive": false
+      "isActive": false,
+      "dni": "40404045"
     },
     {
       "id": 6,
@@ -46,7 +51,8 @@
       "birthdate": "12/12/1995",
       "address": "Cedar Street 202",
       "phoneNumber": "+5438165552022",
-      "isActive": true
+      "isActive": true,
+      "dni": "40404046"
     },
     {
       "id": 7,
@@ -54,7 +60,8 @@
       "birthdate": "07/04/1982",
       "address": "Elm Drive 303",
       "phoneNumber": "+5438165553033",
-      "isActive": false
+      "isActive": false,
+      "dni": "40404047"
     },
     {
       "id": 8,
@@ -62,7 +69,8 @@
       "birthdate": "19/09/1990",
       "address": "Spruce Road 404",
       "phoneNumber": "+5438165554044",
-      "isActive": true
+      "isActive": true,
+      "dni": "40404048"
     },
     {
       "id": 9,
@@ -70,7 +78,8 @@
       "birthdate": "22/02/1984",
       "address": "Fir Avenue 505",
       "phoneNumber": "+5438165555055",
-      "isActive": false
+      "isActive": false,
+      "dni": "40404049"
     },
     {
       "id": 10,
@@ -78,7 +87,8 @@
       "birthdate": "03/06/1987",
       "address": "Willow Street 606",
       "phoneNumber": "+5438165556066",
-      "isActive": true
+      "isActive": true,
+      "dni": "40404050"
     },
     {
       "id": 11,
@@ -86,7 +96,8 @@
       "birthdate": "27/01/1993",
       "address": "Maple Lane 707",
       "phoneNumber": "+5438165557077",
-      "isActive": true
+      "isActive": true,
+      "dni": "40404051"
     }
   ]
 }
