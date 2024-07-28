@@ -45,10 +45,6 @@ const MemberPaginator: React.FC = () => {
     return generatePaginationItems(numberPage, pages)
   }, [numberPage, pages])
 
-  const handleChangePage = (value: number) => {
-    changeNumberPage(value)
-  }
-
   return <Box
     className="Pagination-laptopUp"
     sx={{
@@ -67,7 +63,7 @@ const MemberPaginator: React.FC = () => {
       color={buttonColorDictionary[prev !== null]}
       disabled={prev === null}
       startDecorator={<KeyboardArrowLeftIcon />}
-      onClick={() => prev !== null && handleChangePage(prev)}
+      onClick={() => prev !== null && changeNumberPage(prev)}
     >
       Previous
     </Button>
@@ -79,7 +75,7 @@ const MemberPaginator: React.FC = () => {
         size="sm"
         variant={paginationVariantIconButton[numberPage === +page]}
         color={paginationColorIconButton[numberPage === +page]}
-        onClick={() => !isNaN(+page) && handleChangePage(+page)}
+        onClick={() => !isNaN(+page) && changeNumberPage(+page)}
       >
         {page}
       </IconButton>
@@ -92,7 +88,7 @@ const MemberPaginator: React.FC = () => {
       color={buttonColorDictionary[next !== null]}
       disabled={next === null}
       endDecorator={<KeyboardArrowRightIcon />}
-      onClick={() => next !== null && handleChangePage(next)}
+      onClick={() => next !== null && changeNumberPage(next)}
     >
       Next
     </Button>
