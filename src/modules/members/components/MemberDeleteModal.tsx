@@ -1,25 +1,25 @@
 import { Button, DialogActions, DialogContent, DialogTitle, Divider, Modal, ModalDialog } from "@mui/joy"
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
-import { MemberListContext } from "../contexts/MemberListContext";
-import { useContext, useMemo } from "react";
 import { useMemberList } from "../hooks/useMemberListHooks";
+import { useMemo } from "react";
 
 const MemberDeleteModal: React.FC = () => {
-    const { idDelete } = useContext(MemberListContext)
-    const { changeDeleteId, deleteMemberById } = useMemberList()
+    const { idToDelete, changeIdToDelete, deleteMemberById, findAllMembers } = useMemberList()
 
-    const open = useMemo(() => idDelete !== 0, [idDelete])
+    const open = useMemo(() => idToDelete !== 0, [idToDelete])
 
     const handleDelete = () => {
-        changeDeleteId(0)
-        deleteMemberById(idDelete)
+        idToDelete !== null && deleteMemberById(idToDelete).finally(() => {
+            changeIdToDelete(null)
+            findAllMembers()
+        })
     }
 
     return (
         <>
             {
                 open && (
-                    <Modal open={open} onClose={() => changeDeleteId(0)}>
+                    <Modal open={open} onClose={() => changeIdToDelete(0)}>
                         <ModalDialog variant="outlined" role="alertdialog">
                             <DialogTitle>
                                 <WarningRoundedIcon />
@@ -33,7 +33,7 @@ const MemberDeleteModal: React.FC = () => {
                                 <Button variant="solid" color="danger" onClick={handleDelete}>
                                     Eliminar Miembro
                                 </Button>
-                                <Button variant="plain" color="neutral" onClick={() => changeDeleteId(0)}>
+                                <Button variant="plain" color="neutral" onClick={() => changeIdToDelete(0)}>
                                     Cancelar
                                 </Button>
                             </DialogActions>
