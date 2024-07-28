@@ -6,12 +6,13 @@ import { useMemberList } from "../hooks/useMemberListHooks";
 
 const MemberDeleteModal: React.FC = () => {
     const { idDelete } = useContext(MemberListContext)
-    const { changeDeleteId } = useMemberList()
+    const { changeDeleteId, deleteMemberById } = useMemberList()
 
     const open = useMemo(() => idDelete !== 0, [idDelete])
 
-    const handletest = () => {
-        console.log("Delete", idDelete)
+    const handleDelete = () => {
+        changeDeleteId(0)
+        deleteMemberById(idDelete)
     }
 
     return (
@@ -29,7 +30,7 @@ const MemberDeleteModal: React.FC = () => {
                                 ¿Estás seguro que quieres eliminar a este miembro?
                             </DialogContent>
                             <DialogActions>
-                                <Button variant="solid" color="danger" onClick={() => { handletest()}}>
+                                <Button variant="solid" color="danger" onClick={handleDelete}>
                                     Eliminar Miembro
                                 </Button>
                                 <Button variant="plain" color="neutral" onClick={() => changeDeleteId(0)}>

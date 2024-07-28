@@ -10,6 +10,7 @@ interface MemberListHooks {
   numberPage: number,
   changeNumberPage: (numberPage: SetStateAction<number>) => void,
   changeDeleteId: (numberPage: SetStateAction<number>) => void,
+  deleteMemberById: (id: number) => void,
   findAllMembers: () => void
 }
 
@@ -29,11 +30,17 @@ export const useMemberList = (): MemberListHooks => {
     setDeleteId(id)
   }
 
+  const deleteMemberById = async (id: number) => {
+    const response: AxiosResponse<PaginatedApiResponse<Member>> = await axios.delete(`http://localhost:3000/members/${id}`)
+    setCurrentPage(response.data)
+  }
+
   return {
     currentPage,
     numberPage,
     changeDeleteId,
     changeNumberPage,
+    deleteMemberById,
     findAllMembers
   }
 }
