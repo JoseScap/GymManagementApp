@@ -25,7 +25,7 @@ const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
 }
 
 const MemberTable: React.FC = () => {
-  const { currentPage: { data: members },  changeDeletedId } = useMemberList()
+  const { currentPage: { data: members },  changeDeleteId } = useMemberList()
 
   return (
     <Sheet
@@ -127,7 +127,7 @@ const MemberTable: React.FC = () => {
                         variant="outlined"
                         color="danger"
                         endDecorator={<DeleteForever />}
-                        onClick={() => changeDeletedId(id)}
+                        onClick={() => changeDeleteId(id)}
                       >
                         Eliminar
                       </Button>

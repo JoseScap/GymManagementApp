@@ -9,7 +9,7 @@ interface MemberListHooks {
   currentPage: PaginatedApiResponse<Member>,
   numberPage: number,
   changeNumberPage: (numberPage: SetStateAction<number>) => void,
-  changeDeletedId: (numberPage: SetStateAction<number>) => void,
+  changeDeleteId: (numberPage: SetStateAction<number>) => void,
   findAllMembers: () => void
 }
 
@@ -25,14 +25,14 @@ export const useMemberList = (): MemberListHooks => {
     setNumberPage(numberPage)
   }
 
-  const changeDeletedId = async (id: SetStateAction<number>) => {
+  const changeDeleteId = async (id: SetStateAction<number>) => {
     setDeleteId(id)
   }
 
   return {
     currentPage,
     numberPage,
-    changeDeletedId,
+    changeDeleteId,
     changeNumberPage,
     findAllMembers
   }
