@@ -11,7 +11,7 @@ import {
   Stack,
   Typography
 } from "@mui/joy";
-import AppBreadcrumbs from "../../core/components/AppBreadcrumbs.tsx";
+import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import Sheet from "@mui/joy/Sheet";
 
