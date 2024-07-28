@@ -7,6 +7,7 @@ import WeekIcon from "@mui/icons-material/Filter7"
 import MonthIcon from "@mui/icons-material/CalendarMonth"
 import {MemberStatus} from "../../common/types/members";
 import {ReactNode} from "react";
+import Sheet from "@mui/joy/Sheet";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -23,9 +24,21 @@ const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
 }
 
 const MemberTable: React.FC = () => {
-  const { members } = useMemberList()
+  const { currentPage: { data: members } } = useMemberList()
 
   return (
+    <Sheet
+      className="OrderTableContainer"
+      variant="outlined"
+      sx={{
+        display: 'initial',
+        width: '100%',
+        borderRadius: 'sm',
+        flexShrink: 1,
+        overflow: 'auto',
+        minHeight: 0,
+      }}
+    >
       <Table
         aria-labelledby="tableTitle"
         stickyHeader
@@ -118,6 +131,7 @@ const MemberTable: React.FC = () => {
           }
         </tbody>
       </Table>
+    </Sheet>
   )
 }
 
