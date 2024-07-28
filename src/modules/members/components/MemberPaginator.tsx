@@ -9,7 +9,7 @@ import {generatePaginationItems} from "../utils/arrayUtils.ts";
 // True means exist next or prev page
 const buttonVariantDictionary: Record<boolean, ButtonPropsVariantOverrides> = {
   true: 'outlined',
-  solid: 'plain'
+  false: 'plain'
 }
 
 // True means exist next or prev page
@@ -20,8 +20,8 @@ const buttonColorDictionary: Record<boolean, ButtonPropsColorOverrides> = {
 
 // True means this is the current page
 const paginationVariantIconButton: Record<boolean, ButtonPropsVariantOverrides> = {
-  true: 'outlined',
-  false: 'plain'
+  true: 'solid',
+  false: 'outlined'
 }
 
 // True means this is the current page
