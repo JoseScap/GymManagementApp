@@ -1,4 +1,4 @@
-import {Box, ColorPaletteProp, Table} from "@mui/joy";
+import {Box, Button, ColorPaletteProp, Table} from "@mui/joy";
 import { useMemberList } from "../hooks/useMemberListHooks.ts";
 import Chip from "@mui/joy/Chip";
 import InactiveIcon from "@mui/icons-material/Block"
@@ -8,6 +8,7 @@ import MonthIcon from "@mui/icons-material/CalendarMonth"
 import {MemberStatus} from "../../common/types/members";
 import {ReactNode} from "react";
 import Sheet from "@mui/joy/Sheet";
+import DeleteForever from '@mui/icons-material/DeleteForever';
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -24,7 +25,7 @@ const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
 }
 
 const MemberTable: React.FC = () => {
-  const { currentPage: { data: members } } = useMemberList()
+  const { currentPage: { data: members },  changeDeletedId } = useMemberList()
 
   return (
     <Sheet
@@ -122,7 +123,14 @@ const MemberTable: React.FC = () => {
                   </td>
                   <td scope="col">
                     <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end">
-                      Acciones
+                      <Button
+                        variant="outlined"
+                        color="danger"
+                        endDecorator={<DeleteForever />}
+                        onClick={() => changeDeletedId(id)}
+                      >
+                        Eliminar
+                      </Button>
                     </Box>
                   </td>
                 </tr>

@@ -9,11 +9,12 @@ interface MemberListHooks {
   currentPage: PaginatedApiResponse<Member>,
   numberPage: number,
   changeNumberPage: (numberPage: SetStateAction<number>) => void,
+  changeDeletedId: (numberPage: SetStateAction<number>) => void,
   findAllMembers: () => void
 }
 
 export const useMemberList = (): MemberListHooks => {
-  const { currentPage, setCurrentPage, numberPage, setNumberPage} = useContext(MemberListContext)
+  const { currentPage, setCurrentPage, numberPage, setNumberPage, setDeleteId} = useContext(MemberListContext)
 
   const findAllMembers = async () => {
     const response: AxiosResponse<PaginatedApiResponse<Member>> = await axios.get(`http://localhost:3000/members?_page=${numberPage}&_per_page=10`)
@@ -24,9 +25,14 @@ export const useMemberList = (): MemberListHooks => {
     setNumberPage(numberPage)
   }
 
+  const changeDeletedId = async (id: SetStateAction<number>) => {
+    setDeleteId(id)
+  }
+
   return {
     currentPage,
     numberPage,
+    changeDeletedId,
     changeNumberPage,
     findAllMembers
   }
