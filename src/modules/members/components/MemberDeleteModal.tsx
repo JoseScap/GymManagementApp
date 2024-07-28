@@ -8,19 +8,17 @@ const MemberDeleteModal: React.FC = () => {
     const { idDelete } = useContext(MemberListContext)
     const { changeDeleteId } = useMemberList()
 
-
     const open = useMemo(() => idDelete !== 0, [idDelete])
-    const setOpen = (open: number) => {
-        if (!open) {
-            changeDeleteId(0)
-        }
+
+    const handletest = () => {
+        console.log("Delete", idDelete)
     }
 
     return (
         <>
             {
                 open && (
-                    <Modal open={open} onClose={() => setOpen(0)}>
+                    <Modal open={open} onClose={() => changeDeleteId(0)}>
                         <ModalDialog variant="outlined" role="alertdialog">
                             <DialogTitle>
                                 <WarningRoundedIcon />
@@ -31,10 +29,10 @@ const MemberDeleteModal: React.FC = () => {
                                 ¿Estás seguro que quieres eliminar a este miembro?
                             </DialogContent>
                             <DialogActions>
-                                <Button variant="solid" color="danger" onClick={() => setOpen(0)}>
+                                <Button variant="solid" color="danger" onClick={() => { handletest()}}>
                                     Eliminar Miembro
                                 </Button>
-                                <Button variant="plain" color="neutral" onClick={() => setOpen(0)}>
+                                <Button variant="plain" color="neutral" onClick={() => changeDeleteId(0)}>
                                     Cancelar
                                 </Button>
                             </DialogActions>
