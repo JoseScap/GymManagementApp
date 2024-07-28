@@ -4,13 +4,14 @@ import AppBreadcrumbs from "../../core/components/AppBreadcrumbs.tsx";
 import MemberTable from "../components/MemberTable.tsx";
 import {useMemberList} from "../hooks/useMemberListHooks.ts";
 import {useEffect} from "react";
+import MemberPaginator from "../components/MemberPaginator.tsx";
 
 const MemberListPage: React.FC = () => {
-  const { findAllMembers } = useMemberList()
+  const { numberPage, findAllMembers } = useMemberList()
 
   useEffect(() => {
-    findAllMembers()
-  }, []);
+    findAllMembers(numberPage)
+  }, [numberPage, findAllMembers]);
 
   return <>
     <Box>
@@ -23,6 +24,7 @@ const MemberListPage: React.FC = () => {
     </Box>
     <Typography level="h2">Lista de socios</Typography>
     <MemberTable />
+    <MemberPaginator />
   </>
 }
 
