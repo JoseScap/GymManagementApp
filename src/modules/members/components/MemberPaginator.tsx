@@ -31,11 +31,23 @@ const paginationColorIconButton: Record<boolean, ButtonPropsColorOverrides> = {
 }
 
 const MemberPaginator: React.FC = () => {
-  const { currentPage: { prev, next, pages }, numberPage } = useMemberList()
+  const {
+    currentPage: {
+      prev,
+      next,
+      pages
+    },
+    numberPage,
+    changeNumberPage
+  } = useMemberList()
 
   const paginationItems = useMemo<string[]>(() => {
-    return generatePaginationItems(1, pages)
-  }, [pages])
+    return generatePaginationItems(numberPage, pages)
+  }, [numberPage, pages])
+
+  const handleChangePage = (value: number) => {
+    changeNumberPage(value)
+  }
 
   return <Box
     className="Pagination-laptopUp"
@@ -55,17 +67,19 @@ const MemberPaginator: React.FC = () => {
       color={buttonColorDictionary[prev !== null]}
       disabled={prev === null}
       startDecorator={<KeyboardArrowLeftIcon />}
+      onClick={() => prev !== null && handleChangePage(prev)}
     >
       Previous
     </Button>
 
     <Box sx={{ flex: 1 }} />
-    {paginationItems.map((page) => (
+    {paginationItems.map((page, index) => (
       <IconButton
-        key={page}
+        key={index}
         size="sm"
         variant={paginationVariantIconButton[numberPage === +page]}
         color={paginationColorIconButton[numberPage === +page]}
+        onClick={() => !isNaN(+page) && handleChangePage(+page)}
       >
         {page}
       </IconButton>
@@ -78,6 +92,7 @@ const MemberPaginator: React.FC = () => {
       color={buttonColorDictionary[next !== null]}
       disabled={next === null}
       endDecorator={<KeyboardArrowRightIcon />}
+      onClick={() => next !== null && handleChangePage(next)}
     >
       Next
     </Button>

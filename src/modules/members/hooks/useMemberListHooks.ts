@@ -1,5 +1,5 @@
 import {MemberListContext} from "../contexts/MemberListContext.tsx";
-import {useContext} from "react";
+import {SetStateAction, useContext} from "react";
 import {Member} from "../../common/types/members";
 import axios, {AxiosResponse} from "axios";
 import {PaginatedApiResponse} from "../../common/types/api";
@@ -8,23 +8,26 @@ import {PaginatedApiResponse} from "../../common/types/api";
 interface MemberListHooks {
   currentPage: PaginatedApiResponse<Member>,
   numberPage: number,
-  findAllMembers: (page?: number) => void
+  changeNumberPage: (numberPage: SetStateAction<number>) => void,
+  findAllMembers: () => void
 }
 
 export const useMemberList = (): MemberListHooks => {
-  const { currentPage, setCurrentPage, numberPage, setNumberPage } = useContext(MemberListContext)
+  const { currentPage, setCurrentPage, numberPage, setNumberPage} = useContext(MemberListContext)
 
-  const findAllMembers = async (page: number = 1) => {
-    if (page < 1) page = 1;
-
-    const response: AxiosResponse<PaginatedApiResponse<Member>> = await axios.get(`http://localhost:3000/members?_page=${page}&_per_page=10`)
+  const findAllMembers = async () => {
+    const response: AxiosResponse<PaginatedApiResponse<Member>> = await axios.get(`http://localhost:3000/members?_page=${numberPage}&_per_page=10`)
     setCurrentPage(response.data)
-    setNumberPage(page)
+  }
+
+  const changeNumberPage = async (numberPage: SetStateAction<number>) => {
+    setNumberPage(numberPage)
   }
 
   return {
     currentPage,
     numberPage,
+    changeNumberPage,
     findAllMembers
   }
 }

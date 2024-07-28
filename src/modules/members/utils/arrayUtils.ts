@@ -1,7 +1,7 @@
 export const generatePaginationItems =(
   currentPage: number,
   totalPages: number,
-  distance: number = 3
+  distance: number = 2
 ): string[] => {
   const paginationItems: string[] = [];
 

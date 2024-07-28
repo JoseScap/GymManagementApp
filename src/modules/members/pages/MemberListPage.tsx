@@ -10,7 +10,7 @@ const MemberListPage: React.FC = () => {
   const { numberPage, findAllMembers } = useMemberList()
 
   useEffect(() => {
-    findAllMembers(numberPage)
+    findAllMembers()
   }, [numberPage, findAllMembers]);
 
   return <>

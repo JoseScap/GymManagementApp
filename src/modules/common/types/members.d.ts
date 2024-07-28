@@ -1,9 +1,9 @@
 export type Member = {
-  "id": number
-  "fullName": string
-  "phoneNumber": string
-  "status": MemberStatus
-  "dni": string
+  id: number
+  fullName: string
+  phoneNumber: string
+  status: MemberStatus
+  dni: string
 }
 
 export type MemberStatus = 'Inactivo' | 'Dia' | 'Semana' | 'Mes'
