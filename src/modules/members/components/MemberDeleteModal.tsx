@@ -6,7 +6,7 @@ import { useMemo } from "react";
 const MemberDeleteModal: React.FC = () => {
     const { idToDelete, changeIdToDelete, deleteMemberById, findAllMembers } = useMemberList()
 
-    const open = useMemo(() => idToDelete !== 0, [idToDelete])
+    const open = useMemo(() => idToDelete, [idToDelete])
 
     const handleDelete = () => {
         idToDelete !== null && deleteMemberById(idToDelete).finally(() => {
