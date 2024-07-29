@@ -1,13 +1,17 @@
-import {Autocomplete, Box, Button, Card, Divider, FormLabel, Grid, Typography} from "@mui/joy";
-import {Member} from "../../common/types/members";
+import {Autocomplete, Box, Button, Card, Divider, FormLabel, Grid, Radio, Typography} from "@mui/joy";
+import {Member, MemberStatus} from "../../common/types/members";
 import {useCreateSubscription} from "../hooks/useCreateSubscription.ts";
+
+const memberStatusOptions: MemberStatus[] = ['Dia', 'Semana', 'Mes']
 
 const SubscriptionMemberForm: React.FC = () => {
   const {
     creationStep,
     members,
+    memberStatus,
     selectedMember,
     changeCreationStep,
+    changeMemberStatus,
     changeSelectedMember
   } = useCreateSubscription()
 
@@ -54,6 +58,32 @@ const SubscriptionMemberForm: React.FC = () => {
         >
           Fijar
         </Button>
+      </Grid>
+    </Grid>
+    <Divider />
+    <Grid container spacing={2}>
+      <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
+        <FormLabel>Tipo de suscripción</FormLabel>
+        {
+          memberStatusOptions.map((option) => (
+            <Radio
+              label={option}
+              value={option}
+              onChange={() => changeMemberStatus(option)}
+              checked={memberStatus === option}
+              name="memberStatus"
+              slotProps={{ input: { 'aria-label': option } }}
+            />
+          ))
+        }
+      </Grid>
+      <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
+        <FormLabel>Fecha inicio</FormLabel>
+        {/*<DateCalendar />*/}
+      </Grid>
+      <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
+        <FormLabel>Fecha hasta</FormLabel>
+        {/*<DateCalendar />*/}
       </Grid>
     </Grid>
   </Card>
