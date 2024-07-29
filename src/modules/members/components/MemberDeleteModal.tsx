@@ -1,12 +1,23 @@
 import { Button, DialogActions, DialogContent, DialogTitle, Divider, Modal, ModalDialog } from "@mui/joy"
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import { useMemberList } from "../hooks/useMemberListHooks";
-import { useMemo } from "react";
+import { useMemo} from "react";
 
 const MemberDeleteModal: React.FC = () => {
-    const { idToDelete, changeIdToDelete, deleteMemberById, findAllMembers } = useMemberList()
+    const {
+        idToDelete,
+        currentPage: { data: members },
+        changeIdToDelete,
+        deleteMemberById,
+        findAllMembers
+    } = useMemberList()
 
-    const open = useMemo(() => idToDelete, [idToDelete])
+    const open = useMemo<boolean>(() => !!idToDelete, [idToDelete])
+    const fullName = useMemo<string>(() => {
+        if (idToDelete === null) return "";
+
+        return members.find(member => member.id === idToDelete)?.fullName ?? ""
+    }, [idToDelete, members])
 
     const handleDelete = () => {
         idToDelete !== null && deleteMemberById(idToDelete).finally(() => {
@@ -23,11 +34,11 @@ const MemberDeleteModal: React.FC = () => {
                         <ModalDialog variant="outlined" role="alertdialog">
                             <DialogTitle>
                                 <WarningRoundedIcon />
-                                Confirmación
+                                Atención
                             </DialogTitle>
                             <Divider />
                             <DialogContent>
-                                ¿Estás seguro que quieres eliminar a este miembro?
+                                ¿Estás seguro que quieres eliminar al miembro {fullName}?
                             </DialogContent>
                             <DialogActions>
                                 <Button variant="solid" color="danger" onClick={handleDelete}>
