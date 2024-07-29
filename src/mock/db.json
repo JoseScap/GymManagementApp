@@ -139,6 +139,13 @@
       "phoneNumber": "+5438165554452",
       "status": "Inactivo",
       "dni": "40404060"
+    },
+    {
+      "id": 21,
+      "fullName": "Juan Jose Puente Scapolatempo",
+      "phoneNumber": "+5438165554452",
+      "status": "Mes",
+      "dni": "40438935"
     }
   ],
   "subscriptions": [
