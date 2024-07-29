@@ -35,7 +35,8 @@ const MemberPaginator: React.FC = () => {
     currentPage: {
       prev,
       next,
-      pages
+      pages,
+      items
     },
     numberPage,
     changeNumberPage
@@ -51,7 +52,7 @@ const MemberPaginator: React.FC = () => {
       pt: 2,
       gap: 1,
       [`& .${iconButtonClasses.root}`]: { borderRadius: '50%' },
-      display: 'flex',
+      display: items === 0 ? 'none' : 'flex',
     }}
   >
     <Button
