@@ -1,7 +1,7 @@
-import {Member, MemberStatus} from "../../common/types/members";
-import {SetStateAction, useContext} from "react";
-import axios, {AxiosResponse} from "axios";
-import {CreateSubscriptionContext, CreationStep} from "../contexts/CreateSubscriptionContext.tsx";
+import { Member, MemberStatus } from "../../common/types/members";
+import { SetStateAction, useContext } from "react";
+import axios, { AxiosResponse } from "axios";
+import { CreateSubscriptionContext, CreationStep } from "../contexts/CreateSubscriptionContext.tsx";
 
 interface CreateSubscriptionHooks {
   creationStep: CreationStep
@@ -39,7 +39,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     setMemberStatus(memberStatus)
   }
 
-  const changeSelectedMember = (member: Member)=> {
+  const changeSelectedMember = (member: Member) => {
     setSelectedMember(member)
   }
 
