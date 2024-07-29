@@ -85,7 +85,7 @@ export default function Sidebar() {
       />
       <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
         <Typography level="title-lg">Orellana Gym</Typography>
-        <ColorSchemeToggle sx={{ ml: 'auto' }} />
+        {/*<ColorSchemeToggle sx={{ ml: 'auto' }} />*/}
       </Box>
       <Box
         sx={{
