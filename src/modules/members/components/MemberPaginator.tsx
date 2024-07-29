@@ -51,10 +51,7 @@ const MemberPaginator: React.FC = () => {
       pt: 2,
       gap: 1,
       [`& .${iconButtonClasses.root}`]: { borderRadius: '50%' },
-      display: {
-        xs: 'none',
-        md: 'flex',
-      },
+      display: 'flex',
     }}
   >
     <Button
