@@ -1,16 +1,19 @@
 import {Autocomplete, Box, Button, Card, Divider, FormLabel, Grid, Radio, Typography} from "@mui/joy";
 import {Member, MemberStatus} from "../../common/types/members";
 import {useCreateSubscription} from "../hooks/useCreateSubscription.ts";
+import {DateCalendar, PickerValidDate} from "@mui/x-date-pickers";
 
 const memberStatusOptions: MemberStatus[] = ['Dia', 'Semana', 'Mes']
 
 const SubscriptionMemberForm: React.FC = () => {
   const {
     creationStep,
+    dateFrom,
     members,
     memberStatus,
     selectedMember,
     changeCreationStep,
+    changeDateFrom,
     changeMemberStatus,
     changeSelectedMember
   } = useCreateSubscription()
@@ -73,13 +76,18 @@ const SubscriptionMemberForm: React.FC = () => {
               checked={memberStatus === option}
               name="memberStatus"
               slotProps={{ input: { 'aria-label': option } }}
+              disabled={creationStep === 'Member'}
             />
           ))
         }
       </Grid>
       <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
         <FormLabel>Fecha inicio</FormLabel>
-        {/*<DateCalendar />*/}
+        <DateCalendar
+          value={dateFrom as PickerValidDate}
+          onChange={(newValue) => changeDateFrom(newValue)}
+          disabled={creationStep === 'Member' || memberStatus === 'Inactivo'}
+        />
       </Grid>
       <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
         <FormLabel>Fecha hasta</FormLabel>
