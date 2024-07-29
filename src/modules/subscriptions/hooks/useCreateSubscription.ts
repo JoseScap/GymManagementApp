@@ -1,21 +1,34 @@
 import {Member} from "../../common/types/members";
-import {useState} from "react";
+import {SetStateAction, useContext} from "react";
 import axios, {AxiosResponse} from "axios";
+import {CreateSubscriptionContext, CreationStep} from "../contexts/CreateSubscriptionContext.tsx";
 
 interface CreateSubscriptionHooks {
-  members: Member[],
+  creationStep: CreationStep
+  members: Member[]
   selectedMember: Member | null
+  changeCreationStep: (step: SetStateAction<CreationStep>) => void
   changeSelectedMember: (member: Member) => void
   findAllMembers: () => Promise<void>
 }
 
 export const useCreateSubscription = (): CreateSubscriptionHooks => {
-  const [members, setMembers] = useState<Member[]>([])
-  const [selectedMember, setSelectedMember] = useState<Member | null>(null)
+  const {
+    creationStep,
+    members,
+    selectedMember,
+    setCreationStep,
+    setMembers,
+    setSelectedMember
+  } = useContext(CreateSubscriptionContext)
 
   const findAllMembers = async () => {
     const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members`)
     setMembers(response.data)
+  }
+
+  const changeCreationStep = (step: SetStateAction<CreationStep>) => {
+    setCreationStep(step)
   }
 
   const changeSelectedMember = (member: Member): void => {
@@ -23,8 +36,10 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
   }
 
   return {
+    creationStep,
     members,
     selectedMember,
+    changeCreationStep,
     changeSelectedMember,
     findAllMembers
   }
