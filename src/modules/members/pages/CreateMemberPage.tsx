@@ -8,12 +8,10 @@ import {
   FormLabel,
   Grid,
   Input,
-  Stack,
   Typography
 } from "@mui/joy";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import Sheet from "@mui/joy/Sheet";
 
 const CreateMemberPage: React.FC = () => {
   return <>
@@ -33,7 +31,7 @@ const CreateMemberPage: React.FC = () => {
       </Box>
       <Divider />
       <Grid container spacing={2}>
-        <Grid item xs={6} display="flex" gap="8px" flexDirection="column">
+        <Grid xs={6} display="flex" gap="8px" flexDirection="column">
           <FormLabel>Apellido y nombre</FormLabel>
           <FormControl
             sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
@@ -41,7 +39,7 @@ const CreateMemberPage: React.FC = () => {
             <Input size="sm" placeholder="Ingrese el apellido y nombre del socio. Ej: Cristian Orellana." />
           </FormControl>
         </Grid>
-        <Grid item xs={6} display="flex" gap="8px" flexDirection="column">
+        <Grid xs={6} display="flex" gap="8px" flexDirection="column">
           <FormLabel>DNI</FormLabel>
           <FormControl
             sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
@@ -49,7 +47,7 @@ const CreateMemberPage: React.FC = () => {
             <Input size="sm" placeholder="Ingrese el DNI. Ej: 40123456" />
           </FormControl>
         </Grid>
-        <Grid item xs={6} display="flex" gap="8px" flexDirection="column">
+        <Grid xs={6} display="flex" gap="8px" flexDirection="column">
           <FormLabel>Numero de telefono</FormLabel>
           <FormControl
             sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}

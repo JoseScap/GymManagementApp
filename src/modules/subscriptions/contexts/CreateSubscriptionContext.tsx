@@ -17,9 +17,10 @@ type CreateSubscriptionContextType = {
 
 type CreationStep = 'Member' | 'Subscription'
 
+
 const INITIAL_STATE: CreateSubscriptionContextType = {
   creationStep: 'Member',
-  dateFrom: new dayjs(),
+  dateFrom: dayjs(),
   members: [],
   memberStatus: 'Inactivo',
   selectedMember: null,

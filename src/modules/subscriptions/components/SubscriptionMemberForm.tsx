@@ -25,7 +25,7 @@ const SubscriptionMemberForm: React.FC = () => {
     </Box>
     <Divider />
     <Grid container spacing={2}>
-      <Grid item xs={4} display="flex" gap="8px" flexDirection="column">
+      <Grid xs={4} display="flex" gap="8px" flexDirection="column">
         <FormLabel>DNI</FormLabel>
         <Autocomplete
           placeholder="Ingrese el DNI del socio. Ej: 40401501"
@@ -39,7 +39,7 @@ const SubscriptionMemberForm: React.FC = () => {
           disabled={creationStep === 'Subscription'}
         />
       </Grid>
-      <Grid item xs={4} display="flex" gap="8px" flexDirection="column">
+      <Grid xs={4} display="flex" gap="8px" flexDirection="column">
         <FormLabel>Apellido y nombre</FormLabel>
         <Autocomplete
           placeholder="Ingrese el nombre del socio. Ej: Juan Perez."
@@ -47,13 +47,13 @@ const SubscriptionMemberForm: React.FC = () => {
           getOptionLabel={option => option.fullName}
           getOptionKey={option => option.id}
           value={selectedMember}
-          onChange={
-            (_, newValue) => changeSelectedMember(newValue as Member) && console.log(newValue)
-          }
+          onChange={(_, newValue) => {
+            changeSelectedMember(newValue as Member)
+          }}
           disabled={creationStep === 'Subscription'}
         />
       </Grid>
-      <Grid item xs={4} display="flex" gap="8px" flexDirection="column-reverse">
+      <Grid xs={4} display="flex" gap="8px" flexDirection="column-reverse">
         <Button
           variant="outlined"
           onClick={() => changeCreationStep('Subscription')}
@@ -65,7 +65,7 @@ const SubscriptionMemberForm: React.FC = () => {
     </Grid>
     <Divider />
     <Grid container spacing={2}>
-      <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
+      <Grid xs={4} display="flex" gap="8px" flexDirection="column">
         <FormLabel>Tipo de suscripción</FormLabel>
         {
           memberStatusOptions.map((option) => (
@@ -81,7 +81,7 @@ const SubscriptionMemberForm: React.FC = () => {
           ))
         }
       </Grid>
-      <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
+      <Grid xs={4} display="flex" gap="8px" flexDirection="column">
         <FormLabel>Fecha inicio</FormLabel>
         <DateCalendar
           value={dateFrom as PickerValidDate}
@@ -89,7 +89,7 @@ const SubscriptionMemberForm: React.FC = () => {
           disabled={creationStep === 'Member' || memberStatus === 'Inactivo'}
         />
       </Grid>
-      <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
+      <Grid xs={4} display="flex" gap="8px" flexDirection="column">
         <FormLabel>Fecha hasta</FormLabel>
         {/*<DateCalendar />*/}
       </Grid>
