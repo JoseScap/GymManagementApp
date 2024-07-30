@@ -1,5 +1,6 @@
 import { SetStateAction, useContext } from "react";
 import { MemberCreateContext } from "../contexts/CreateMemberContext";
+import axios from "axios";
 // import axios, { AxiosResponse } from "axios";
 
 // Interface that should be return by the hook
@@ -28,16 +29,21 @@ export const useCreateMember = (): CreateMemberHooks => {
 
   const handleCreateMember = async () => {
     console.log("Test: ", fullName, dni, phoneNumber);
-    if(!!fullName && !!dni) {
+    console.log("Test: ", fullName, dni);
+    if(!fullName && !dni) {
       console.log("No se puede crear el socio");
       return;
     }
 
-        // await axios.post("http://localhost:3001/members", {
-        //     fullName,
-        //     dni,
-        //     phoneNumber,
-        // });
+    await axios.post("http://localhost:3000/members", {
+            fullName,
+            dni,
+            phoneNumber,
+    }).finally(() => {
+        changeFullName("");
+        changeDni("");
+        changePhoneNumber("");
+    })
 
   };
 
