@@ -14,7 +14,7 @@ interface CreateMemberHooks {
   changeFullName: (fullName: SetStateAction<string>) => void;
   changeDni: (dni: SetStateAction<string>) => void;
   changePhoneNumber: (phoneNumber: SetStateAction<string>) => void;
-  handleCreateMember: () => Promise<void> /* Está será una petición de AXIOS */;
+  createMember: () => Promise<void>
 }
 
 export const useCreateMember = (): CreateMemberHooks => {
@@ -33,9 +33,7 @@ export const useCreateMember = (): CreateMemberHooks => {
     setPhoneNumber(phoneNumber);
   };
 
-  const handleCreateMember = async () => {
-    console.log("Test: ", fullName, dni, phoneNumber);
-    console.log("Test: ", fullName, dni);
+  const createMember = async () => {
     if(!fullName && !dni) {
       console.log("No se puede crear el socio");
       return;
@@ -46,12 +44,7 @@ export const useCreateMember = (): CreateMemberHooks => {
             dni,
             "status": "Inactivo",
             phoneNumber,
-    }).finally(() => {
-        changeFullName("");
-        changeDni("");
-        changePhoneNumber("");
     })
-
   };
 
   return {
@@ -61,7 +54,7 @@ export const useCreateMember = (): CreateMemberHooks => {
         status: "Inactivo",
         phoneNumber,
     },
-    handleCreateMember,
+    createMember,
     changeFullName,
     changeDni,
     changePhoneNumber,
