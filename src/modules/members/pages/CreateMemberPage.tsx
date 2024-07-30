@@ -18,7 +18,7 @@ const CreateMemberPage: React.FC = () => {
 
   /* Tengo que traerlo desde el hook y de ahí actualizo */
 
-  const { changeDni, changeFullName, changePhoneNumber, handleCreateMember } = useCreateMember();
+  const { member, changeDni, changeFullName, changePhoneNumber, handleCreateMember } = useCreateMember();
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
@@ -51,7 +51,7 @@ const CreateMemberPage: React.FC = () => {
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >
               <Input size="sm" placeholder="Ingrese el apellido y nombre del socio. Ej: Cristian Orellana."
-                onChange={(e) => { changeFullName(e.target.value) }} required />
+                onChange={(e) => { changeFullName(e.target.value) }} value={member?.fullName} required />
             </FormControl>
           </Grid>
           <Grid item xs={6} display="flex" gap="8px" flexDirection="column">
@@ -60,7 +60,7 @@ const CreateMemberPage: React.FC = () => {
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >
               <Input size="sm" placeholder="Ingrese el DNI. Ej: 40123456"
-                onChange={(e) => { changeDni(e.target.value) }} required />
+                onChange={(e) => { changeDni(e.target.value) }} value={member?.dni} required />
             </FormControl>
           </Grid>
           <Grid item xs={6} display="flex" gap="8px" flexDirection="column">
@@ -68,7 +68,8 @@ const CreateMemberPage: React.FC = () => {
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >
-              <Input size="sm" placeholder="Ingrese un numero de contacto. Ej:3814556677" onChange={(e) => { changePhoneNumber(e.target.value) }} />
+              <Input size="sm" placeholder="Ingrese un numero de contacto. Ej:3814556677" 
+              onChange={(e) => { changePhoneNumber(e.target.value) }} value={member?.phoneNumber}/>
             </FormControl>
           </Grid>
         </Grid>

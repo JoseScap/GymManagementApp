@@ -5,6 +5,11 @@ import axios from "axios";
 
 // Interface that should be return by the hook
 interface CreateMemberHooks {
+  member: {
+    fullName: string;
+    dni: string;
+    phoneNumber: string;
+  }, 
   changeFullName: (fullName: SetStateAction<string>) => void;
   changeDni: (dni: SetStateAction<string>) => void;
   changePhoneNumber: (phoneNumber: SetStateAction<string>) => void;
@@ -48,6 +53,11 @@ export const useCreateMember = (): CreateMemberHooks => {
   };
 
   return {
+    member: {
+        fullName,
+        dni,
+        phoneNumber,
+    },
     handleCreateMember,
     changeFullName,
     changeDni,
