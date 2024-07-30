@@ -9,7 +9,7 @@ const AppBreadcrumbs: React.FC<Props> = ({ items }) => {
   return <Breadcrumbs
     size="sm"
     aria-label="breadcrumbs"
-    separator={<ChevronRightRoundedIcon fontSize="sm" />}
+    separator={<ChevronRightRoundedIcon fontSize="small" />}
     sx={{ pl: 0 }}
   >
     {items.map((item, index) => (
