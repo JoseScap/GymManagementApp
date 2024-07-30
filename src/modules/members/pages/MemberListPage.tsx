@@ -12,7 +12,7 @@ const MemberListPage: React.FC = () => {
 
   useEffect(() => {
     findAllMembers()
-  }, [numberPage, findAllMembers]);
+  }, [numberPage]);
 
   return <>
     <Box>
