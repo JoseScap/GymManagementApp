@@ -12,13 +12,13 @@ import {
 } from "@mui/joy";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import { useCreateMember } from "../hooks/createMemberHooks.ts";
+import { useCreateMember } from "../hooks/useCreateMemberHooks.ts";
 
 const CreateMemberPage: React.FC = () => {
 
   const { member, changeDni, changeFullName, changePhoneNumber, createMember } = useCreateMember();
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     createMember().finally(() => {
@@ -46,7 +46,7 @@ const CreateMemberPage: React.FC = () => {
       <Divider />
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={6} display="flex" gap="8px" flexDirection="column">
+          <Grid>
             <FormLabel>Apellido y nombre</FormLabel>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
@@ -55,7 +55,7 @@ const CreateMemberPage: React.FC = () => {
                 onChange={(e) => { changeFullName(e.target.value) }} value={member.fullName} required />
             </FormControl>
           </Grid>
-          <Grid item xs={6} display="flex" gap="8px" flexDirection="column">
+          <Grid>
             <FormLabel>DNI</FormLabel>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
@@ -64,7 +64,7 @@ const CreateMemberPage: React.FC = () => {
                 onChange={(e) => { changeDni(e.target.value) }} value={member.dni} required />
             </FormControl>
           </Grid>
-          <Grid item xs={6} display="flex" gap="8px" flexDirection="column">
+          <Grid>
             <FormLabel>Numero de telefono</FormLabel>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
