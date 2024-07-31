@@ -46,7 +46,7 @@ const CreateMemberPage: React.FC = () => {
       <Divider />
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid>
+          <Grid xs={6} display="flex" gap="8px" flexDirection="column">
             <FormLabel>Apellido y nombre</FormLabel>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
@@ -55,7 +55,7 @@ const CreateMemberPage: React.FC = () => {
                 onChange={(e) => { changeFullName(e.target.value) }} value={member.fullName} required />
             </FormControl>
           </Grid>
-          <Grid>
+          <Grid xs={6} display="flex" gap="8px" flexDirection="column">
             <FormLabel>DNI</FormLabel>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
@@ -64,7 +64,7 @@ const CreateMemberPage: React.FC = () => {
                 onChange={(e) => { changeDni(e.target.value) }} value={member.dni} required />
             </FormControl>
           </Grid>
-          <Grid>
+          <Grid xs={6} display="flex" gap="8px" flexDirection="column">
             <FormLabel>Numero de telefono</FormLabel>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
