@@ -19,7 +19,7 @@ interface CreateSubscriptionHooks {
   changeMemberStatus: (memberStatus: SetStateAction<MemberStatus>) => void
   changePaymentMethod: (member: SetStateAction<PaymentMethod>) => void
   changeSelectedMember: (member: SetStateAction<Member | null>) => void
-  findAllMembers: () => Promise<void>
+  findAllInactiveMembers: () => Promise<void>
 }
 
 export const useCreateSubscription = (): CreateSubscriptionHooks => {
@@ -40,8 +40,8 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     setSelectedMember
   } = useContext(CreateSubscriptionContext)
 
-  const findAllMembers = async () => {
-    const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members`)
+  const findAllInactiveMembers = async () => {
+    const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members?status=Inactivo`)
     setMembers(response.data)
   }
 
@@ -83,6 +83,6 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     changeMemberStatus,
     changePaymentMethod,
     changeSelectedMember,
-    findAllMembers
+    findAllInactiveMembers
   }
 }

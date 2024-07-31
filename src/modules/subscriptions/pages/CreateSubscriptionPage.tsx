@@ -10,11 +10,11 @@ import SubscriptionMemberForm from "../components/SubscriptionMemberForm.tsx";
 
 const CreateSubscriptionPage: React.FC = () => {
   const {
-    findAllMembers,
+    findAllInactiveMembers,
   } = useCreateSubscription()
 
   useEffect(() => {
-    findAllMembers()
+    findAllInactiveMembers()
   }, []);
 
   return <>

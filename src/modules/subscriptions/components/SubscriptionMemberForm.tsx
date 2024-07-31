@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Card, Divider, FormLabel, Grid, Input, Radio, Typography } from "@mui/joy";
+import { Autocomplete, Box, Button, Card, CardActions, CardOverflow, Divider, FormLabel, Grid, Input, Radio, Typography } from "@mui/joy";
 import { Member, MemberStatus } from "../../common/types/members";
 import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -115,6 +115,7 @@ const SubscriptionMemberForm: React.FC = () => {
             value={dateFrom}
             onChange={handleChangeDateFrom}
             disabled={memberStatus === 'Inactivo'}
+            format="DD/MM/YYYY"
           />
         </Grid>
         <Grid xs={4} display="flex" gap="8px" flexDirection="column">
@@ -123,6 +124,7 @@ const SubscriptionMemberForm: React.FC = () => {
             value={dateTo}
             onChange={(newValue) => changeDateTo(newValue)}
             disabled={memberStatus === 'Dia' || memberStatus === 'Inactivo'}
+            format="DD/MM/YYYY"
           />
         </Grid>
       </Grid>
@@ -158,6 +160,16 @@ const SubscriptionMemberForm: React.FC = () => {
           />
         </Grid>
       </Grid>
+      <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
+        <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
+          <Button size="sm" variant="outlined" color="neutral">
+            Cancelar
+          </Button>
+          <Button size="sm" variant="solid" type="submit" onClick={() => undefined}>
+            Guardar
+          </Button>
+        </CardActions>
+      </CardOverflow>
     </Card>
   </>
 }
