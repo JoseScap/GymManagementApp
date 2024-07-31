@@ -1,33 +1,42 @@
 import { Member, MemberStatus } from "../../common/types/members";
 import { SetStateAction, useContext } from "react";
 import axios, { AxiosResponse } from "axios";
-import { CreateSubscriptionContext, CreationStep } from "../contexts/CreateSubscriptionContext.tsx";
-import {Dayjs} from "dayjs";
+import { CreateSubscriptionContext } from "../contexts/CreateSubscriptionContext.tsx";
+import { Dayjs } from "dayjs";
+import { PaymentMethod } from "../../common/types/subscription";
 
 interface CreateSubscriptionHooks {
-  creationStep: CreationStep
-  dateFrom: Dayjs
+  amount: number,
+  dateFrom: Dayjs | null
+  dateTo: Dayjs | null
   members: Member[]
-  memberStatus: MemberStatus,
+  memberStatus: MemberStatus
+  paymentMethod: PaymentMethod
   selectedMember: Member | null
-  changeCreationStep: (step: SetStateAction<CreationStep>) => void
-  changeDateFrom: (date: Dayjs) => void
-  changeMemberStatus: (memberStatus: MemberStatus) => void
-  changeSelectedMember: (member: Member) => void
+  changeAmount: (amount: SetStateAction<number>) => void
+  changeDateFrom: (date: SetStateAction<Dayjs | null>) => void
+  changeDateTo: (date: SetStateAction<Dayjs | null>) => void
+  changeMemberStatus: (memberStatus: SetStateAction<MemberStatus>) => void
+  changePaymentMethod: (member: SetStateAction<PaymentMethod>) => void
+  changeSelectedMember: (member: SetStateAction<Member | null>) => void
   findAllMembers: () => Promise<void>
 }
 
 export const useCreateSubscription = (): CreateSubscriptionHooks => {
   const {
-    creationStep,
+    amount,
     dateFrom,
+    dateTo,
     members,
     memberStatus,
+    paymentMethod,
     selectedMember,
-    setCreationStep,
+    setAmount,
     setDateFrom,
+    setDateTo,
     setMembers,
     setMemberStatus,
+    setPaymentMethod,
     setSelectedMember
   } = useContext(CreateSubscriptionContext)
 
@@ -36,31 +45,43 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     setMembers(response.data)
   }
 
-  const changeCreationStep = (step: SetStateAction<CreationStep>) => {
-    setCreationStep(step)
+  const changeAmount = (amount: SetStateAction<number>) => {
+    setAmount(amount)
   }
 
-  const changeDateFrom = (date: Dayjs) => {
+  const changeDateFrom = (date: SetStateAction<Dayjs | null>) => {
     setDateFrom(date)
   }
 
-  const changeMemberStatus = (memberStatus: MemberStatus) => {
+  const changeDateTo = (date: SetStateAction<Dayjs | null>) => {
+    setDateTo(date)
+  }
+
+  const changeMemberStatus = (memberStatus: SetStateAction<MemberStatus>) => {
     setMemberStatus(memberStatus)
   }
 
-  const changeSelectedMember = (member: Member) => {
+  const changePaymentMethod = (paymentMethod: SetStateAction<PaymentMethod>) => {
+    setPaymentMethod(paymentMethod)
+  }
+
+  const changeSelectedMember = (member: SetStateAction<Member | null>) => {
     setSelectedMember(member)
   }
 
   return {
-    creationStep,
+    amount,
     dateFrom,
+    dateTo,
     members,
     memberStatus,
+    paymentMethod,
     selectedMember,
-    changeCreationStep,
+    changeAmount,
     changeDateFrom,
+    changeDateTo,
     changeMemberStatus,
+    changePaymentMethod,
     changeSelectedMember,
     findAllMembers
   }

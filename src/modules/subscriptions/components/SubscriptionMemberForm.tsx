@@ -1,100 +1,164 @@
-import {Autocomplete, Box, Button, Card, Divider, FormLabel, Grid, Radio, Typography} from "@mui/joy";
-import {Member, MemberStatus} from "../../common/types/members";
-import {useCreateSubscription} from "../hooks/useCreateSubscription.ts";
-import {DateCalendar, PickerValidDate} from "@mui/x-date-pickers";
+import { Autocomplete, Box, Card, Divider, FormLabel, Grid, Input, Radio, Typography } from "@mui/joy";
+import { Member, MemberStatus } from "../../common/types/members";
+import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
+import { DatePicker } from "@mui/x-date-pickers";
+import { Dayjs } from "dayjs";
+import { PaymentMethod } from "../../common/types/subscription";
 
 const memberStatusOptions: MemberStatus[] = ['Dia', 'Semana', 'Mes']
+const paymentMethodOptions: PaymentMethod[] = ['Efectivo', 'Transferencia']
 
 const SubscriptionMemberForm: React.FC = () => {
   const {
-    creationStep,
+    amount,
     dateFrom,
+    dateTo,
     members,
     memberStatus,
+    paymentMethod,
     selectedMember,
-    changeCreationStep,
+    changeAmount,
     changeDateFrom,
+    changeDateTo,
     changeMemberStatus,
+    changePaymentMethod,
     changeSelectedMember
   } = useCreateSubscription()
 
-  return <Card>
-    <Box sx={{ mb: 1 }}>
-      <Typography level="title-lg" color="primary">Información del socio</Typography>
-      <Typography level="body-sm">Seleccioné el socio a suscribir.</Typography>
-    </Box>
-    <Divider />
-    <Grid container spacing={2}>
-      <Grid item xs={4} display="flex" gap="8px" flexDirection="column">
-        <FormLabel>DNI</FormLabel>
-        <Autocomplete
-          placeholder="Ingrese el DNI del socio. Ej: 40401501"
-          options={members}
-          getOptionLabel={option => option.dni}
-          getOptionKey={option => option.id}
-          value={selectedMember}
-          onChange={
-            (_, newValue) => changeSelectedMember(newValue as Member)
+  const handleChangeMemberStatus = (status: MemberStatus) => {
+    changeMemberStatus(status)
+    changeDateFrom(null)
+    changeDateTo(null)
+  }
+
+  const handleChangeDateFrom = (date: Dayjs | null) => {
+    let newDateTo = date === null ? date : date.clone()
+
+    if (memberStatus === 'Semana' && newDateTo !== null) {
+      newDateTo = newDateTo.add(1, 'week').add(-1, 'day')
+    }
+
+    if (memberStatus === 'Mes' && newDateTo !== null) {
+      newDateTo = newDateTo.add(1, 'month').add(-1, 'day')
+    }
+
+    changeDateFrom(date)
+    changeDateTo(newDateTo)
+  }
+
+  const handleChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    changeAmount(+e.target.value)
+  }
+
+  return <>
+    <Card>
+      <Box sx={{ mb: 1 }}>
+        <Typography level="title-lg" color="primary">Información del socio</Typography>
+        <Typography level="body-sm">Seleccioné el socio a suscribir.</Typography>
+      </Box>
+      <Divider />
+      <Grid container spacing={2}>
+        <Grid xs={6} display="flex" gap="8px" flexDirection="column">
+          <FormLabel>DNI</FormLabel>
+          <Autocomplete
+            placeholder="Ingrese el DNI del socio. Ej: 40401501"
+            options={members}
+            getOptionLabel={option => option.dni}
+            getOptionKey={option => option.id}
+            value={selectedMember}
+            onChange={
+              (_, newValue) => changeSelectedMember(newValue as Member)
+            }
+          />
+        </Grid>
+        <Grid xs={6} display="flex" gap="8px" flexDirection="column">
+          <FormLabel>Apellido y nombre</FormLabel>
+          <Autocomplete
+            placeholder="Ingrese el nombre del socio. Ej: Juan Perez."
+            options={members}
+            getOptionLabel={option => option.fullName}
+            getOptionKey={option => option.id}
+            value={selectedMember}
+            onChange={
+              (_, newValue) => changeSelectedMember(newValue as Member)
+            }
+          />
+        </Grid>
+      </Grid>
+      <Divider />
+    </Card>
+    <Card>
+      <Box sx={{ mb: 1 }}>
+        <Typography level="title-lg" color="primary">Información de la suscripción</Typography>
+        <Typography level="body-sm">Indique el periodo de asistencia habilitada.</Typography>
+      </Box>
+      <Divider />
+      <Grid container spacing={2}>
+        <Grid xs={4} display="flex" gap="8px" flexDirection="column">
+          <FormLabel>Tipo de suscripción</FormLabel>
+          {
+            memberStatusOptions.map((option) => (
+              <Radio
+                label={option}
+                value={option}
+                onChange={() => handleChangeMemberStatus(option)}
+                checked={memberStatus === option}
+                name="memberStatus"
+                slotProps={{ input: { 'aria-label': option } }}
+              />
+            ))
           }
-          disabled={creationStep === 'Subscription'}
-        />
+        </Grid>
+        <Grid xs={4} display="flex" gap="8px" flexDirection="column">
+          <FormLabel>Fecha inicio</FormLabel>
+          <DatePicker
+            value={dateFrom}
+            onChange={handleChangeDateFrom}
+            disabled={memberStatus === 'Inactivo'}
+          />
+        </Grid>
+        <Grid xs={4} display="flex" gap="8px" flexDirection="column">
+          <FormLabel>Fecha de vencimiento (ultimo dia permitido)</FormLabel>
+          <DatePicker
+            value={dateTo}
+            onChange={(newValue) => changeDateTo(newValue)}
+            disabled={memberStatus === 'Dia' || memberStatus === 'Inactivo'}
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={4} display="flex" gap="8px" flexDirection="column">
-        <FormLabel>Apellido y nombre</FormLabel>
-        <Autocomplete
-          placeholder="Ingrese el nombre del socio. Ej: Juan Perez."
-          options={members}
-          getOptionLabel={option => option.fullName}
-          getOptionKey={option => option.id}
-          value={selectedMember}
-          onChange={
-            (_, newValue) => changeSelectedMember(newValue as Member) && console.log(newValue)
+    </Card>
+    <Card>
+      <Box sx={{ mb: 1 }}>
+        <Typography level="title-lg" color="primary">Información del pago</Typography>
+        <Typography level="body-sm">Indique la modalidad de pago utilizada</Typography>
+      </Box>
+      <Divider />
+      <Grid container spacing={2}>
+        <Grid xs={6} display="flex" gap="8px" flexDirection="column">
+          <FormLabel>Forma de pago</FormLabel>
+          {
+            paymentMethodOptions.map((option) => (
+              <Radio
+                label={option}
+                value={option}
+                onChange={() => changePaymentMethod(option)}
+                checked={paymentMethod === option}
+                name="paymentMethod"
+                slotProps={{ input: { 'aria-label': option } }}
+              />
+            ))
           }
-          disabled={creationStep === 'Subscription'}
-        />
+        </Grid>
+        <Grid xs={6} display="flex" gap="8px" flexDirection="column">
+          <FormLabel>Monto</FormLabel>
+          <Input
+            onChange={handleChangeAmount}
+            type="number"
+          />
+        </Grid>
       </Grid>
-      <Grid item xs={4} display="flex" gap="8px" flexDirection="column-reverse">
-        <Button
-          variant="outlined"
-          onClick={() => changeCreationStep('Subscription')}
-          disabled={!selectedMember || creationStep === 'Subscription'}
-        >
-          Fijar
-        </Button>
-      </Grid>
-    </Grid>
-    <Divider />
-    <Grid container spacing={2}>
-      <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
-        <FormLabel>Tipo de suscripción</FormLabel>
-        {
-          memberStatusOptions.map((option) => (
-            <Radio
-              label={option}
-              value={option}
-              onChange={() => changeMemberStatus(option)}
-              checked={memberStatus === option}
-              name="memberStatus"
-              slotProps={{ input: { 'aria-label': option } }}
-              disabled={creationStep === 'Member'}
-            />
-          ))
-        }
-      </Grid>
-      <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
-        <FormLabel>Fecha inicio</FormLabel>
-        <DateCalendar
-          value={dateFrom as PickerValidDate}
-          onChange={(newValue) => changeDateFrom(newValue)}
-          disabled={creationStep === 'Member' || memberStatus === 'Inactivo'}
-        />
-      </Grid>
-      <Grid  item xs={4} display="flex" gap="8px" flexDirection="column">
-        <FormLabel>Fecha hasta</FormLabel>
-        {/*<DateCalendar />*/}
-      </Grid>
-    </Grid>
-  </Card>
+    </Card>
+  </>
 }
 
 export default SubscriptionMemberForm;
