@@ -152,6 +152,7 @@ const SubscriptionMemberForm: React.FC = () => {
         <Grid xs={6} display="flex" gap="8px" flexDirection="column">
           <FormLabel>Monto</FormLabel>
           <Input
+            value={amount}
             onChange={handleChangeAmount}
             type="number"
           />

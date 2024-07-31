@@ -22,6 +22,7 @@ type CreateSubscriptionContextType = {
 
 type CreationStep = 'Member' | 'Subscription'
 
+
 const INITIAL_STATE: CreateSubscriptionContextType = {
   amount: 0,
   dateFrom: null,
