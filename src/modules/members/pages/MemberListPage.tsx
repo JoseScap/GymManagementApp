@@ -5,13 +5,14 @@ import MemberTable from "../components/MemberTable.tsx";
 import {useMemberList} from "../hooks/useMemberListHooks.ts";
 import {useEffect} from "react";
 import MemberPaginator from "../components/MemberPaginator.tsx";
+import MemberDeleteModal from "../components/MemberDeleteModal.tsx";
 
 const MemberListPage: React.FC = () => {
   const { numberPage, findAllMembers } = useMemberList()
 
   useEffect(() => {
     findAllMembers()
-  }, [numberPage, findAllMembers]);
+  }, [numberPage]);
 
   return <>
     <Box>
@@ -25,6 +26,7 @@ const MemberListPage: React.FC = () => {
     <Typography level="h2">Lista de socios</Typography>
     <MemberTable />
     <MemberPaginator />
+    <MemberDeleteModal/>
   </>
 }
 

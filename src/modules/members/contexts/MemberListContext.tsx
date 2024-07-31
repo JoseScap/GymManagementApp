@@ -5,7 +5,9 @@ import {PaginatedApiResponse} from "../../common/types/api";
 type MemberListContextType = {
   currentPage: PaginatedApiResponse<Member>,
   numberPage: number,
+  idToDelete: number | null,
   setCurrentPage: Dispatch<SetStateAction<PaginatedApiResponse<Member>>>,
+  setIdToDelete: Dispatch<SetStateAction<number | null>>,
   setNumberPage: Dispatch<SetStateAction<number>>,
 }
 
@@ -19,8 +21,10 @@ const INITIAL_STATE: MemberListContextType = {
     next: null,
     prev: null,
   },
+  idToDelete: 0,
   numberPage: 1,
   setCurrentPage: () => undefined,
+  setIdToDelete: () => undefined,
   setNumberPage: () => undefined,
 }
 
@@ -30,14 +34,17 @@ const Provider = MemberListContext.Provider
 const MemberListProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState<PaginatedApiResponse<Member>>(INITIAL_STATE.currentPage)
   const [numberPage, setNumberPage] = useState<number>(INITIAL_STATE.numberPage)
+  const [idToDelete, setIdToDelete] = useState<number | null>(INITIAL_STATE.idToDelete)
 
   return (
       <Provider
         value={{
           currentPage,
+          idToDelete,
           numberPage,
           setCurrentPage,
-          setNumberPage,
+          setIdToDelete, 
+          setNumberPage
         }}
       >
         {children}
