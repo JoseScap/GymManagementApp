@@ -3,6 +3,8 @@ import CreateMemberPage from "../pages/CreateMemberPage.tsx";
 import MemberListPage from "../pages/MemberListPage.tsx";
 import { MemberListProvider } from "../contexts/MemberListContext.tsx";
 import { CreateMemberProvider } from "../contexts/CreateMemberContext.tsx";
+import EditMemberPage from "../pages/EditMemberPage.tsx";
+import { EditMemberProvider } from "../contexts/EditMemberContext.tsx";
 
 const MemberRouter: React.FC = () => {
   return (
@@ -18,6 +20,15 @@ const MemberRouter: React.FC = () => {
           <MemberListProvider>
             <MemberListPage />
           </MemberListProvider>
+        }
+      />
+      <Route
+        path="/edit/:id"
+        element={
+          <EditMemberProvider>
+
+            <EditMemberPage />
+          </EditMemberProvider>
         }
       />
     </Routes>
