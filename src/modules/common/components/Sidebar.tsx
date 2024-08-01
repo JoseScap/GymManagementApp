@@ -9,13 +9,12 @@ import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
-import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import QuestionAnswerRoundedIcon from '@mui/icons-material/QuestionAnswerRounded';
-import ColorSchemeToggle from './ColorSchemeToggle';
 import {useNavigate} from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {Dispatch, ReactNode, SetStateAction, useState} from "react";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
+import {StarsRounded} from "@mui/icons-material";
 
 function Toggler({
                    defaultExpanded = false,
@@ -84,7 +83,7 @@ export default function Sidebar() {
       />
       <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
         <Typography level="title-lg">Orellana Gym</Typography>
-        <ColorSchemeToggle sx={{ ml: 'auto' }} />
+        {/*<ColorSchemeToggle sx={{ ml: 'auto' }} />*/}
       </Box>
       <Box
         sx={{
@@ -153,13 +152,28 @@ export default function Sidebar() {
             </Toggler>
           </ListItem>
 
-          <ListItem>
-            <ListItemButton onClick={() => navigate('/subscriptions')}>
-              <ShoppingCartRoundedIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Suscripciones</Typography>
-              </ListItemContent>
-            </ListItemButton>
+          <ListItem nested>
+            <Toggler
+              renderToggle={({ open, setOpen }) => (
+                <ListItemButton onClick={() => setOpen(!open)}>
+                  <StarsRounded />
+                  <ListItemContent>
+                    <Typography level="title-sm">Suscripciones</Typography>
+                  </ListItemContent>
+                  <KeyboardArrowDownIcon
+                    sx={{ transform: open ? 'rotate(180deg)' : 'none' }}
+                  />
+                </ListItemButton>
+              )}
+            >
+              <List sx={{ gap: 0.5 }}>
+                <ListItem sx={{ mt: 0.5 }}>
+                  <ListItemButton onClick={() => navigate('/subscriptions/create')}>
+                    Nueva suscripción
+                  </ListItemButton>
+                </ListItem>
+              </List>
+            </Toggler>
           </ListItem>
 
           <ListItem>

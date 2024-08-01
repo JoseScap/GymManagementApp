@@ -15,11 +15,10 @@ import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import { useCreateMember } from "../hooks/useCreateMemberHooks.ts";
 
 const CreateMemberPage: React.FC = () => {
-
   const { member, changeDni, changeFullName, changePhoneNumber, createMember } = useCreateMember();
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     createMember().finally(() => {
       changeFullName("");
@@ -38,21 +37,25 @@ const CreateMemberPage: React.FC = () => {
       />
     </Box>
     <Typography level="h2">Nuevo socio</Typography>
-    <Card>
-      <Box sx={{ mb: 1 }}>
-        <Typography level="title-lg" color="primary">Información del nuevo socio</Typography>
-        <Typography level="body-sm">Ingresa en el formulario la informacion del nuevo socio.</Typography>
-      </Box>
-      <Divider />
-      <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
+      <Card>
+        <Box sx={{ mb: 1 }}>
+          <Typography level="title-lg" color="primary">Información del nuevo socio</Typography>
+          <Typography level="body-sm">Ingresa en el formulario la informacion del nuevo socio.</Typography>
+        </Box>
+        <Divider />
         <Grid container spacing={2}>
           <Grid xs={6} display="flex" gap="8px" flexDirection="column">
             <FormLabel>Apellido y nombre</FormLabel>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >
-              <Input size="sm" placeholder="Ingrese el apellido y nombre del socio. Ej: Cristian Orellana."
-                onChange={(e) => { changeFullName(e.target.value) }} value={member.fullName} required />
+              <Input
+                size="sm"
+                placeholder="Ingrese el apellido y nombre del socio. Ej: Cristian Orellana."
+                onChange={(e) => { changeFullName(e.target.value) }} value={member.fullName}
+                required
+              />
             </FormControl>
           </Grid>
           <Grid xs={6} display="flex" gap="8px" flexDirection="column">
@@ -84,8 +87,8 @@ const CreateMemberPage: React.FC = () => {
             </Button>
           </CardActions>
         </CardOverflow>
-      </form>
-    </Card>
+      </Card>
+    </form>
   </>
 }
 

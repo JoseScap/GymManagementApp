@@ -1,34 +1,10 @@
-import {Box, Button, ButtonPropsColorOverrides, ButtonPropsVariantOverrides, iconButtonClasses} from "@mui/joy";
+import {Box, Button, iconButtonClasses} from "@mui/joy";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import IconButton from "@mui/joy/IconButton";
 import {useMemberList} from "../hooks/useMemberListHooks.ts";
 import {useMemo} from "react";
 import {generatePaginationItems} from "../utils/arrayUtils.ts";
-
-// True means exist next or prev page
-const buttonVariantDictionary: Record<boolean, ButtonPropsVariantOverrides> = {
-  true: 'outlined',
-  false: 'plain'
-}
-
-// True means exist next or prev page
-const buttonColorDictionary: Record<boolean, ButtonPropsColorOverrides> = {
-  true: 'primary',
-  false: 'neutral'
-}
-
-// True means this is the current page
-const paginationVariantIconButton: Record<boolean, ButtonPropsVariantOverrides> = {
-  true: 'solid',
-  false: 'outlined'
-}
-
-// True means this is the current page
-const paginationColorIconButton: Record<boolean, ButtonPropsColorOverrides> = {
-  true: 'primary',
-  false: 'neutral'
-}
 
 const MemberPaginator: React.FC = () => {
   const {
@@ -57,8 +33,8 @@ const MemberPaginator: React.FC = () => {
   >
     <Button
       size="sm"
-      variant={buttonVariantDictionary[prev !== null]}
-      color={buttonColorDictionary[prev !== null]}
+      variant={prev !== null ? "outlined" : "plain"}
+      color={prev !== null ? "primary" : "neutral"}
       disabled={prev === null}
       startDecorator={<KeyboardArrowLeftIcon />}
       onClick={() => prev !== null && changeNumberPage(prev)}
@@ -71,8 +47,8 @@ const MemberPaginator: React.FC = () => {
       <IconButton
         key={index}
         size="sm"
-        variant={paginationVariantIconButton[numberPage === +page]}
-        color={paginationColorIconButton[numberPage === +page]}
+        variant={numberPage === +page ? "solid" : "outlined"}
+        color={numberPage === +page ? "primary" : "neutral"}
         onClick={() => !isNaN(+page) && changeNumberPage(+page)}
       >
         {page}
@@ -82,8 +58,8 @@ const MemberPaginator: React.FC = () => {
 
     <Button
       size="sm"
-      variant={buttonVariantDictionary[next !== null]}
-      color={buttonColorDictionary[next !== null]}
+      variant={next !== null ? "outlined" : "plain"}
+      color={next !== null ? "primary" : "neutral"}
       disabled={next === null}
       endDecorator={<KeyboardArrowRightIcon />}
       onClick={() => next !== null && changeNumberPage(next)}
