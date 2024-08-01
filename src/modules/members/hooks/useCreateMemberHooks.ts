@@ -34,7 +34,7 @@ export const useCreateMember = (): CreateMemberHooks => {
   };
 
   const createMember = async () => {
-    if (!fullName && !dni) {
+    if(!fullName && !dni) {
       return;
     }
 

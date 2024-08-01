@@ -1,54 +1,150 @@
 {
   "members": [
     {
-      "id": "0439",
-      "fullName": "Test1",
-      "dni": "40438935",
-      "status": "Semana",
-      "phoneNumber": ""
-    },
-    {
-      "id": "e736",
-      "fullName": "TEST2",
-      "dni": "12121212",
+      "id": "1",
+      "fullName": "Juan Pérez",
+      "phoneNumber": "+5438165554433",
       "status": "Mes",
-      "phoneNumber": ""
+      "dni": "40404041"
     },
     {
-      "id": "6c3f",
-      "fullName": "TEST3",
-      "dni": "15151515",
+      "id": "2",
+      "fullName": "María Gómez",
+      "phoneNumber": "+5438165554434",
       "status": "Dia",
-      "phoneNumber": "3816554433"
+      "dni": "40404042"
+    },
+    {
+      "id": "3",
+      "fullName": "Carlos Rodríguez",
+      "phoneNumber": "+5438165554435",
+      "status": "Semana",
+      "dni": "40404043"
+    },
+    {
+      "id": "4",
+      "fullName": "Ana Fernández",
+      "phoneNumber": "+5438165554436",
+      "status": "Inactivo",
+      "dni": "40404044"
+    },
+    {
+      "id": "5",
+      "fullName": "Luis Martínez",
+      "phoneNumber": "+5438165554437",
+      "status": "Mes",
+      "dni": "40404045"
+    },
+    {
+      "id": "6",
+      "fullName": "Laura López",
+      "phoneNumber": "+5438165554438",
+      "status": "Dia",
+      "dni": "40404046"
+    },
+    {
+      "id": "7",
+      "fullName": "Jorge González",
+      "phoneNumber": "+5438165554439",
+      "status": "Semana",
+      "dni": "40404047"
+    },
+    {
+      "id": "8",
+      "fullName": "Marta Sánchez",
+      "phoneNumber": "+5438165554440",
+      "status": "Inactivo",
+      "dni": "40404048"
+    },
+    {
+      "id": "9",
+      "fullName": "Pedro Ramírez",
+      "phoneNumber": "+5438165554441",
+      "status": "Mes",
+      "dni": "40404049"
+    },
+    {
+      "id": "10",
+      "fullName": "Sofía Torres",
+      "phoneNumber": "+5438165554442",
+      "status": "Dia",
+      "dni": "40404050"
+    },
+    {
+      "id": "11",
+      "fullName": "Miguel Díaz",
+      "phoneNumber": "+5438165554443",
+      "status": "Semana",
+      "dni": "40404051"
+    },
+    {
+      "id": "12",
+      "fullName": "Patricia Méndez",
+      "phoneNumber": "+5438165554444",
+      "status": "Inactivo",
+      "dni": "40404052"
+    },
+    {
+      "id": "13",
+      "fullName": "Gustavo Castro",
+      "phoneNumber": "+5438165554445",
+      "status": "Mes",
+      "dni": "40404053"
+    },
+    {
+      "id": "14",
+      "fullName": "Verónica Romero",
+      "phoneNumber": "+5438165554446",
+      "status": "Dia",
+      "dni": "40404054"
+    },
+    {
+      "id": "15",
+      "fullName": "Fernando Ortiz",
+      "phoneNumber": "+5438165554447",
+      "status": "Semana",
+      "dni": "40404055"
+    },
+    {
+      "id": "16",
+      "fullName": "Natalia Silva",
+      "phoneNumber": "+5438165554448",
+      "status": "Inactivo",
+      "dni": "40404056"
+    },
+    {
+      "id": "17",
+      "fullName": "Ricardo Herrera",
+      "phoneNumber": "+5438165554449",
+      "status": "Mes",
+      "dni": "40404057"
+    },
+    {
+      "id": "18",
+      "fullName": "Adriana Ruiz",
+      "phoneNumber": "+5438165554450",
+      "status": "Dia",
+      "dni": "40404058"
+    },
+    {
+      "id": "19",
+      "fullName": "Héctor Flores",
+      "phoneNumber": "+5438165554451",
+      "status": "Semana",
+      "dni": "40404059"
+    },
+    {
+      "id": "20",
+      "fullName": "Gabriela Gutiérrez",
+      "phoneNumber": "+5438165554452",
+      "status": "Inactivo",
+      "dni": "40404060"
     }
   ],
   "subscriptions": [
     {
-      "id": "64ba",
-      "amount": 10000,
-      "dateFrom": "2024-07-23T03:00:00.000Z",
-      "dateTo": "2024-07-29T03:00:00.000Z",
-      "memberId": "0439",
-      "paymentMethod": "Efectivo",
-      "isCanceled": false
-    },
-    {
-      "id": "0ed9",
-      "amount": 10000,
-      "dateFrom": "2024-07-31T03:00:00.000Z",
-      "dateTo": "2024-08-30T03:00:00.000Z",
-      "memberId": "e736",
-      "paymentMethod": "Transferencia",
-      "isCanceled": false
-    },
-    {
-      "id": "3666",
-      "amount": 10000,
-      "dateFrom": "2024-07-31T03:00:00.000Z",
-      "dateTo": "2024-07-31T03:00:00.000Z",
-      "memberId": "6c3f",
-      "paymentMethod": "Efectivo",
-      "isCanceled": false
+      "id": "1",
+      "memberId": 1
     }
   ]
 }
