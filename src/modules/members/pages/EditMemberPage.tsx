@@ -20,7 +20,7 @@ const EditMemberPage: React.FC = () => {
 
   // const { memberId, memberLast, member } = usecont();
 
-  const { member, updateMemberId, getMemberById, getMemberBeforeEdit, changeFullName, changeDni, changePhoneNumber } = useEditMember();
+  const { member, updateMemberId, getMemberById, getMemberBeforeEdit, changeFullName, changeDni, changePhoneNumber, editMember } = useEditMember();
 
   const [edit, setEdit] = useState(false);
 
@@ -32,19 +32,15 @@ const EditMemberPage: React.FC = () => {
     getMemberById(Number(memberId));
   }, [memberId])
 
-  // console.log("el valor es : ", member)
-
-
-
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    // editMember().finally(() => {
-    //     changeFullName("");
-    //     changeDni("");
-    //     changePhoneNumber("");
-    //     navigate("../list");
-    // })
+    
+    editMember().finally(() => {
+        changeFullName("");
+        changeDni("");
+        changePhoneNumber("");
+        navigate("../list");
+    })
   }
 
   return <>

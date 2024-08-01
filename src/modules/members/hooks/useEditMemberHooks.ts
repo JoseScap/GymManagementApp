@@ -20,6 +20,7 @@ interface EditMemberHooks {
   changeDni: (dni: SetStateAction<string>) => void;
   changePhoneNumber: (phoneNumber: SetStateAction<string>) => void;
   getMemberById: (id: number) => Promise<any>;
+  editMember: () => Promise<any>;
 }
 
 export const useEditMember = (): EditMemberHooks => {
@@ -43,7 +44,6 @@ export const useEditMember = (): EditMemberHooks => {
   };
 
   const getMemberBeforeEdit = () => {
-    console.log("memberLast", memberLast);
     member.setFullName(memberLast.fullNameLast);
     member.setDni(memberLast.dniLast);
     member.setPhoneNumber(memberLast.phoneNumberLast);
@@ -59,6 +59,12 @@ export const useEditMember = (): EditMemberHooks => {
     memberLast.setPhoneNumberLast(phoneNumber);
   };
 
+  const fullMember = (fullname: string, dni: string, phoneNumber: string) => {
+    member.setFullName(fullname);
+    member.setDni(dni);
+    member.setPhoneNumber(phoneNumber);
+  }
+
   const getMemberById = async (id: number) => {
     if (!id) {
       console.log("No se puede obtener el socio");
@@ -72,13 +78,28 @@ export const useEditMember = (): EditMemberHooks => {
         response.data.dni,
         response.data.phoneNumber
       );
-      member.setFullName(response.data.fullName);
-      member.setDni(response.data.dni);
-      member.setPhoneNumber(response.data.phoneNumber);
+      fullMember(
+        response.data.fullName,
+        response.data.dni,
+        response.data.phoneNumber
+      )
     } catch (error) {
       console.log("Error al obtener el socio");
     }
   };
+
+  const editMember = async () => {
+    try {
+      await axios.patch(`http://localhost:3000/members/${memberId}`, {
+        fullName: member.fullName,
+        dni: member.dni,
+        phoneNumber: member.phoneNumber,
+
+      });
+    } catch (error) {
+      console.log("Error al editar el socio");
+    }
+  }
 
   return {
     member,
@@ -89,5 +110,6 @@ export const useEditMember = (): EditMemberHooks => {
     changeFullName,
     changeDni,
     changePhoneNumber,
+    editMember,
   };
 };
