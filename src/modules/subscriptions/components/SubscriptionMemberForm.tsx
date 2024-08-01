@@ -98,7 +98,6 @@ const SubscriptionMemberForm: React.FC = () => {
               />
             </Grid>
           </Grid>
-          <Divider />
         </Card>
       </Grid>
       <Grid xs={12}>
