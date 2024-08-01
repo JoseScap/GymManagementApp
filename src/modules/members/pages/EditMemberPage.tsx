@@ -7,6 +7,7 @@ import {
   FormControl,
   FormLabel,
   Grid,
+  IconButton,
   Input,
   Typography
 } from "@mui/joy";
@@ -14,32 +15,30 @@ import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import { useEditMember } from "../hooks/useEditMemberHooks.ts";
-import { useMemo, useState } from "react";
+import { useEffect, useState } from "react";
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';
 
 const EditMemberPage: React.FC = () => {
-
-  // const { memberId, memberLast, member } = usecont();
-
-  const { member, updateMemberId, getMemberById, getMemberBeforeEdit, changeFullName, changeDni, changePhoneNumber, editMember } = useEditMember();
+  const { member, getMemberById, getMemberBeforeEdit, changeFullName, changeDni, changePhoneNumber, editMember } = useEditMember();
 
   const [edit, setEdit] = useState(false);
 
   const navigate: NavigateFunction = useNavigate();
   const memberId = useParams().id; /* pregunta que onda el type */
 
-  useMemo(() => {
-    updateMemberId(Number(memberId));
+  useEffect(() => {
     getMemberById(Number(memberId));
   }, [memberId])
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    
+
     editMember().finally(() => {
-        changeFullName("");
-        changeDni("");
-        changePhoneNumber("");
-        navigate("../list");
+      changeFullName("");
+      changeDni("");
+      changePhoneNumber("");
+      navigate("../list");
     })
   }
 
@@ -54,18 +53,31 @@ const EditMemberPage: React.FC = () => {
     </Box>
     <Typography level="h2">Perfil del Socio</Typography>
     <Card>
-      <Box sx={{ mb: 1 }}>
-        <Typography level="title-lg" color="primary">Información del socio {`${member.fullName}`}</Typography>
-        <Typography level="body-sm">Clickea el botón para editar la información del socio</Typography>
-        <Typography level="body-sm">Puedes también restablecer los datos del socio.</Typography>
-      </Box>
-      <Button size="sm" variant="solid" type="submit" onClick={() => { setEdit(prev => !prev) }}>
-        Editar
-      </Button>
-      <Button size="sm" variant="solid" type="submit" onClick={() => { getMemberBeforeEdit() }}>
-        {/* Preguntar si josé quiere el disabled={edit} aquí */}
-        Volver a los valores anteriores
-      </Button>
+      <Grid container spacing={2}>
+        <Grid xs={8}>
+          <Box sx={{ mb: 1 }}>
+            <Typography level="title-lg" color="primary">Información del socio {`${member.fullName}`}</Typography>
+            <Typography level="body-sm">Clickea el botón 'editar' para cambiar la información del socio</Typography>
+            <Typography level="body-sm">Puedes también restablecer los datos del socio.</Typography>
+          </Box>
+        </Grid>
+        <Grid xs={4} display="flex" gap="8px" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+          <IconButton
+            variant="outlined"
+            color="warning"
+            onClick={() => { setEdit(prev => !prev) }}
+          >
+            <EditRoundedIcon />
+          </IconButton>
+          <IconButton
+            variant="outlined"
+            color="danger"
+            onClick={() => { getMemberBeforeEdit() }}
+          >
+            <ReplayRoundedIcon />
+          </IconButton>
+        </Grid>
+      </Grid>
       <Divider />
       <form onSubmit={handleEdit}>
         <Grid container spacing={2}>

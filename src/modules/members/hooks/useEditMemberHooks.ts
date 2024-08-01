@@ -14,7 +14,6 @@ interface EditMemberHooks {
     dniLast: string;
     phoneNumberLast: string;
   };
-  updateMemberId: (id: number) => void;
   getMemberBeforeEdit: () => void;
   changeFullName: (fullName: SetStateAction<string>) => void;
   changeDni: (dni: SetStateAction<string>) => void;
@@ -37,10 +36,6 @@ export const useEditMember = (): EditMemberHooks => {
 
   const changePhoneNumber = (phoneNumber: SetStateAction<string>) => {
     member.setPhoneNumber(phoneNumber);
-  };
-
-  const updateMemberId = (id: number) => {
-    setMemberId(id);
   };
 
   const getMemberBeforeEdit = () => {
@@ -70,6 +65,8 @@ export const useEditMember = (): EditMemberHooks => {
       console.log("No se puede obtener el socio");
       return;
     }
+
+    setMemberId(id);
 
     try {
       const response = await axios.get(`http://localhost:3000/members/${id}`);
@@ -104,7 +101,6 @@ export const useEditMember = (): EditMemberHooks => {
   return {
     member,
     memberLast,
-    updateMemberId,
     getMemberBeforeEdit,
     getMemberById,
     changeFullName,
