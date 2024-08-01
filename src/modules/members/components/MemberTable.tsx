@@ -125,7 +125,7 @@ const MemberTable: React.FC = () => {
                     </Box>
                   </td>
                   <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end">
+                    <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end" gap="4px">
                       <IconButton
                         variant="outlined"
                         color="warning"
