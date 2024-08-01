@@ -14,7 +14,7 @@ const MemberRouter: React.FC = () => {
           <CreateMemberPage />
         </CreateMemberProvider>
       } />
-      <Route
+      <Route  
         path="/list"
         element={
           <MemberListProvider>
@@ -26,7 +26,6 @@ const MemberRouter: React.FC = () => {
         path="/edit/:id"
         element={
           <EditMemberProvider>
-
             <EditMemberPage />
           </EditMemberProvider>
         }
