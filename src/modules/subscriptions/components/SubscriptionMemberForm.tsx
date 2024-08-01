@@ -56,7 +56,7 @@ const SubscriptionMemberForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     subscribeMember()
-      .finally(() => navigate('/members'))
+      .finally(() => navigate('/members/list'))
   }
 
   return <form onSubmit={handleSubmit}>

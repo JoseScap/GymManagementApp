@@ -6,6 +6,20 @@
       "dni": "40438935",
       "status": "Semana",
       "phoneNumber": ""
+    },
+    {
+      "id": "e736",
+      "fullName": "TEST2",
+      "dni": "12121212",
+      "status": "Mes",
+      "phoneNumber": ""
+    },
+    {
+      "id": "6c3f",
+      "fullName": "TEST3",
+      "dni": "15151515",
+      "status": "Dia",
+      "phoneNumber": "3816554433"
     }
   ],
   "subscriptions": [
@@ -15,6 +29,24 @@
       "dateFrom": "2024-07-23T03:00:00.000Z",
       "dateTo": "2024-07-29T03:00:00.000Z",
       "memberId": "0439",
+      "paymentMethod": "Efectivo",
+      "isCanceled": false
+    },
+    {
+      "id": "0ed9",
+      "amount": 10000,
+      "dateFrom": "2024-07-31T03:00:00.000Z",
+      "dateTo": "2024-08-30T03:00:00.000Z",
+      "memberId": "e736",
+      "paymentMethod": "Transferencia",
+      "isCanceled": false
+    },
+    {
+      "id": "3666",
+      "amount": 10000,
+      "dateFrom": "2024-07-31T03:00:00.000Z",
+      "dateTo": "2024-07-31T03:00:00.000Z",
+      "memberId": "6c3f",
       "paymentMethod": "Efectivo",
       "isCanceled": false
     }
