@@ -35,7 +35,6 @@ export const useCreateMember = (): CreateMemberHooks => {
 
   const createMember = async () => {
     if(!fullName && !dni) {
-      console.log("No se puede crear el socio");
       return;
     }
 

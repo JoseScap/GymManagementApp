@@ -129,7 +129,7 @@ const MemberTable: React.FC = () => {
                       <IconButton
                         variant="outlined"
                         color="warning"
-                        onClick={() => navigate(`../edit/${id}`)}
+                        onClick={() => navigate(`../member/${id}`)}
                       >
                         <VisibilityRoundedIcon />
                       </IconButton>

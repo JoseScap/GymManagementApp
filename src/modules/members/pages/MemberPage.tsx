@@ -25,7 +25,7 @@ const MemberPage: React.FC = () => {
   const [edit, setEdit] = useState(false);
 
   const navigate: NavigateFunction = useNavigate();
-  const memberId : string | undefined = useParams().id; 
+  const { id: memberId } = useParams(); 
 
   useEffect(() => {
     getMemberById(Number(memberId));

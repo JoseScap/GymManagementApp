@@ -22,7 +22,7 @@ const MemberRouter: React.FC = () => {
         }
       />
       <Route
-        path="/edit/:id"
+        path="/member/:id"
         element={
             <MemberPage />
         }
