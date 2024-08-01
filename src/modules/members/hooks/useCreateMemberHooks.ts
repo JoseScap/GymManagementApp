@@ -10,7 +10,7 @@ interface CreateMemberHooks {
     dni: string;
     status: string;
     phoneNumber: string;
-  }, 
+  },
   changeFullName: (fullName: SetStateAction<string>) => void;
   changeDni: (dni: SetStateAction<string>) => void;
   changePhoneNumber: (phoneNumber: SetStateAction<string>) => void;
@@ -34,25 +34,24 @@ export const useCreateMember = (): CreateMemberHooks => {
   };
 
   const createMember = async () => {
-    if(!fullName && !dni) {
-      console.log("No se puede crear el socio");
+    if (!fullName && !dni) {
       return;
     }
 
     await axios.post("http://localhost:3000/members", {
-            fullName,
-            dni,
-            "status": "Inactivo",
-            phoneNumber,
+      fullName,
+      dni,
+      status: "Inactivo",
+      phoneNumber,
     })
   };
 
   return {
     member: {
-        fullName,
-        dni,
-        status: "Inactivo",
-        phoneNumber,
+      fullName,
+      dni,
+      status: "Inactivo",
+      phoneNumber,
     },
     createMember,
     changeFullName,

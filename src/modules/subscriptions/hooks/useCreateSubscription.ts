@@ -20,6 +20,7 @@ interface CreateSubscriptionHooks {
   changePaymentMethod: (member: SetStateAction<PaymentMethod>) => void
   changeSelectedMember: (member: SetStateAction<Member | null>) => void
   findAllInactiveMembers: () => Promise<void>
+  subscribeMember: () => Promise<void>
 }
 
 export const useCreateSubscription = (): CreateSubscriptionHooks => {
@@ -39,11 +40,6 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     setPaymentMethod,
     setSelectedMember
   } = useContext(CreateSubscriptionContext)
-
-  const findAllInactiveMembers = async () => {
-    const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members?status=Inactivo`)
-    setMembers(response.data)
-  }
 
   const changeAmount = (amount: SetStateAction<number>) => {
     setAmount(amount)
@@ -69,6 +65,23 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     setSelectedMember(member)
   }
 
+  const findAllInactiveMembers = async () => {
+    const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members?status=Inactivo`)
+    setMembers(response.data)
+  }
+
+  const subscribeMember = async () => {
+    await axios.post("http://localhost:3000/subscriptions", {
+      amount: amount,
+      dateFrom: dateFrom?.toDate(),
+      dateTo: dateTo?.toDate(),
+      memberId: selectedMember?.id,
+      paymentMethod: paymentMethod,
+      isCanceled: false
+    })
+    await axios.patch(`http://localhost:3000/members/${selectedMember?.id}`, { status: memberStatus })
+  }
+
   return {
     amount,
     dateFrom,
@@ -83,6 +96,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     changeMemberStatus,
     changePaymentMethod,
     changeSelectedMember,
-    findAllInactiveMembers
+    findAllInactiveMembers,
+    subscribeMember
   }
 }
