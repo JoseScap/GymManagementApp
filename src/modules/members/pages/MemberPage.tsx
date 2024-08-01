@@ -14,18 +14,18 @@ import {
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
-import { useEditMember } from "../hooks/useEditMemberHooks.ts";
 import { useEffect, useState } from "react";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';
+import { useMember } from "../hooks/useMemberHooks.ts";
 
-const EditMemberPage: React.FC = () => {
-  const { member, getMemberById, getMemberBeforeEdit, changeFullName, changeDni, changePhoneNumber, editMember } = useEditMember();
+const MemberPage: React.FC = () => {
+  const { member, getMemberById, resetValues, changeFullName, changeDni, changePhoneNumber, editMember } = useMember();
 
   const [edit, setEdit] = useState(false);
 
   const navigate: NavigateFunction = useNavigate();
-  const memberId = useParams().id; /* pregunta que onda el type */
+  const memberId : string | undefined = useParams().id; 
 
   useEffect(() => {
     getMemberById(Number(memberId));
@@ -41,6 +41,14 @@ const EditMemberPage: React.FC = () => {
       navigate("../list");
     })
   }
+
+  const handleActiveEdit = () => {
+    setEdit(prev => !prev);
+    if(edit) {
+      resetValues();
+    }
+  }
+
 
   return <>
     <Box>
@@ -65,14 +73,14 @@ const EditMemberPage: React.FC = () => {
           <IconButton
             variant="outlined"
             color="warning"
-            onClick={() => { setEdit(prev => !prev) }}
+            onClick={handleActiveEdit}
           >
             <EditRoundedIcon />
           </IconButton>
           <IconButton
             variant="outlined"
             color="danger"
-            onClick={() => { getMemberBeforeEdit() }}
+            onClick={() => { resetValues() }}
           >
             <ReplayRoundedIcon />
           </IconButton>
@@ -119,7 +127,7 @@ const EditMemberPage: React.FC = () => {
           <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
             <Button size="sm" variant="outlined" color="neutral"
               onClick={() => { navigate("../list") }}>
-              Cancelar
+              Volver atrás
             </Button>
             <Button size="sm" variant="solid" type="submit" disabled={!edit}>
               Guardar
@@ -131,4 +139,4 @@ const EditMemberPage: React.FC = () => {
   </>
 }
 
-export default EditMemberPage
+export default MemberPage

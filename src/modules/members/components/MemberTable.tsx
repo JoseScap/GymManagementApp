@@ -9,7 +9,7 @@ import { MemberStatus } from "../../common/types/members";
 import { ReactNode } from "react";
 import Sheet from "@mui/joy/Sheet";
 import { DeleteForeverRounded } from "@mui/icons-material";
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
@@ -131,7 +131,7 @@ const MemberTable: React.FC = () => {
                         color="warning"
                         onClick={() => navigate(`../edit/${id}`)}
                       >
-                        <EditRoundedIcon />
+                        <VisibilityRoundedIcon />
                       </IconButton>
                       <IconButton
                         variant="outlined"

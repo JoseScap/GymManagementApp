@@ -1,20 +1,14 @@
-import { SetStateAction, useContext } from "react";
+import { SetStateAction, useState } from "react";
 import axios from "axios";
-import { MemberEditContext } from "../contexts/EditMemberContext";
 
 // Interface that should be return by the hook
-interface EditMemberHooks {
+interface MemberHooks {
   member: {
     fullName: string;
     dni: string;
     phoneNumber: string;
   };
-  memberLast: {
-    fullNameLast: string;
-    dniLast: string;
-    phoneNumberLast: string;
-  };
-  getMemberBeforeEdit: () => void;
+  resetValues: () => void;
   changeFullName: (fullName: SetStateAction<string>) => void;
   changeDni: (dni: SetStateAction<string>) => void;
   changePhoneNumber: (phoneNumber: SetStateAction<string>) => void;
@@ -22,9 +16,31 @@ interface EditMemberHooks {
   editMember: () => Promise<any>;
 }
 
-export const useEditMember = (): EditMemberHooks => {
-  const { memberId, setMemberId, memberLast, member } =
-    useContext(MemberEditContext);
+export const useMember = (): MemberHooks => {
+  const [memberId, setMemberId] = useState<number>(0);
+  const [fullNameLast, setFullNameLast] = useState<string>("");
+  const [dniLast, setDniLast] = useState<string>("");
+  const [phoneNumberLast, setPhoneNumberLast] = useState<string>("");
+  const [fullName, setFullName] = useState<string>("");
+  const [dni, setDni] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const member = {
+    fullName,
+    dni,
+    phoneNumber,
+    setFullName,
+    setDni,
+    setPhoneNumber,
+  };
+
+  const memberLast = {
+    fullNameLast,
+    dniLast,
+    phoneNumberLast,
+    setFullNameLast,
+    setDniLast,
+    setPhoneNumberLast,
+  };
 
   const changeFullName = (fullName: SetStateAction<string>) => {
     member.setFullName(fullName);
@@ -38,7 +54,7 @@ export const useEditMember = (): EditMemberHooks => {
     member.setPhoneNumber(phoneNumber);
   };
 
-  const getMemberBeforeEdit = () => {
+  const resetValues = () => {
     member.setFullName(memberLast.fullNameLast);
     member.setDni(memberLast.dniLast);
     member.setPhoneNumber(memberLast.phoneNumberLast);
@@ -100,8 +116,7 @@ export const useEditMember = (): EditMemberHooks => {
 
   return {
     member,
-    memberLast,
-    getMemberBeforeEdit,
+    resetValues,
     getMemberById,
     changeFullName,
     changeDni,
