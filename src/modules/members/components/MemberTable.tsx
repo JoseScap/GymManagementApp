@@ -1,14 +1,16 @@
-import {Box, ColorPaletteProp, IconButton, Table} from "@mui/joy";
+import { Box, ColorPaletteProp, IconButton, Table } from "@mui/joy";
 import { useMemberList } from "../hooks/useMemberListHooks.ts";
 import Chip from "@mui/joy/Chip";
 import InactiveIcon from "@mui/icons-material/Block"
 import DayIcon from "@mui/icons-material/WbSunny"
 import WeekIcon from "@mui/icons-material/Filter7"
 import MonthIcon from "@mui/icons-material/CalendarMonth"
-import {MemberStatus} from "../../common/types/members";
-import {ReactNode} from "react";
+import { MemberStatus } from "../../common/types/members";
+import { ReactNode } from "react";
 import Sheet from "@mui/joy/Sheet";
 import { DeleteForeverRounded } from "@mui/icons-material";
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -26,6 +28,7 @@ const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
 
 const MemberTable: React.FC = () => {
   const { currentPage: { data: members }, changeIdToDelete } = useMemberList()
+  const navigate : NavigateFunction = useNavigate()
 
   return (
     <Sheet
@@ -122,14 +125,22 @@ const MemberTable: React.FC = () => {
                     </Box>
                   </td>
                   <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end">
+                    <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end" gap="4px">
+                      <IconButton
+                        variant="outlined"
+                        color="warning"
+                        onClick={() => navigate(`../member/${id}`)}
+                      >
+                        <VisibilityRoundedIcon />
+                      </IconButton>
                       <IconButton
                         variant="outlined"
                         color="danger"
                         onClick={() => changeIdToDelete(id)}
                       >
-                        <DeleteForeverRounded/>
+                        <DeleteForeverRounded />
                       </IconButton>
+
                     </Box>
                   </td>
                 </tr>

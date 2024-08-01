@@ -3,6 +3,7 @@ import CreateMemberPage from "../pages/CreateMemberPage.tsx";
 import MemberListPage from "../pages/MemberListPage.tsx";
 import { MemberListProvider } from "../contexts/MemberListContext.tsx";
 import { CreateMemberProvider } from "../contexts/CreateMemberContext.tsx";
+import MemberPage from "../pages/MemberPage.tsx";
 
 const MemberRouter: React.FC = () => {
   return (
@@ -12,12 +13,18 @@ const MemberRouter: React.FC = () => {
           <CreateMemberPage />
         </CreateMemberProvider>
       } />
-      <Route
+      <Route  
         path="/list"
         element={
           <MemberListProvider>
             <MemberListPage />
           </MemberListProvider>
+        }
+      />
+      <Route
+        path="/member/:id"
+        element={
+            <MemberPage />
         }
       />
     </Routes>
