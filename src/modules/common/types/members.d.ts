@@ -1,5 +1,5 @@
 export type Member = {
-  id: number
+  id: string
   fullName: string
   phoneNumber: string
   status: MemberStatus
