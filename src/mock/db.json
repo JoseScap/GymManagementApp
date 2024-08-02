@@ -28,9 +28,8 @@
       "id": "4",
       "fullName": "Ana Fernández",
       "phoneNumber": "+5438165554436",
-      "currentStatus": "Dia",
-      "dni": "40404044",
-      "status": "Semana"
+      "currentStatus": "Día",
+      "dni": "40404044"
     },
     {
       "id": "5",
@@ -57,7 +56,7 @@
       "id": "8",
       "fullName": "Marta Sánchez",
       "phoneNumber": "+5438165554440",
-      "currentStatus": "Inactivo",
+      "currentStatus": "Mes",
       "dni": "40404048"
     },
     {
@@ -216,6 +215,16 @@
       "dateTo": "2024-08-02T03:00:00.000Z",
       "memberId": "4",
       "paymentMethod": "Efectivo",
+      "isCanceled": false
+    },
+    {
+      "id": "1055",
+      "amount": 20000,
+      "dateFrom": "2024-08-02T03:00:00.000Z",
+      "dateTo": "2024-09-01T03:00:00.000Z",
+      "memberId": "8",
+      "paymentMethod": "Efectivo",
+      "status": "Mes",
       "isCanceled": false
     }
   ]

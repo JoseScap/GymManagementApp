@@ -5,21 +5,21 @@ import InactiveIcon from "@mui/icons-material/Block"
 import DayIcon from "@mui/icons-material/WbSunny"
 import WeekIcon from "@mui/icons-material/Filter7"
 import MonthIcon from "@mui/icons-material/CalendarMonth"
-import { MemberCurrentStatus } from "../../common/types/members";
+import { MemberStatus } from "../../common/types/members";
 import { ReactNode } from "react";
 import Sheet from "@mui/joy/Sheet";
 import { DeleteForeverRounded } from "@mui/icons-material";
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
-const startDecoratorDictionary: Record<MemberCurrentStatus, ReactNode> = {
+const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
   Día: <DayIcon />,
   Semana: <WeekIcon />,
   Mes: <MonthIcon />,
 }
 
-const colorDictionary: Record<MemberCurrentStatus, ColorPaletteProp> = {
+const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
   Inactivo: "danger",
   Día: "primary",
   Semana: "primary",

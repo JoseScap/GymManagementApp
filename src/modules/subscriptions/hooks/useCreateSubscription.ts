@@ -1,4 +1,4 @@
-import { Member, MemberCurrentStatus } from "../../common/types/members";
+import { Member, MemberStatus } from "../../common/types/members";
 import { SetStateAction, useContext } from "react";
 import axios, { AxiosResponse } from "axios";
 import { CreateSubscriptionContext } from "../contexts/CreateSubscriptionContext.tsx";
@@ -10,13 +10,13 @@ interface CreateSubscriptionHooks {
   dateFrom: Dayjs | null
   dateTo: Dayjs | null
   members: Member[]
-  memberStatus: MemberCurrentStatus
+  memberStatus: MemberStatus
   paymentMethod: PaymentMethod
   selectedMember: Member | null
   changeAmount: (amount: SetStateAction<number>) => void
   changeDateFrom: (date: SetStateAction<Dayjs | null>) => void
   changeDateTo: (date: SetStateAction<Dayjs | null>) => void
-  changeMemberStatus: (memberStatus: SetStateAction<MemberCurrentStatus>) => void
+  changeMemberStatus: (memberStatus: SetStateAction<MemberStatus>) => void
   changePaymentMethod: (member: SetStateAction<PaymentMethod>) => void
   changeSelectedMember: (member: SetStateAction<Member | null>) => void
   findAllInactiveMembers: () => Promise<void>
@@ -77,6 +77,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
       dateTo: dateTo?.toDate(),
       memberId: selectedMember?.id,
       paymentMethod: paymentMethod,
+      status: memberStatus,
       isCanceled: false
     })
     await axios.patch(`http://localhost:3000/members/${selectedMember?.id}`, { currentStatus: memberStatus })

@@ -2,11 +2,11 @@ export type Member = {
   id: string
   fullName: string
   phoneNumber: string
-  currentStatus: MemberCurrentStatus
+  currentStatus: MemberStatus
   dni: string
 }
 
-export type MemberCurrentStatus = 'Inactivo' | 'Día' | 'Semana' | 'Mes'
+export type MemberStatus = 'Inactivo' | 'Día' | 'Semana' | 'Mes'
 
 export type MemberField = keyof Member
 export type MemberFieldValue<K extends MemberField> = Member[K]

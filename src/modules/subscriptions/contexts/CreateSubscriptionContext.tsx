@@ -1,4 +1,4 @@
-import { Member, MemberCurrentStatus } from "../../common/types/members";
+import { Member, MemberStatus } from "../../common/types/members";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
 import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
@@ -8,14 +8,14 @@ type CreateSubscriptionContextType = {
   dateFrom: Dayjs | null
   dateTo: Dayjs | null
   members: Member[]
-  memberStatus: MemberCurrentStatus
+  memberStatus: MemberStatus
   paymentMethod: PaymentMethod
   selectedMember: Member | null
   setAmount: Dispatch<SetStateAction<number>>
   setDateFrom: Dispatch<SetStateAction<Dayjs | null>>
   setDateTo: Dispatch<SetStateAction<Dayjs | null>>
   setMembers: Dispatch<SetStateAction<Member[]>>
-  setMemberStatus: Dispatch<SetStateAction<MemberCurrentStatus>>
+  setMemberStatus: Dispatch<SetStateAction<MemberStatus>>
   setPaymentMethod: Dispatch<SetStateAction<PaymentMethod>>
   setSelectedMember: Dispatch<SetStateAction<Member | null>>
 }
@@ -48,7 +48,7 @@ const CreateSubscriptionProvider: React.FC<PropsWithChildren> = ({ children }) =
   const [dateFrom, setDateFrom] = useState<Dayjs | null>(INITIAL_STATE.dateFrom)
   const [dateTo, setDateTo] = useState<Dayjs | null>(INITIAL_STATE.dateTo)
   const [members, setMembers] = useState<Member[]>(INITIAL_STATE.members)
-  const [memberStatus, setMemberStatus] = useState<MemberCurrentStatus>(INITIAL_STATE.memberStatus)
+  const [memberStatus, setMemberStatus] = useState<MemberStatus>(INITIAL_STATE.memberStatus)
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(INITIAL_STATE.paymentMethod)
   const [selectedMember, setSelectedMember] = useState<Member | null>(INITIAL_STATE.selectedMember)
 
