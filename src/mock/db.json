@@ -81,7 +81,7 @@
       "id": "12",
       "fullName": "Patricia Méndez",
       "phoneNumber": "+5438165554444",
-      "currentStatus": "Inactivo",
+      "currentStatus": "Semana",
       "dni": "40404052"
     },
     {
@@ -109,7 +109,7 @@
       "id": "16",
       "fullName": "Natalia Silva",
       "phoneNumber": "+5438165554448",
-      "currentStatus": "Inactivo",
+      "currentStatus": "Semana",
       "dni": "40404056"
     },
     {
@@ -144,22 +144,18 @@
       "id": "b67f",
       "fullName": "test",
       "dni": "test",
-      "currentStatus": "Inactivo",
+      "currentStatus": "Semana",
       "phoneNumber": "test"
     },
     {
       "id": "3b10",
       "fullName": "23",
       "dni": "23",
-      "currentStatus": "Inactivo",
+      "currentStatus": "Semana",
       "phoneNumber": "23"
     }
   ],
   "subscriptions": [
-    {
-      "id": "1",
-      "memberId": 1
-    },
     {
       "id": "dca1",
       "amount": 1000,
@@ -222,6 +218,46 @@
       "memberId": "8",
       "paymentMethod": "Efectivo",
       "status": "Mes",
+      "isCanceled": false
+    },
+    {
+      "id": "0a07",
+      "amount": 10000,
+      "dateFrom": "2024-08-02T03:00:00.000Z",
+      "dateTo": "2024-08-08T03:00:00.000Z",
+      "memberId": "12",
+      "paymentMethod": "Transferencia",
+      "status": "Semana",
+      "isCanceled": false
+    },
+    {
+      "id": "45db",
+      "amount": 1212,
+      "dateFrom": "2024-08-02T03:00:00.000Z",
+      "dateTo": "2024-08-08T03:00:00.000Z",
+      "memberId": "16",
+      "paymentMethod": "Transferencia",
+      "status": "Semana",
+      "isCanceled": false
+    },
+    {
+      "id": "290a",
+      "amount": 1231,
+      "dateFrom": "2024-08-02T03:00:00.000Z",
+      "dateTo": "2024-08-08T03:00:00.000Z",
+      "memberId": "3b10",
+      "paymentMethod": "Transferencia",
+      "status": "Semana",
+      "isCanceled": false
+    },
+    {
+      "id": "e659",
+      "amount": 1212,
+      "dateFrom": "2024-08-03T03:00:00.000Z",
+      "dateTo": "2024-08-09T03:00:00.000Z",
+      "memberId": "b67f",
+      "paymentMethod": "Transferencia",
+      "status": "Semana",
       "isCanceled": false
     }
   ]

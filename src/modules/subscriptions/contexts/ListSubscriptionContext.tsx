@@ -1,11 +1,11 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
-import { Member } from "../../common/types/members";
+import { Subscription } from "../../common/types/subscription";
 import { PaginatedApiResponse } from "../../common/types/api";
 
 type ListSubscriptionContextType = {
-  currentPage: PaginatedApiResponse<Member>,
+  currentPage: PaginatedApiResponse<Subscription>,
   numberPage: number,
-  setCurrentPage: Dispatch<SetStateAction<PaginatedApiResponse<Member>>>,
+  setCurrentPage: Dispatch<SetStateAction<PaginatedApiResponse<Subscription>>>,
   setNumberPage: Dispatch<SetStateAction<number>>,
 }
 
@@ -28,7 +28,7 @@ const ListSubscriptionContext = createContext<ListSubscriptionContextType>(INITI
 const Provider = ListSubscriptionContext.Provider
 
 const ListSubscriptionProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [currentPage, setCurrentPage] = useState<PaginatedApiResponse<Member>>(INITIAL_STATE.currentPage)
+  const [currentPage, setCurrentPage] = useState<PaginatedApiResponse<Subscription>>(INITIAL_STATE.currentPage)
   const [numberPage, setNumberPage] = useState<number>(INITIAL_STATE.numberPage)
 
   return (
