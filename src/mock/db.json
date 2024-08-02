@@ -28,7 +28,7 @@
       "id": "4",
       "fullName": "Ana Fernández",
       "phoneNumber": "+5438165554436",
-      "currentStatus": "Inactivo",
+      "currentStatus": "Dia",
       "dni": "40404044",
       "status": "Semana"
     },
@@ -141,8 +141,22 @@
       "id": "20",
       "fullName": "Gabriela Gutiérrez",
       "phoneNumber": "+5438165554452",
-      "currentStatus": "Inactivo",
+      "currentStatus": "Semana",
       "dni": "40404060"
+    },
+    {
+      "id": "b67f",
+      "fullName": "test",
+      "dni": "test",
+      "currentStatus": "Inactivo",
+      "phoneNumber": "test"
+    },
+    {
+      "id": "3b10",
+      "fullName": "23",
+      "dni": "23",
+      "currentStatus": "Inactivo",
+      "phoneNumber": "23"
     }
   ],
   "subscriptions": [
@@ -182,6 +196,24 @@
       "amount": 10000,
       "dateFrom": "2024-08-02T03:00:00.000Z",
       "dateTo": "2024-08-08T03:00:00.000Z",
+      "memberId": "4",
+      "paymentMethod": "Efectivo",
+      "isCanceled": false
+    },
+    {
+      "id": "b511",
+      "amount": 10000,
+      "dateFrom": "2024-08-02T03:00:00.000Z",
+      "dateTo": "2024-08-08T03:00:00.000Z",
+      "memberId": "20",
+      "paymentMethod": "Efectivo",
+      "isCanceled": false
+    },
+    {
+      "id": "7a6e",
+      "amount": 1000,
+      "dateFrom": "2024-08-02T03:00:00.000Z",
+      "dateTo": "2024-08-02T03:00:00.000Z",
       "memberId": "4",
       "paymentMethod": "Efectivo",
       "isCanceled": false

@@ -1,4 +1,4 @@
-import { Member, MemberStatus } from "../../common/types/members";
+import { Member, MemberCurrentStatus } from "../../common/types/members";
 import { SetStateAction, useContext } from "react";
 import axios, { AxiosResponse } from "axios";
 import { CreateSubscriptionContext } from "../contexts/CreateSubscriptionContext.tsx";
@@ -10,13 +10,13 @@ interface CreateSubscriptionHooks {
   dateFrom: Dayjs | null
   dateTo: Dayjs | null
   members: Member[]
-  memberStatus: MemberStatus
+  memberStatus: MemberCurrentStatus
   paymentMethod: PaymentMethod
   selectedMember: Member | null
   changeAmount: (amount: SetStateAction<number>) => void
   changeDateFrom: (date: SetStateAction<Dayjs | null>) => void
   changeDateTo: (date: SetStateAction<Dayjs | null>) => void
-  changeMemberStatus: (memberStatus: SetStateAction<MemberStatus>) => void
+  changeMemberStatus: (memberStatus: SetStateAction<MemberCurrentStatus>) => void
   changePaymentMethod: (member: SetStateAction<PaymentMethod>) => void
   changeSelectedMember: (member: SetStateAction<Member | null>) => void
   findAllInactiveMembers: () => Promise<void>
@@ -66,7 +66,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
   }
 
   const findAllInactiveMembers = async () => {
-    const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members?status=Inactivo`)
+    const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members?currentStatus=Inactivo`)
     setMembers(response.data)
   }
 
@@ -79,7 +79,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
       paymentMethod: paymentMethod,
       isCanceled: false
     })
-    await axios.patch(`http://localhost:3000/members/${selectedMember?.id}`, { status: memberStatus })
+    await axios.patch(`http://localhost:3000/members/${selectedMember?.id}`, { currentStatus: memberStatus })
   }
 
   return {
