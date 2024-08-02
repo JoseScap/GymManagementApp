@@ -5,24 +5,21 @@
       "fullName": "Juan Pérez",
       "phoneNumber": "+5438165554433",
       "currentStatus": "Mes",
-      "dni": "40404041",
-      "status": "Semana"
+      "dni": "40404041"
     },
     {
       "id": "2",
       "fullName": "María Gómez",
       "phoneNumber": "+5438165554434",
       "currentStatus": "Día",
-      "dni": "40404042",
-      "status": "Semana"
+      "dni": "40404042"
     },
     {
       "id": "3",
       "fullName": "Carlos Rodríguez",
       "phoneNumber": "+5438165554435",
       "currentStatus": "Semana",
-      "dni": "40404043",
-      "status": "Semana"
+      "dni": "40404043"
     },
     {
       "id": "4",
