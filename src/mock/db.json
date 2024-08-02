@@ -12,22 +12,25 @@
       "id": "2",
       "fullName": "María Gómez",
       "phoneNumber": "+5438165554434",
-      "currentStatus": "Dia",
-      "dni": "40404042"
+      "currentStatus": "Día",
+      "dni": "40404042",
+      "status": "Semana"
     },
     {
       "id": "3",
       "fullName": "Carlos Rodríguez",
       "phoneNumber": "+5438165554435",
       "currentStatus": "Semana",
-      "dni": "40404043"
+      "dni": "40404043",
+      "status": "Semana"
     },
     {
       "id": "4",
       "fullName": "Ana Fernández",
       "phoneNumber": "+5438165554436",
       "currentStatus": "Inactivo",
-      "dni": "40404044"
+      "dni": "40404044",
+      "status": "Semana"
     },
     {
       "id": "5",
@@ -40,7 +43,7 @@
       "id": "6",
       "fullName": "Laura López",
       "phoneNumber": "+5438165554438",
-      "currentStatus": "Dia",
+      "currentStatus": "Día",
       "dni": "40404046"
     },
     {
@@ -68,7 +71,7 @@
       "id": "10",
       "fullName": "Sofía Torres",
       "phoneNumber": "+5438165554442",
-      "currentStatus": "Dia",
+      "currentStatus": "Día",
       "dni": "40404050"
     },
     {
@@ -96,7 +99,7 @@
       "id": "14",
       "fullName": "Verónica Romero",
       "phoneNumber": "+5438165554446",
-      "currentStatus": "Dia",
+      "currentStatus": "Día",
       "dni": "40404054"
     },
     {
@@ -124,7 +127,7 @@
       "id": "18",
       "fullName": "Adriana Ruiz",
       "phoneNumber": "+5438165554450",
-      "currentStatus": "Dia",
+      "currentStatus": "Día",
       "dni": "40404058"
     },
     {
@@ -153,6 +156,33 @@
       "dateFrom": "2024-08-01T03:00:00.000Z",
       "dateTo": "2024-08-07T03:00:00.000Z",
       "memberId": "1",
+      "paymentMethod": "Efectivo",
+      "isCanceled": false
+    },
+    {
+      "id": "1cb1",
+      "amount": 10000,
+      "dateFrom": "2024-08-02T03:00:00.000Z",
+      "dateTo": "2024-08-08T03:00:00.000Z",
+      "memberId": "2",
+      "paymentMethod": "Efectivo",
+      "isCanceled": false
+    },
+    {
+      "id": "4acb",
+      "amount": 10000,
+      "dateFrom": "2024-08-02T03:00:00.000Z",
+      "dateTo": "2024-08-08T03:00:00.000Z",
+      "memberId": "3",
+      "paymentMethod": "Efectivo",
+      "isCanceled": false
+    },
+    {
+      "id": "6b96",
+      "amount": 10000,
+      "dateFrom": "2024-08-02T03:00:00.000Z",
+      "dateTo": "2024-08-08T03:00:00.000Z",
+      "memberId": "4",
       "paymentMethod": "Efectivo",
       "isCanceled": false
     }

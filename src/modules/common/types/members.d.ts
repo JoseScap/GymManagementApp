@@ -6,7 +6,7 @@ export type Member = {
   dni: string
 }
 
-export type MemberCurrentStatus = 'Inactivo' | 'Dia' | 'Semana' | 'Mes'
+export type MemberCurrentStatus = 'Inactivo' | 'Día' | 'Semana' | 'Mes'
 
 export type MemberField = keyof Member
 export type MemberFieldValue<K extends MemberField> = Member[K]

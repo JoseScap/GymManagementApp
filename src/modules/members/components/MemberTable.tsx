@@ -14,14 +14,14 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const startDecoratorDictionary: Record<MemberCurrentStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
-  Dia: <DayIcon />,
+  Día: <DayIcon />,
   Semana: <WeekIcon />,
   Mes: <MonthIcon />,
 }
 
 const colorDictionary: Record<MemberCurrentStatus, ColorPaletteProp> = {
   Inactivo: "danger",
-  Dia: "primary",
+  Día: "primary",
   Semana: "primary",
   Mes: "primary",
 }
