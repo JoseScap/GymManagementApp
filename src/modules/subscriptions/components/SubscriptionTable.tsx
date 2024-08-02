@@ -92,7 +92,7 @@ const SubscriptionTable: React.FC = () => {
             </th>
             <th scope="col">
               <Box width="100%" height="100%" display="flex" alignItems="center">
-                Monto ($)
+                Monto
               </Box>
             </th>
             <th scope="col">
@@ -119,9 +119,8 @@ const SubscriptionTable: React.FC = () => {
                   </tr>
                 ) : (
                     subscriptions.map(({ id: id, dateFrom: dateFrom, dateTo: dateTo, 
-                        amount: amount, paymentMethod: paymentMethod,
-                         isCanceled: isCanceled, member: member }) => (
-                        /* TODO: Si está cancelado, podemos ponerlo como más grisaceo. */
+                        amount: amount, paymentMethod: paymentMethod, member: member }) => (
+                        /* TODO: Si está cancelado, podemos ponerlo como más grisaceo, por medio de la prop isCanceled. */
                         <tr key={id}>
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
