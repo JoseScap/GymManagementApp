@@ -1,4 +1,4 @@
-import { Box, Chip, ColorPaletteProp, colors, IconButton, Table } from "@mui/joy";
+import { Box, Chip, ColorPaletteProp, IconButton, Table } from "@mui/joy";
 import InactiveIcon from "@mui/icons-material/Block"
 import DayIcon from "@mui/icons-material/WbSunny"
 import WeekIcon from "@mui/icons-material/Filter7"
@@ -7,7 +7,7 @@ import { MemberStatus } from "../../common/types/members";
 import { ReactNode } from "react";
 import Sheet from "@mui/joy/Sheet";
 import { useListSubscription } from "../hooks/useListSubscriptionHooks";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { PaymentMethod } from "../../common/types/subscription";
 import dayjs from 'dayjs';
 import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
@@ -41,6 +41,7 @@ const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
 
 const SubscriptionTable: React.FC = () => {
     const { currentPage: { data: subscriptions } } = useListSubscription();
+    const navigate : NavigateFunction = useNavigate();
 
   return (
     <Sheet
@@ -171,7 +172,7 @@ const SubscriptionTable: React.FC = () => {
                               <IconButton
                                 variant="outlined"
                                 color="warning"
-                                // onClick={() => navigate(`../member/${id}`)}
+                                onClick={() => navigate(`../subscription/${id}`)}
                               >
                                 <VisibilityRoundedIcon />
                               </IconButton>
@@ -179,6 +180,7 @@ const SubscriptionTable: React.FC = () => {
                                 variant="outlined"
                                 color="danger"
                                 // onClick={() => changeIdToDelete(id)}
+                                // TODO: Como hacemos la baja lógica de una subscripción.
                               >
                                 <DeleteForeverRounded />
                               </IconButton>

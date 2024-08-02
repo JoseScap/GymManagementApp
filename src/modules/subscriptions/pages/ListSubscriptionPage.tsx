@@ -25,7 +25,7 @@ const ListSubscriptionPage: React.FC = () => {
     </Box>
     <Typography level="h2">Lista de Subscripciones</Typography>
     <SubscriptionTable />
-    {/* <SubscriptionPaginator /> */}
+    <SubscriptionPaginator />
   </>
 }
 
