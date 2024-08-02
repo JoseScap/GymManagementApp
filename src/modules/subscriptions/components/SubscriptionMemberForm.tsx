@@ -136,7 +136,7 @@ const SubscriptionMemberForm: React.FC = () => {
               />
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel>Fecha de vencimiento (ultimo dia permitido)</FormLabel>
+              <FormLabel>Fecha de vencimiento (Último dia permitido)</FormLabel>
               <DatePicker
                 value={dateTo}
                 onChange={(newValue) => changeDateTo(newValue)}

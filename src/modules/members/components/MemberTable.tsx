@@ -14,14 +14,14 @@ import { NavigateFunction, useNavigate } from "react-router-dom";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
-  Dia: <DayIcon />,
+  Día: <DayIcon />,
   Semana: <WeekIcon />,
   Mes: <MonthIcon />,
 }
 
 const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
   Inactivo: "danger",
-  Dia: "primary",
+  Día: "primary",
   Semana: "primary",
   Mes: "primary",
 }
@@ -95,7 +95,7 @@ const MemberTable: React.FC = () => {
                 </td>
               </tr>
             ) : (
-              members.map(({ id, dni, status, phoneNumber, fullName }) => (
+              members.map(({ id, dni, currentStatus, phoneNumber, fullName }) => (
                 <tr key={id}>
                   <td scope="col">
                     <Box width="100%" height="100%" display="flex" alignItems="center">
@@ -107,10 +107,10 @@ const MemberTable: React.FC = () => {
                       <Chip
                         variant="soft"
                         size="md"
-                        startDecorator={startDecoratorDictionary[status]}
-                        color={colorDictionary[status]}
+                        startDecorator={startDecoratorDictionary[currentStatus]}
+                        color={colorDictionary[currentStatus]}
                       >
-                        {status}
+                        {currentStatus}
                       </Chip>
                     </Box>
                   </td>

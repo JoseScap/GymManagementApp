@@ -39,7 +39,7 @@ const MemberPaginator: React.FC = () => {
       startDecorator={<KeyboardArrowLeftIcon />}
       onClick={() => prev !== null && changeNumberPage(prev)}
     >
-      Previous
+      Anterior
     </Button>
 
     <Box sx={{ flex: 1 }} />
@@ -64,7 +64,7 @@ const MemberPaginator: React.FC = () => {
       endDecorator={<KeyboardArrowRightIcon />}
       onClick={() => next !== null && changeNumberPage(next)}
     >
-      Next
+      Siguiente
     </Button>
   </Box>
 }

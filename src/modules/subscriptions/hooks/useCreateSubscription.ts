@@ -66,7 +66,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
   }
 
   const findAllInactiveMembers = async () => {
-    const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members?status=Inactivo`)
+    const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members?currentStatus=Inactivo`)
     setMembers(response.data)
   }
 
@@ -77,9 +77,10 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
       dateTo: dateTo?.toDate(),
       memberId: selectedMember?.id,
       paymentMethod: paymentMethod,
+      status: memberStatus,
       isCanceled: false
     })
-    await axios.patch(`http://localhost:3000/members/${selectedMember?.id}`, { status: memberStatus })
+    await axios.patch(`http://localhost:3000/members/${selectedMember?.id}`, { currentStatus: memberStatus })
   }
 
   return {

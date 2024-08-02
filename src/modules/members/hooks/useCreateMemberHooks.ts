@@ -8,7 +8,7 @@ interface CreateMemberHooks {
   member: {
     fullName: string;
     dni: string;
-    status: string;
+    currentStatus: string;
     phoneNumber: string;
   },
   changeFullName: (fullName: SetStateAction<string>) => void;
@@ -41,7 +41,7 @@ export const useCreateMember = (): CreateMemberHooks => {
     await axios.post("http://localhost:3000/members", {
       fullName,
       dni,
-      status: "Inactivo",
+      currentStatus: "Inactivo",
       phoneNumber,
     })
   };
@@ -50,7 +50,7 @@ export const useCreateMember = (): CreateMemberHooks => {
     member: {
       fullName,
       dni,
-      status: "Inactivo",
+      currentStatus: "Inactivo",
       phoneNumber,
     },
     createMember,
