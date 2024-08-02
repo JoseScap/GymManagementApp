@@ -5,21 +5,21 @@ import InactiveIcon from "@mui/icons-material/Block"
 import DayIcon from "@mui/icons-material/WbSunny"
 import WeekIcon from "@mui/icons-material/Filter7"
 import MonthIcon from "@mui/icons-material/CalendarMonth"
-import { MemberStatus } from "../../common/types/members";
+import { MemberCurrentStatus } from "../../common/types/members";
 import { ReactNode } from "react";
 import Sheet from "@mui/joy/Sheet";
 import { DeleteForeverRounded } from "@mui/icons-material";
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { NavigateFunction, useNavigate } from "react-router-dom";
 
-const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
+const startDecoratorDictionary: Record<MemberCurrentStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
   Dia: <DayIcon />,
   Semana: <WeekIcon />,
   Mes: <MonthIcon />,
 }
 
-const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
+const colorDictionary: Record<MemberCurrentStatus, ColorPaletteProp> = {
   Inactivo: "danger",
   Dia: "primary",
   Semana: "primary",
@@ -95,7 +95,7 @@ const MemberTable: React.FC = () => {
                 </td>
               </tr>
             ) : (
-              members.map(({ id, dni, status, phoneNumber, fullName }) => (
+              members.map(({ id, dni, currentStatus, phoneNumber, fullName }) => (
                 <tr key={id}>
                   <td scope="col">
                     <Box width="100%" height="100%" display="flex" alignItems="center">
@@ -107,10 +107,10 @@ const MemberTable: React.FC = () => {
                       <Chip
                         variant="soft"
                         size="md"
-                        startDecorator={startDecoratorDictionary[status]}
-                        color={colorDictionary[status]}
+                        startDecorator={startDecoratorDictionary[currentStatus]}
+                        color={colorDictionary[currentStatus]}
                       >
-                        {status}
+                        {currentStatus}
                       </Chip>
                     </Box>
                   </td>
