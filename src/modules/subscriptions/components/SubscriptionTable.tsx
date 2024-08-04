@@ -120,7 +120,6 @@ const SubscriptionTable: React.FC = () => {
                 ) : (
                     subscriptions.map(({ id: id, dateFrom: dateFrom, dateTo: dateTo, 
                         amount: amount, paymentMethod: paymentMethod, member: member }) => (
-                        /* TODO: Si está cancelado, podemos ponerlo como más grisaceo, por medio de la prop isCanceled. */
                         <tr key={id}>
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
@@ -179,7 +178,6 @@ const SubscriptionTable: React.FC = () => {
                                 variant="outlined"
                                 color="danger"
                                 // onClick={() => changeIdToDelete(id)}
-                                // TODO: Como hacemos la baja lógica de una subscripción.
                               >
                                 <DeleteForeverRounded />
                               </IconButton>

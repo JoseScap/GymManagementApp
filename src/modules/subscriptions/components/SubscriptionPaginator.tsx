@@ -6,8 +6,6 @@ import { useListSubscription } from "../hooks/useListSubscriptionHooks.ts";
 import {useMemo} from "react";
 import {generatePaginationItems} from "../../common/utils/arrayUtils.ts";
 
-//  TODO: Cambiar el generatePaginationItems a la carpeta commons. 
-
 const SubscriptionPaginator: React.FC = () => {
     
   const {

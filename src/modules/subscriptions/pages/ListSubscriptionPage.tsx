@@ -19,7 +19,6 @@ const ListSubscriptionPage: React.FC = () => {
         items={[
           <GroupRoundedIcon />,
           <Typography fontWeight="bold">Lista de Subscripciones</Typography>
-        //   TODO: Definir como será el breadcrumb para todos los lugares de la App.
         ]}
       />
     </Box>
