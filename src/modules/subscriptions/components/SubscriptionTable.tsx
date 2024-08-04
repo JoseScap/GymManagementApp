@@ -7,13 +7,13 @@ import { MemberStatus } from "../../common/types/members";
 import { ReactNode } from "react";
 import Sheet from "@mui/joy/Sheet";
 import { useListSubscription } from "../hooks/useListSubscriptionHooks";
-import { NavigateFunction, useNavigate } from "react-router-dom";
 import { PaymentMethod } from "../../common/types/subscription";
 import dayjs from 'dayjs';
 import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { DeleteForeverRounded } from "@mui/icons-material";
+import { useNavigate } from "../../../../src/routers/AppRouter";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -41,7 +41,7 @@ const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
 
 const SubscriptionTable: React.FC = () => {
     const { currentPage: { data: subscriptions } } = useListSubscription();
-    const navigate : NavigateFunction = useNavigate();
+    const navigate = useNavigate();
 
   return (
     <Sheet
@@ -170,7 +170,8 @@ const SubscriptionTable: React.FC = () => {
                               <IconButton
                                 variant="outlined"
                                 color="warning"
-                                onClick={() => navigate(`../subscription/${id}`)}
+                                onClick={() => navigate('Subscription:List', { id })}
+                                disabled
                               >
                                 <VisibilityRoundedIcon />
                               </IconButton>
@@ -178,6 +179,7 @@ const SubscriptionTable: React.FC = () => {
                                 variant="outlined"
                                 color="danger"
                                 // onClick={() => changeIdToDelete(id)}
+                                disabled
                               >
                                 <DeleteForeverRounded />
                               </IconButton>

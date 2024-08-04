@@ -12,12 +12,12 @@ interface MemberHooks {
   changeFullName: (fullName: SetStateAction<string>) => void;
   changeDni: (dni: SetStateAction<string>) => void;
   changePhoneNumber: (phoneNumber: SetStateAction<string>) => void;
-  getMemberById: (id: number) => Promise<any>;
+  getMemberById: (id: string) => Promise<any>;
   editMember: () => Promise<any>;
 }
 
 export const useMember = (): MemberHooks => {
-  const [memberId, setMemberId] = useState<number>(0);
+  const [memberId, setMemberId] = useState<string>("");
   const [fullNameLast, setFullNameLast] = useState<string>("");
   const [dniLast, setDniLast] = useState<string>("");
   const [phoneNumberLast, setPhoneNumberLast] = useState<string>("");
@@ -59,7 +59,7 @@ export const useMember = (): MemberHooks => {
     setPhoneNumber(phoneNumber);
   };
 
-  const getMemberById = async (id: number) => {
+  const getMemberById = async (id: string) => {
     if (!id) {
       return;
     }
