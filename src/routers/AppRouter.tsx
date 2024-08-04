@@ -1,5 +1,5 @@
 import PageLayout from "../modules/common/layouts/PageLayout.tsx";
-import { createContext, PropsWithChildren, SetStateAction, useContext, useEffect, useState } from "react";
+import { createContext, PropsWithChildren, useContext, useState } from "react";
 import HomePage from "../modules/core/pages/HomePage.tsx";
 import WipPage from "../modules/core/pages/WipPage.tsx";
 import MemberListPage from "../modules/members/pages/MemberListPage.tsx";
@@ -11,26 +11,8 @@ import { CreateSubscriptionProvider } from "../modules/subscriptions/contexts/Cr
 import CreateSubscriptionPage from "../modules/subscriptions/pages/CreateSubscriptionPage.tsx";
 import { ListSubscriptionProvider } from "../modules/subscriptions/contexts/ListSubscriptionContext.tsx";
 import ListSubscriptionPage from "../modules/subscriptions/pages/ListSubscriptionPage.tsx";
+import { AppRouterContext, INITIAL_CONTEXT_VALUE, Page, Params } from "./AppRouterContext.ts";
 
-type AppRouterContextType = {
-  page: Page
-  params: Params
-  navigate: (page: Page, params?: Params) => void
-}
-
-type Params = Record<string, string | undefined>
-type Page = CorePage | MemberPage | SubscriptionPage
-type CorePage = 'Core:Home' | 'Core:Dashboard' | 'Core:Notification'
-type MemberPage = 'Member:List' | 'Member:Create' | 'Member:Detail'
-type SubscriptionPage = 'Subscription:List' | 'Subscription:Create' | 'Subscription:Detail'
-
-const INITIAL_CONTEXT_VALUE: AppRouterContextType = {
-  page: 'Core:Home',
-  params: {},
-  navigate: () => undefined
-}
-
-export const AppRouterContext = createContext<AppRouterContextType>(INITIAL_CONTEXT_VALUE)
 export const AppRouterProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [page, setPage] = useState<Page>(INITIAL_CONTEXT_VALUE.page)
   const [params, setParams] = useState<Params>(INITIAL_CONTEXT_VALUE.params)
