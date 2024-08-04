@@ -10,7 +10,7 @@ import { ReactNode } from "react";
 import Sheet from "@mui/joy/Sheet";
 import { DeleteForeverRounded } from "@mui/icons-material";
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-import { useNavigate } from "../../../routers/AppRouter.tsx";
+import { useNavigate } from "../../../routers";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,

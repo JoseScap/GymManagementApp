@@ -4,7 +4,7 @@ import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
-import { useNavigate } from "../../../routers/AppRouter.tsx";
+import { useNavigate } from "../../../routers";
 
 const memberStatusOptions: MemberStatus[] = ['Día', 'Semana', 'Mes']
 const paymentMethodOptions: PaymentMethod[] = ['Efectivo', 'Transferencia']

@@ -14,7 +14,7 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {Dispatch, ReactNode, SetStateAction, useState} from "react";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import {StarsRounded} from "@mui/icons-material";
-import { useNavigate } from '../../../routers/AppRouter';
+import { useNavigate } from '../../../routers';
 
 function Toggler({
                    defaultExpanded = false,

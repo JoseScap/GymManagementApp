@@ -1,5 +1,4 @@
 import PageLayout from "../modules/common/layouts/PageLayout.tsx";
-import { createContext, PropsWithChildren, useContext, useState } from "react";
 import HomePage from "../modules/core/pages/HomePage.tsx";
 import WipPage from "../modules/core/pages/WipPage.tsx";
 import MemberListPage from "../modules/members/pages/MemberListPage.tsx";
@@ -11,42 +10,10 @@ import { CreateSubscriptionProvider } from "../modules/subscriptions/contexts/Cr
 import CreateSubscriptionPage from "../modules/subscriptions/pages/CreateSubscriptionPage.tsx";
 import { ListSubscriptionProvider } from "../modules/subscriptions/contexts/ListSubscriptionContext.tsx";
 import ListSubscriptionPage from "../modules/subscriptions/pages/ListSubscriptionPage.tsx";
-import { AppRouterContext, INITIAL_CONTEXT_VALUE, Page, Params } from "./AppRouterContext.ts";
-
-export const AppRouterProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [page, setPage] = useState<Page>(INITIAL_CONTEXT_VALUE.page)
-  const [params, setParams] = useState<Params>(INITIAL_CONTEXT_VALUE.params)
-
-  const navigate = (page: Page, params: Params = {}) => {
-    setPage(page)
-    setParams(params)
-  }
-
-  return (
-    <AppRouterContext.Provider
-      value={{
-        page,
-        params,
-        navigate
-      }}
-    >
-      {children}
-    </AppRouterContext.Provider>
-  )
-}
-
-export const useNavigate = () => {
-  const { navigate } = useContext(AppRouterContext)
-  return navigate
-}
-
-export const useParams = () => {
-  const { params } = useContext(AppRouterContext)
-  return params
-}
+import { useAppRouterContext } from "./useRouterHooks.ts";
 
 export const AppRouter: React.FC = () => {
-  const { page } = useContext(AppRouterContext)
+  const { page } = useAppRouterContext()
 
   return <PageLayout>
     {page === 'Core:Home' && <HomePage />}

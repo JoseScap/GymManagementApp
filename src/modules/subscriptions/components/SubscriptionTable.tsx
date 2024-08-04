@@ -13,7 +13,7 @@ import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { DeleteForeverRounded } from "@mui/icons-material";
-import { useNavigate } from "../../../../src/routers/AppRouter";
+import { useNavigate } from "../../../../src/routers";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,

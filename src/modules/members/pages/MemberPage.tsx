@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';
 import { useMember } from "../hooks/useMemberHooks.ts";
-import { useNavigate, useParams } from "../../../routers/AppRouter.tsx";
+import { useNavigate, useParams } from "../../../routers";
 
 const MemberPage: React.FC = () => {
   const { member, getMemberById, resetValues, changeFullName, changeDni, changePhoneNumber, editMember } = useMember();
