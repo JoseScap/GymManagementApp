@@ -4,7 +4,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import IconButton from "@mui/joy/IconButton";
 import {useMemberList} from "../hooks/useMemberListHooks.ts";
 import {useMemo} from "react";
-import {generatePaginationItems} from "../utils/arrayUtils.ts";
+import {generatePaginationItems} from "../../common/utils/arrayUtils.ts";
 
 const MemberPaginator: React.FC = () => {
   const {

@@ -4,7 +4,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import IconButton from "@mui/joy/IconButton";
 import { useListSubscription } from "../hooks/useListSubscriptionHooks.ts";
 import {useMemo} from "react";
-import {generatePaginationItems} from "../../members/utils/arrayUtils.ts";
+import {generatePaginationItems} from "../../common/utils/arrayUtils.ts";
 
 //  TODO: Cambiar el generatePaginationItems a la carpeta commons. 
 
