@@ -6,7 +6,7 @@ import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
 import { useNavigate } from "react-router-dom";
 
-const memberStatusOptions: MemberStatus[] = ['Dia', 'Semana', 'Mes']
+const memberStatusOptions: MemberStatus[] = ['Día', 'Semana', 'Mes']
 const paymentMethodOptions: PaymentMethod[] = ['Efectivo', 'Transferencia']
 
 const SubscriptionMemberForm: React.FC = () => {
@@ -140,7 +140,7 @@ const SubscriptionMemberForm: React.FC = () => {
               <DatePicker
                 value={dateTo}
                 onChange={(newValue) => changeDateTo(newValue)}
-                disabled={memberStatus === 'Dia' || memberStatus === 'Inactivo'}
+                disabled={memberStatus === 'Día' || memberStatus === 'Inactivo'}
                 format="DD/MM/YYYY"
               />
             </Grid>

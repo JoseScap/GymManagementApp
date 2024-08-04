@@ -172,6 +172,11 @@ export default function Sidebar() {
                     Nueva suscripción
                   </ListItemButton>
                 </ListItem>
+                <ListItem sx={{ mt: 0.5 }}>
+                  <ListItemButton onClick={() => navigate('/subscriptions/list')}>
+                    Lista de Suscripciones
+                  </ListItemButton>
+                </ListItem>
               </List>
             </Toggler>
           </ListItem>

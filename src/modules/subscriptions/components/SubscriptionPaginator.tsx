@@ -2,11 +2,12 @@ import {Box, Button, iconButtonClasses} from "@mui/joy";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import IconButton from "@mui/joy/IconButton";
-import {useMemberList} from "../hooks/useMemberListHooks.ts";
+import { useListSubscription } from "../hooks/useListSubscriptionHooks.ts";
 import {useMemo} from "react";
 import {generatePaginationItems} from "../../common/utils/arrayUtils.ts";
 
-const MemberPaginator: React.FC = () => {
+const SubscriptionPaginator: React.FC = () => {
+    
   const {
     currentPage: {
       prev,
@@ -16,7 +17,7 @@ const MemberPaginator: React.FC = () => {
     },
     numberPage,
     changeNumberPage
-  } = useMemberList()
+  } = useListSubscription()
 
   const paginationItems = useMemo<string[]>(() => {
     return generatePaginationItems(numberPage, pages)
@@ -69,4 +70,4 @@ const MemberPaginator: React.FC = () => {
   </Box>
 }
 
-export default MemberPaginator
+export default SubscriptionPaginator
