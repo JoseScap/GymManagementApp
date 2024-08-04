@@ -10,19 +10,17 @@ import { CreateSubscriptionProvider } from "../modules/subscriptions/contexts/Cr
 import CreateSubscriptionPage from "../modules/subscriptions/pages/CreateSubscriptionPage.tsx";
 import { ListSubscriptionProvider } from "../modules/subscriptions/contexts/ListSubscriptionContext.tsx";
 import ListSubscriptionPage from "../modules/subscriptions/pages/ListSubscriptionPage.tsx";
-import { useAppRouterContext } from "./useRouterHooks.ts";
+import { Route } from "./index.ts";
 
 export const AppRouter: React.FC = () => {
-  const { page } = useAppRouterContext()
-
   return <PageLayout>
-    {page === 'Core:Home' && <HomePage />}
-    {page === 'Core:Dashboard' && <WipPage />}
-    {page === 'Core:Notification' && <WipPage />}
-    {page === 'Member:List' && <MemberListProvider><MemberListPage /></MemberListProvider>}
-    {page === 'Member:Create' && <CreateMemberProvider><CreateMemberPage /></CreateMemberProvider>}
-    {page === 'Member:Detail' && <MemberPage />}
-    {page === 'Subscription:Create' && <CreateSubscriptionProvider><CreateSubscriptionPage /></CreateSubscriptionProvider>}
-    {page === 'Subscription:List' && <ListSubscriptionProvider><ListSubscriptionPage /></ListSubscriptionProvider>}
+    <Route page='Core:Home' element={<HomePage />} />
+    <Route page='Core:Dashboard' element={<WipPage />} />
+    <Route page='Core:Notification' element={<WipPage />} />
+    <Route page='Member:List' element={<MemberListProvider><MemberListPage /></MemberListProvider>} />
+    <Route page='Member:Create' element={<CreateMemberProvider><CreateMemberPage /></CreateMemberProvider>} />
+    <Route page='Member:Detail' element={<MemberPage />} />
+    <Route page='Subscription:Create' element={<CreateSubscriptionProvider><CreateSubscriptionPage /></CreateSubscriptionProvider>} />
+    <Route page='Subscription:List' element={<ListSubscriptionProvider><ListSubscriptionPage /></ListSubscriptionProvider>} />
   </PageLayout>
 }
