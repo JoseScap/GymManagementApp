@@ -141,7 +141,7 @@ const SubscriptionPage: React.FC = () => {
         <form onSubmit={handleEdit}>
           <Grid container spacing={2} sx={{ paddingBottom: '15px' }}>
             <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-              <FormLabel>Tipo de método de Pago</FormLabel>
+              <FormLabel>Método de Pago</FormLabel>
               {
                 GetBadge(subscription.paymentMethod)
               }
