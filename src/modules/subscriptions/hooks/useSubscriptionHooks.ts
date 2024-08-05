@@ -7,8 +7,8 @@ interface SubscriptionHooks {
   subscription: {
     fullName: string;
     dni: string;
-    startDate: string;
-    endDate: string;
+    dateFrom: string;
+    dateTo: string;
     amount: number;
     paymentMethod: string;
   };
@@ -22,8 +22,8 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
   const [subscriptionId, setSubscriptionId] = useState<string | undefined>("");
   const [fullName, setFullName] = useState<string>("");
   const [dni, setDni] = useState<string>("");
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
+  const [dateFrom, setDateFrom] = useState<string>("");
+  const [dateTo, setDateTo] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
   const [paymentMethod, setPaymentMethod] = useState<string>("");
   const [lastAmount, setLastAmount] = useState<number>(0);
@@ -37,11 +37,11 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
   };
 
   const changeStartDate = (startDate: SetStateAction<string>) => {
-    setStartDate(startDate);
+    setDateFrom(startDate);
   };
 
   const changeEndDate = (endDate: SetStateAction<string>) => {
-    setEndDate(endDate);
+    setDateTo(endDate);
   };
 
   const changeAmount = (amount: SetStateAction<number>) => {
@@ -61,10 +61,16 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
       `http://localhost:3000/subscriptions/${id}?_embed=member`
     );
 
+    const startDate = dayjs(response.data.dateFrom).format("DD/MM/YYYY")
+    const endDate = dayjs(response.data.dateTo).format("DD/MM/YYYY")
+
+    console.log(response.data);
+    console.log(startDate, endDate)
+
     changeFullName(response.data.member.fullName);
     changeDni(response.data.member.dni);
-    changeStartDate(dayjs(response.data.startDate).format("DD/MM/YYYY"));
-    changeEndDate(dayjs(response.data.startDate).format("DD/MM/YYYY"));
+    changeStartDate(dayjs(response.data.dateFrom).format("DD/MM/YYYY"));
+    changeEndDate(dayjs(response.data.dateTo).format("DD/MM/YYYY"));
     setLastAmount(response.data.amount);
     changeAmount(response.data.amount);
     setPaymentMethod(response.data.paymentMethod);
@@ -74,8 +80,8 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
     subscription: {
       fullName,
       dni,
-      startDate,
-      endDate,
+      dateFrom,
+      dateTo,
       amount,
       paymentMethod,
     },

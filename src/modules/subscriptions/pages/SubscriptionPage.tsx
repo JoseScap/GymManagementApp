@@ -163,7 +163,7 @@ const SubscriptionPage: React.FC = () => {
               <FormControl
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
-                <Input size="sm" value={subscription.startDate}
+                <Input size="sm" value={subscription.dateFrom}
                   disabled={true}
                 />
               </FormControl>
@@ -173,7 +173,7 @@ const SubscriptionPage: React.FC = () => {
               <FormControl
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
-                <Input size="sm" value={subscription.endDate}
+                <Input size="sm" value={subscription.dateTo}
                   disabled={true}
                 />
               </FormControl>
