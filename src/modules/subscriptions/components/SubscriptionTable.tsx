@@ -118,10 +118,10 @@ const SubscriptionTable: React.FC = () => {
                   </tr>
                 ) : (
                     subscriptions.map(({ id: id, dateFrom: dateFrom, dateTo: dateTo, 
-                        amount: amount, paymentMethod: paymentMethod, member: member }) => (
-                        <tr key={id}>
+                        amount: amount, paymentMethod: paymentMethod, member: member, isCanceled: isCanceled }) => (
+                        <tr key={id} >
                           <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center">
+                            <Box width="100%" height="100%" display="flex" alignItems="center" color={ isCanceled ? 'red' : 'green'}>
                               {member.fullName}
                             </Box>
                           </td>
