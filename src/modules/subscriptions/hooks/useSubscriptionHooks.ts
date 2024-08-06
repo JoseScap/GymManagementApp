@@ -1,11 +1,13 @@
-import { SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useContext } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
+import { SubscriptionPageContext } from "../contexts/SubscriptionPageContext";
 
 // Interface that should be return by the hook
 interface SubscriptionHooks {
   subscription: {
+    id: string;
     fullName: string;
     dni: string;
     dateFrom: string;
@@ -14,71 +16,68 @@ interface SubscriptionHooks {
     paymentMethod: PaymentMethod;
   };
   lastAmount: number;
-  getMemberBySubscriptionId: (id: string | undefined) => Promise<any>;
-  changeAmount: (amount: SetStateAction<number>) => void;
+  open: boolean;
+  getMemberBySubscriptionId: (id: string | undefined) => Promise<void>;
   resetValues: () => void;
+  deleteSubscriptionById: () => Promise<void>;
+  changeSubscriptionAmount: (newAmount: number) => void;
+  alternateModal: () => void;
 }
 
 export const useSubscriptionHooks = (): SubscriptionHooks => {
-  const [subscriptionId, setSubscriptionId] = useState<string | undefined>("");
-  const [fullName, setFullName] = useState<string>("");
-  const [dni, setDni] = useState<string>("");
-  const [dateFrom, setDateFrom] = useState<string>("");
-  const [dateTo, setDateTo] = useState<string>("");
-  const [amount, setAmount] = useState<number>(0);
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Efectivo");
-  const [lastAmount, setLastAmount] = useState<number>(0);
+  const {
+    id, fullName, dni, dateFrom, dateTo, amount, paymentMethod, lastAmount,
+    setId, setFullName, setDni, setDateFrom, setDateTo, setAmount, setPaymentMethod, setLastAmount,
+    open, setOpen
+  } = useContext(SubscriptionPageContext);
 
-  const changeFullName = (fullName: SetStateAction<string>) => {
-    setFullName(fullName);
-  };
-
-  const changeDni = (dni: SetStateAction<string>) => {
-    setDni(dni);
-  };
-
-  const changeStartDate = (startDate: SetStateAction<string>) => {
-    setDateFrom(startDate);
-  };
-
-  const changeEndDate = (endDate: SetStateAction<string>) => {
-    setDateTo(endDate);
-  };
-
-  const changeAmount = (amount: SetStateAction<number>) => {
-    setAmount(amount);
-  };
+  const alternateModal = () => {
+    setOpen(!open);
+  }
 
   const resetValues = () => {
     setAmount(lastAmount);
-  };
+  }
+
+  const changeSubscriptionAmount = (newAmount: number) => {
+    setAmount(newAmount);
+  }
 
   const getMemberBySubscriptionId = async (id: string | undefined) => {
     if (!id) {
       return;
     }
-    setSubscriptionId(id);
+
+    setId(id);
     const response = await axios.get(
       `http://localhost:3000/subscriptions/${id}?_embed=member`
     );
 
-    const startDate = dayjs(response.data.dateFrom).format("DD/MM/YYYY")
-    const endDate = dayjs(response.data.dateTo).format("DD/MM/YYYY")
-
-    console.log(response.data);
-    console.log(startDate, endDate)
-
-    changeFullName(response.data.member.fullName);
-    changeDni(response.data.member.dni);
-    changeStartDate(dayjs(response.data.dateFrom).format("DD/MM/YYYY"));
-    changeEndDate(dayjs(response.data.dateTo).format("DD/MM/YYYY"));
-    setLastAmount(response.data.amount);
-    changeAmount(response.data.amount);
+    setFullName(response.data.member.fullName);
+    setDni(response.data.member.dni);
+    setDateFrom(dayjs(response.data.dateFrom).format("DD/MM/YYYY"));
+    setDateTo(dayjs(response.data.dateTo).format("DD/MM/YYYY"));
+    setAmount(response.data.amount);
     setPaymentMethod(response.data.paymentMethod);
+    setLastAmount(response.data.amount);
+    
   };
+
+  const deleteSubscriptionById = async () => {
+    if (!id) {
+      return;
+    }
+
+    await axios.patch(`http://localhost:3000/subscriptions/${id}`,
+      {
+        isCanceled: true,
+      }
+    ); 
+  }
 
   return {
     subscription: {
+      id,
       fullName,
       dni,
       dateFrom,
@@ -86,9 +85,12 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
       amount,
       paymentMethod,
     },
-    getMemberBySubscriptionId,
-    changeAmount,
-    resetValues,
     lastAmount,
+    open,
+    alternateModal,
+    changeSubscriptionAmount,
+    resetValues,
+    getMemberBySubscriptionId,
+    deleteSubscriptionById
   };
 };

@@ -23,6 +23,8 @@ import { PaymentMethod } from "../../common/types/subscription";
 import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import { useNavigate, useParams } from "../../../routers/useRouterHooks.ts";
+import { DeleteForeverRounded } from "@mui/icons-material";
+import SubscriptionDeleteModal from "../components/SubscriptionDeleteModal.tsx";
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
   Efectivo: <LocalAtmRoundedIcon />,
@@ -48,7 +50,7 @@ const GetBadge = (status: PaymentMethod) => {
 }
 
 const SubscriptionPage: React.FC = () => {
-  const { subscription, getMemberBySubscriptionId, changeAmount, resetValues, lastAmount } = useSubscriptionHooks();
+  const { subscription, lastAmount, getMemberBySubscriptionId, resetValues, changeSubscriptionAmount, alternateModal } = useSubscriptionHooks();
 
   const [edit, setEdit] = useState(false);
 
@@ -57,7 +59,6 @@ const SubscriptionPage: React.FC = () => {
 
   useEffect(() => {
     getMemberBySubscriptionId(subscriptionId);
-    console.log(subscription)
   }, [subscriptionId])
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -112,6 +113,13 @@ const SubscriptionPage: React.FC = () => {
           >
             <ReplayRoundedIcon />
           </IconButton>
+          <IconButton
+            variant="outlined"
+            color="danger"
+            onClick={() => { alternateModal() }}
+          >
+            <DeleteForeverRounded />
+          </IconButton>
         </Grid>
       </Grid>
       <Divider />
@@ -152,7 +160,7 @@ const SubscriptionPage: React.FC = () => {
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
                 <Input size="sm" defaultValue={lastAmount} value={subscription.amount}
-                onChange={(e) => { changeAmount(Number(e.target.value)) }}
+                onChange={(e) => { changeSubscriptionAmount(Number(e.target.value)) }}
 
                   disabled={!edit}
                 />
@@ -196,6 +204,7 @@ const SubscriptionPage: React.FC = () => {
         </CardOverflow>
       </form>
     </Card>
+    <SubscriptionDeleteModal />
   </>
 }
 

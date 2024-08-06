@@ -177,7 +177,7 @@
       "dateTo": "2024-08-07T03:00:00.000Z",
       "memberId": "1",
       "paymentMethod": "Efectivo",
-      "isCanceled": false
+      "isCanceled": true
     },
     {
       "id": "1cb1",
