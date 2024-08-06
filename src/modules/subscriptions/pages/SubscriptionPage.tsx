@@ -89,6 +89,7 @@ const SubscriptionPage: React.FC = () => {
       <AppBreadcrumbs
         items={[
           <StarsRounded />,
+            <Typography fontWeight="bold">Subscripciones</Typography>,
             <Typography fontWeight="bold">Lista de Subscripciones</Typography>,
             <Typography fontWeight="bold">Socio {`${subscription.fullName}`}</Typography>,
         ]}
