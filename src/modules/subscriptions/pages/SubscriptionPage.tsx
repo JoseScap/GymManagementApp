@@ -15,7 +15,6 @@ import {
 } from "@mui/joy";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import { ReactNode, useEffect, useState } from "react";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';
@@ -23,6 +22,7 @@ import { useSubscriptionHooks } from "../hooks/useSubscriptionHooks.ts";
 import { PaymentMethod } from "../../common/types/subscription";
 import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
+import { useNavigate, useParams } from "../../../routers/useRouterHooks.ts";
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
   Efectivo: <LocalAtmRoundedIcon />,
@@ -34,7 +34,7 @@ const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
   Transferencia: "warning",
 }
 
-const GetBadge = (status: string) => {
+const GetBadge = (status: PaymentMethod) => {
   return (
     <Chip
       variant="soft"
@@ -52,7 +52,7 @@ const SubscriptionPage: React.FC = () => {
 
   const [edit, setEdit] = useState(false);
 
-  const navigate: NavigateFunction = useNavigate();
+  const navigate = useNavigate();
   const { id: subscriptionId } = useParams();
 
   useEffect(() => {
@@ -185,7 +185,7 @@ const SubscriptionPage: React.FC = () => {
         <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
           <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
             <Button size="sm" variant="outlined" color="neutral"
-              onClick={() => { navigate("../list") }}>
+              onClick={() => { navigate("Subscription:List") }}>
               Volver atrás
             </Button>
             <Button size="sm" variant="solid" type="submit" disabled={!edit}

@@ -10,11 +10,11 @@ import Sheet from '@mui/joy/Sheet';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import QuestionAnswerRoundedIcon from '@mui/icons-material/QuestionAnswerRounded';
-import {useNavigate} from "react-router-dom";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import {Dispatch, ReactNode, SetStateAction, useState} from "react";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import {StarsRounded} from "@mui/icons-material";
+import { useNavigate } from '../../../routers';
 
 function Toggler({
                    defaultExpanded = false,
@@ -106,7 +106,7 @@ export default function Sidebar() {
           }}
         >
           <ListItem>
-            <ListItemButton onClick={() => navigate('/')}>
+            <ListItemButton onClick={() => navigate('Core:Home')}>
               <HomeRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Inicio</Typography>
@@ -115,7 +115,7 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton onClick={() => navigate('/analytics')}>
+            <ListItemButton onClick={() => navigate('Core:Dashboard')}>
               <DashboardRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Analisis</Typography>
@@ -139,12 +139,12 @@ export default function Sidebar() {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton onClick={() => navigate('/members/create')}>
+                  <ListItemButton onClick={() => navigate('Member:Create')}>
                     Nuevo socio
                   </ListItemButton>
                 </ListItem>
                 <ListItem>
-                  <ListItemButton onClick={() => navigate('/members/list')}>
+                  <ListItemButton onClick={() => navigate('Member:List')}>
                     Lista de socios
                   </ListItemButton>
                 </ListItem>
@@ -168,12 +168,12 @@ export default function Sidebar() {
             >
               <List sx={{ gap: 0.5 }}>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton onClick={() => navigate('/subscriptions/create')}>
+                  <ListItemButton onClick={() => navigate('Subscription:Create')}>
                     Nueva suscripción
                   </ListItemButton>
                 </ListItem>
                 <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton onClick={() => navigate('/subscriptions/list')}>
+                  <ListItemButton onClick={() => navigate('Subscription:List')}>
                     Lista de Suscripciones
                   </ListItemButton>
                 </ListItem>
@@ -182,7 +182,7 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
-            <ListItemButton onClick={() => navigate('/notifications')}>
+            <ListItemButton onClick={() => navigate('Core:Notification')}>
               <QuestionAnswerRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Notificaciones</Typography>

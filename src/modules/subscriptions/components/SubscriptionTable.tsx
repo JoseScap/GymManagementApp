@@ -7,13 +7,13 @@ import { MemberStatus } from "../../common/types/members";
 import { ReactNode } from "react";
 import Sheet from "@mui/joy/Sheet";
 import { useListSubscription } from "../hooks/useListSubscriptionHooks";
-import { NavigateFunction, useNavigate } from "react-router-dom";
 import { PaymentMethod } from "../../common/types/subscription";
 import dayjs from 'dayjs';
 import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { DeleteForeverRounded } from "@mui/icons-material";
+import { useNavigate } from "../../../../src/routers";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -40,8 +40,8 @@ const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
 }
 
 const SubscriptionTable: React.FC = () => {
-  const { currentPage: { data: subscriptions } } = useListSubscription();
-  const navigate: NavigateFunction = useNavigate();
+    const { currentPage: { data: subscriptions } } = useListSubscription();
+    const navigate = useNavigate();
 
   return (
     <Sheet
@@ -108,78 +108,87 @@ const SubscriptionTable: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {
-            subscriptions.length === 0 ? (
-              <tr>
-                <td scope="col" colSpan={7}>
-                  <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
-                    No se encontraron subscripciones.
-                  </Box>
-                </td>
-              </tr>
-            ) : (
-              subscriptions.map(({ id: id, dateFrom: dateFrom, dateTo: dateTo,
-                amount: amount, paymentMethod: paymentMethod, member: member }) => (
-                <tr key={id}>
-                  <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center">
-                      {member.fullName}
-                    </Box>
-                  </td>
-                  <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center">
-                      <Chip
-                        variant="soft"
-                        size="md"
-                        startDecorator={startDecoratorDictionary[member.currentStatus]}
-                        color={colorDictionary[member.currentStatus]}
-                      >
-                        {member.currentStatus}
-                      </Chip>
-                    </Box>
-                  </td>
-                  <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center">
-                      {dayjs(dateFrom).format('DD/MM/YYYY')}
-                    </Box>
-                  </td>
-                  <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center">
-                      {dayjs(dateTo).format('DD/MM/YYYY')}
-                    </Box>
-                  </td>
-                  <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center">
-                      $ {amount.toLocaleString('es-AR')}
-                    </Box>
-                  </td>
-                  <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center">
-                      <Chip
-                        variant="soft"
-                        size="md"
-                        startDecorator={startDecoratorPaymentMethod[paymentMethod]}
-                        color={colorPaymentMethodDictionary[paymentMethod]}
-                      >
-                        {paymentMethod}
-                      </Chip>
-                    </Box>
-                  </td>
-                  <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end" gap="4px">
-                      <IconButton
-                        variant="outlined"
-                        color="warning"
-                        onClick={() => navigate(`../subscription/${id}`)}
-                      >
-                        <VisibilityRoundedIcon />
-                      </IconButton>
-                    </Box>
-                  </td>
-                </tr>
-              ))
-            )
-          }
+            {
+                subscriptions.length === 0 ? (
+                    <tr>
+                        <td scope="col" colSpan={7}>
+                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
+                                No se encontraron subscripciones.
+                            </Box>
+                        </td>
+                  </tr>
+                ) : (
+                    subscriptions.map(({ id: id, dateFrom: dateFrom, dateTo: dateTo, 
+                        amount: amount, paymentMethod: paymentMethod, member: member }) => (
+                        <tr key={id}>
+                          <td scope="col">
+                            <Box width="100%" height="100%" display="flex" alignItems="center">
+                              {member.fullName}
+                            </Box>
+                          </td>
+                          <td scope="col">
+                            <Box width="100%" height="100%" display="flex" alignItems="center">
+                              <Chip
+                                variant="soft"
+                                size="md"
+                                startDecorator={startDecoratorDictionary[member.currentStatus]}
+                                color={colorDictionary[member.currentStatus]}
+                              >
+                                {member.currentStatus}
+                              </Chip>
+                            </Box>
+                          </td>
+                          <td scope="col">
+                            <Box width="100%" height="100%" display="flex" alignItems="center">
+                                {dayjs(dateFrom).format('DD/MM/YYYY')}
+                            </Box>
+                          </td>
+                          <td scope="col">
+                            <Box width="100%" height="100%" display="flex" alignItems="center">
+                                {dayjs(dateTo).format('DD/MM/YYYY')}
+                            </Box>
+                          </td>
+                          <td scope="col">
+                            <Box width="100%" height="100%" display="flex" alignItems="center">
+                              $ {amount.toLocaleString('es-AR')}
+                            </Box>
+                          </td>
+                          <td scope="col">
+                          <Box width="100%" height="100%" display="flex" alignItems="center">
+                              <Chip
+                                variant="soft"
+                                size="md"
+                                startDecorator={startDecoratorPaymentMethod[paymentMethod]}
+                                color={colorPaymentMethodDictionary[paymentMethod]}
+                              >
+                                {paymentMethod}
+                              </Chip>
+                            </Box>
+                          </td>
+                          <td scope="col">
+                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end" gap="4px">
+                              <IconButton
+                                variant="outlined"
+                                color="warning"
+                                onClick={() => navigate('Subscription:Detail', { id })}
+                              >
+                                <VisibilityRoundedIcon />
+                              </IconButton>
+                              <IconButton
+                                variant="outlined"
+                                color="danger"
+                                // onClick={() => changeIdToDelete(id)}
+                                disabled
+                              >
+                                <DeleteForeverRounded />
+                              </IconButton>
+        
+                            </Box>
+                          </td>
+                        </tr>
+                      ))
+                )
+            }
         </tbody>
       </Table>
     </Sheet>

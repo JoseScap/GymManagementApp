@@ -1,6 +1,7 @@
 import { SetStateAction, useState } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
+import { PaymentMethod } from "../../common/types/subscription";
 
 // Interface that should be return by the hook
 interface SubscriptionHooks {
@@ -10,7 +11,7 @@ interface SubscriptionHooks {
     dateFrom: string;
     dateTo: string;
     amount: number;
-    paymentMethod: string;
+    paymentMethod: PaymentMethod;
   };
   lastAmount: number;
   getMemberBySubscriptionId: (id: string | undefined) => Promise<any>;
@@ -25,7 +26,7 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
   const [dateFrom, setDateFrom] = useState<string>("");
   const [dateTo, setDateTo] = useState<string>("");
   const [amount, setAmount] = useState<number>(0);
-  const [paymentMethod, setPaymentMethod] = useState<string>("");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Efectivo");
   const [lastAmount, setLastAmount] = useState<number>(0);
 
   const changeFullName = (fullName: SetStateAction<string>) => {

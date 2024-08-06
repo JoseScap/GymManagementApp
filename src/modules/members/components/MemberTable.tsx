@@ -10,7 +10,7 @@ import { ReactNode } from "react";
 import Sheet from "@mui/joy/Sheet";
 import { DeleteForeverRounded } from "@mui/icons-material";
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-import { NavigateFunction, useNavigate } from "react-router-dom";
+import { useNavigate } from "../../../routers";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -28,7 +28,7 @@ const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
 
 const MemberTable: React.FC = () => {
   const { currentPage: { data: members }, changeIdToDelete } = useMemberList()
-  const navigate : NavigateFunction = useNavigate()
+  const navigate = useNavigate()
 
   return (
     <Sheet
@@ -129,7 +129,7 @@ const MemberTable: React.FC = () => {
                       <IconButton
                         variant="outlined"
                         color="warning"
-                        onClick={() => navigate(`../member/${id}`)}
+                        onClick={() => navigate('Member:Detail', { id })}
                       >
                         <VisibilityRoundedIcon />
                       </IconButton>
