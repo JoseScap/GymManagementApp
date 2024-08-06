@@ -13,6 +13,7 @@ import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { useNavigate } from "../../../../src/routers";
+import { isCancel } from "axios";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -169,7 +170,7 @@ const SubscriptionTable: React.FC = () => {
                               <IconButton
                                 variant="outlined"
                                 color="warning"
-                                onClick={() => navigate('Subscription:Detail', { id })}
+                                onClick={() => navigate('Subscription:Detail', { id, isCanceled })}
                               >
                                 <VisibilityRoundedIcon />
                               </IconButton>

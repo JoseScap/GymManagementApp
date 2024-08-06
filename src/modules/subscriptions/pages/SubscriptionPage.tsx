@@ -55,7 +55,7 @@ const SubscriptionPage: React.FC = () => {
   const [edit, setEdit] = useState(false);
 
   const navigate = useNavigate();
-  const { id: subscriptionId } = useParams();
+  const { id: subscriptionId, isCanceled: isCanceled } = useParams();
 
   useEffect(() => {
     getMemberBySubscriptionId(subscriptionId);
@@ -89,7 +89,7 @@ const SubscriptionPage: React.FC = () => {
         ]}
       />
     </Box>
-    <Typography level="h2">Subscripción</Typography>
+    <Typography level="h2" sx={{ color: !isCanceled ? 'green' : 'red'}}>Subscripción</Typography>
     <Card>
       <Grid container spacing={2}>
         <Grid xs={8}>
