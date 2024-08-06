@@ -30,18 +30,18 @@ const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
 }
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
-    Efectivo: <LocalAtmRoundedIcon />,
-    Transferencia: <AccountBalanceRoundedIcon />,
+  Efectivo: <LocalAtmRoundedIcon />,
+  Transferencia: <AccountBalanceRoundedIcon />,
 }
 
 const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
-    Efectivo: "success",
-    Transferencia: "warning",
+  Efectivo: "success",
+  Transferencia: "warning",
 }
 
 const SubscriptionTable: React.FC = () => {
-    const { currentPage: { data: subscriptions } } = useListSubscription();
-    const navigate : NavigateFunction = useNavigate();
+  const { currentPage: { data: subscriptions } } = useListSubscription();
+  const navigate: NavigateFunction = useNavigate();
 
   return (
     <Sheet
@@ -108,86 +108,78 @@ const SubscriptionTable: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-            {
-                subscriptions.length === 0 ? (
-                    <tr>
-                        <td scope="col" colSpan={7}>
-                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
-                                No se encontraron subscripciones.
-                            </Box>
-                        </td>
-                  </tr>
-                ) : (
-                    subscriptions.map(({ id: id, dateFrom: dateFrom, dateTo: dateTo, 
-                        amount: amount, paymentMethod: paymentMethod, member: member }) => (
-                        <tr key={id}>
-                          <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center">
-                              {member.fullName}
-                            </Box>
-                          </td>
-                          <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center">
-                              <Chip
-                                variant="soft"
-                                size="md"
-                                startDecorator={startDecoratorDictionary[member.currentStatus]}
-                                color={colorDictionary[member.currentStatus]}
-                              >
-                                {member.currentStatus}
-                              </Chip>
-                            </Box>
-                          </td>
-                          <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center">
-                                {dayjs(dateFrom).format('DD/MM/YYYY')}
-                            </Box>
-                          </td>
-                          <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center">
-                                {dayjs(dateTo).format('DD/MM/YYYY')}
-                            </Box>
-                          </td>
-                          <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center">
-                              $ {amount.toLocaleString('es-AR')}
-                            </Box>
-                          </td>
-                          <td scope="col">
-                          <Box width="100%" height="100%" display="flex" alignItems="center">
-                              <Chip
-                                variant="soft"
-                                size="md"
-                                startDecorator={startDecoratorPaymentMethod[paymentMethod]}
-                                color={colorPaymentMethodDictionary[paymentMethod]}
-                              >
-                                {paymentMethod}
-                              </Chip>
-                            </Box>
-                          </td>
-                          <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end" gap="4px">
-                              <IconButton
-                                variant="outlined"
-                                color="warning"
-                                onClick={() => navigate(`../subscription/${id}`)}
-                              >
-                                <VisibilityRoundedIcon />
-                              </IconButton>
-                              <IconButton
-                                variant="outlined"
-                                color="danger"
-                                // onClick={() => changeIdToDelete(id)}
-                              >
-                                <DeleteForeverRounded />
-                              </IconButton>
-        
-                            </Box>
-                          </td>
-                        </tr>
-                      ))
-                )
-            }
+          {
+            subscriptions.length === 0 ? (
+              <tr>
+                <td scope="col" colSpan={7}>
+                  <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
+                    No se encontraron subscripciones.
+                  </Box>
+                </td>
+              </tr>
+            ) : (
+              subscriptions.map(({ id: id, dateFrom: dateFrom, dateTo: dateTo,
+                amount: amount, paymentMethod: paymentMethod, member: member }) => (
+                <tr key={id}>
+                  <td scope="col">
+                    <Box width="100%" height="100%" display="flex" alignItems="center">
+                      {member.fullName}
+                    </Box>
+                  </td>
+                  <td scope="col">
+                    <Box width="100%" height="100%" display="flex" alignItems="center">
+                      <Chip
+                        variant="soft"
+                        size="md"
+                        startDecorator={startDecoratorDictionary[member.currentStatus]}
+                        color={colorDictionary[member.currentStatus]}
+                      >
+                        {member.currentStatus}
+                      </Chip>
+                    </Box>
+                  </td>
+                  <td scope="col">
+                    <Box width="100%" height="100%" display="flex" alignItems="center">
+                      {dayjs(dateFrom).format('DD/MM/YYYY')}
+                    </Box>
+                  </td>
+                  <td scope="col">
+                    <Box width="100%" height="100%" display="flex" alignItems="center">
+                      {dayjs(dateTo).format('DD/MM/YYYY')}
+                    </Box>
+                  </td>
+                  <td scope="col">
+                    <Box width="100%" height="100%" display="flex" alignItems="center">
+                      $ {amount.toLocaleString('es-AR')}
+                    </Box>
+                  </td>
+                  <td scope="col">
+                    <Box width="100%" height="100%" display="flex" alignItems="center">
+                      <Chip
+                        variant="soft"
+                        size="md"
+                        startDecorator={startDecoratorPaymentMethod[paymentMethod]}
+                        color={colorPaymentMethodDictionary[paymentMethod]}
+                      >
+                        {paymentMethod}
+                      </Chip>
+                    </Box>
+                  </td>
+                  <td scope="col">
+                    <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end" gap="4px">
+                      <IconButton
+                        variant="outlined"
+                        color="warning"
+                        onClick={() => navigate(`../subscription/${id}`)}
+                      >
+                        <VisibilityRoundedIcon />
+                      </IconButton>
+                    </Box>
+                  </td>
+                </tr>
+              ))
+            )
+          }
         </tbody>
       </Table>
     </Sheet>
