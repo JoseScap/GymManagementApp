@@ -11,6 +11,7 @@ import CreateSubscriptionPage from "../modules/subscriptions/pages/CreateSubscri
 import { ListSubscriptionProvider } from "../modules/subscriptions/contexts/ListSubscriptionContext.tsx";
 import ListSubscriptionPage from "../modules/subscriptions/pages/ListSubscriptionPage.tsx";
 import { Route } from "./index.ts";
+import SubscriptionPage from "../modules/subscriptions/pages/SubscriptionPage.tsx";
 
 export const AppRouter: React.FC = () => {
   return <PageLayout>
@@ -22,5 +23,6 @@ export const AppRouter: React.FC = () => {
     <Route page='Member:Detail' element={<MemberPage />} />
     <Route page='Subscription:Create' element={<CreateSubscriptionProvider><CreateSubscriptionPage /></CreateSubscriptionProvider>} />
     <Route page='Subscription:List' element={<ListSubscriptionProvider><ListSubscriptionPage /></ListSubscriptionProvider>} />
+    <Route page='Subscription:Detail' element={<SubscriptionPage/>} />
   </PageLayout>
 }

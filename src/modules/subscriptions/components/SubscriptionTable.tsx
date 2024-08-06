@@ -30,13 +30,13 @@ const colorDictionary: Record<MemberStatus, ColorPaletteProp> = {
 }
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
-    Efectivo: <LocalAtmRoundedIcon />,
-    Transferencia: <AccountBalanceRoundedIcon />,
+  Efectivo: <LocalAtmRoundedIcon />,
+  Transferencia: <AccountBalanceRoundedIcon />,
 }
 
 const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
-    Efectivo: "success",
-    Transferencia: "warning",
+  Efectivo: "success",
+  Transferencia: "warning",
 }
 
 const SubscriptionTable: React.FC = () => {
@@ -170,8 +170,7 @@ const SubscriptionTable: React.FC = () => {
                               <IconButton
                                 variant="outlined"
                                 color="warning"
-                                onClick={() => navigate('Subscription:List', { id })}
-                                disabled
+                                onClick={() => navigate('Subscription:Detail', { id })}
                               >
                                 <VisibilityRoundedIcon />
                               </IconButton>
