@@ -1,16 +1,14 @@
 import { Button, DialogActions, DialogContent, DialogTitle, Divider, Modal, ModalDialog } from "@mui/joy"
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import { useSubscriptionHooks } from "../hooks/useSubscriptionHooks";
-import { useNavigate } from "../../../../src/routers/useRouterHooks";
 
 const SubscriptionDeleteModal: React.FC = () => {
-  const navigate = useNavigate();
-  const { subscription, open, alternateModal, deleteSubscriptionById } = useSubscriptionHooks();
+  const { subscription, open, alternateModal, deleteSubscriptionById, getMemberBySubscriptionId } = useSubscriptionHooks();
 
   const handleDelete = () => {
     deleteSubscriptionById().finally(() => {
       alternateModal();
-      navigate("Subscription:Detail", { id: subscription.id });
+      getMemberBySubscriptionId(subscription.id);
     })
   }
 

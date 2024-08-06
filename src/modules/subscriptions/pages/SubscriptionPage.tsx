@@ -23,7 +23,7 @@ import { PaymentMethod } from "../../common/types/subscription";
 import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import { useNavigate, useParams } from "../../../routers/useRouterHooks.ts";
-import { DeleteForeverRounded } from "@mui/icons-material";
+import { DeleteForeverRounded, StarsRounded } from "@mui/icons-material";
 import SubscriptionDeleteModal from "../components/SubscriptionDeleteModal.tsx";
 import DoNotDisturbRoundedIcon from '@mui/icons-material/DoNotDisturbRounded';
 
@@ -88,8 +88,9 @@ const SubscriptionPage: React.FC = () => {
     <Box>
       <AppBreadcrumbs
         items={[
-          <GroupRoundedIcon />,
-          // <Typography fontWeight="bold">Subscipción: test</Typography>
+          <StarsRounded />,
+            <Typography fontWeight="bold">Lista de Subscripciones</Typography>,
+            <Typography fontWeight="bold">Socio {`${subscription.fullName}`}</Typography>,
         ]}
       />
     </Box>

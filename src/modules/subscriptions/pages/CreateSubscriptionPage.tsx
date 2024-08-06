@@ -7,6 +7,7 @@ import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
 import { useEffect } from "react";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import SubscriptionMemberForm from "../components/SubscriptionMemberForm.tsx";
+import { StarsRounded } from "@mui/icons-material";
 
 const CreateSubscriptionPage: React.FC = () => {
   const {
@@ -21,7 +22,7 @@ const CreateSubscriptionPage: React.FC = () => {
     <Box>
       <AppBreadcrumbs
         items={[
-          <GroupRoundedIcon />,
+          <StarsRounded />,
           <Typography fontWeight="bold">Subscripciones</Typography>,
           <Typography fontWeight="bold">Nueva suscripción</Typography>
         ]}

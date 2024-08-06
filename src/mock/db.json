@@ -222,7 +222,7 @@
       "dateTo": "2024-08-02T03:00:00.000Z",
       "memberId": "4",
       "paymentMethod": "Efectivo",
-      "isCanceled": false
+      "isCanceled": true
     },
     {
       "id": "1055",
@@ -242,7 +242,7 @@
       "memberId": "12",
       "paymentMethod": "Transferencia",
       "status": "Semana",
-      "isCanceled": false
+      "isCanceled": true
     },
     {
       "id": "45db",
@@ -252,7 +252,7 @@
       "memberId": "16",
       "paymentMethod": "Transferencia",
       "status": "Semana",
-      "isCanceled": false
+      "isCanceled": true
     },
     {
       "id": "290a",
@@ -282,7 +282,7 @@
       "memberId": "a3e8",
       "paymentMethod": "Transferencia",
       "status": "Semana",
-      "isCanceled": false
+      "isCanceled": true
     },
     {
       "id": "0dc8",
