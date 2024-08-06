@@ -100,7 +100,8 @@ const SubscriptionTable: React.FC = () => {
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end">
+              <Box width="100%" height="100%" display="flex" 
+              alignItems="center" justifyContent="center">
                 Acciones
               </Box>
             </th>
@@ -165,7 +166,7 @@ const SubscriptionTable: React.FC = () => {
                             </Box>
                           </td>
                           <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end" gap="4px">
+                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center" gap="4px">
                               <IconButton
                                 variant="outlined"
                                 color="warning"
