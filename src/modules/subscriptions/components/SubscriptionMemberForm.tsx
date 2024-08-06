@@ -4,7 +4,7 @@ import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "../../../routers";
 
 const memberStatusOptions: MemberStatus[] = ['Día', 'Semana', 'Mes']
 const paymentMethodOptions: PaymentMethod[] = ['Efectivo', 'Transferencia']
@@ -56,7 +56,7 @@ const SubscriptionMemberForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     subscribeMember()
-      .finally(() => navigate('/members/list'))
+      .finally(() => navigate('Subscription:List'))
   }
 
   return <form onSubmit={handleSubmit}>

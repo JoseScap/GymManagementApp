@@ -153,6 +153,20 @@
       "dni": "23",
       "currentStatus": "Semana",
       "phoneNumber": "23"
+    },
+    {
+      "id": "a3e8",
+      "fullName": "test111",
+      "dni": "123456789",
+      "currentStatus": "Semana",
+      "phoneNumber": ""
+    },
+    {
+      "id": "f64d",
+      "fullName": "testtest",
+      "dni": "12345678",
+      "currentStatus": "Mes",
+      "phoneNumber": ""
     }
   ],
   "subscriptions": [
@@ -258,6 +272,26 @@
       "memberId": "b67f",
       "paymentMethod": "Transferencia",
       "status": "Semana",
+      "isCanceled": false
+    },
+    {
+      "id": "c487",
+      "amount": 10000,
+      "dateFrom": "2024-08-10T03:00:00.000Z",
+      "dateTo": "2024-08-16T03:00:00.000Z",
+      "memberId": "a3e8",
+      "paymentMethod": "Transferencia",
+      "status": "Semana",
+      "isCanceled": false
+    },
+    {
+      "id": "0dc8",
+      "amount": 10000,
+      "dateFrom": "2024-08-10T03:00:00.000Z",
+      "dateTo": "2024-09-09T03:00:00.000Z",
+      "memberId": "f64d",
+      "paymentMethod": "Efectivo",
+      "status": "Mes",
       "isCanceled": false
     }
   ]

@@ -13,22 +13,22 @@ import {
 } from "@mui/joy";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import { NavigateFunction, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';
 import { useMember } from "../hooks/useMemberHooks.ts";
+import { useNavigate, useParams } from "../../../routers";
 
 const MemberPage: React.FC = () => {
   const { member, getMemberById, resetValues, changeFullName, changeDni, changePhoneNumber, editMember } = useMember();
 
   const [edit, setEdit] = useState(false);
 
-  const navigate: NavigateFunction = useNavigate();
+  const navigate = useNavigate();
   const { id: memberId } = useParams(); 
 
   useEffect(() => {
-    getMemberById(Number(memberId));
+    if (memberId !== undefined) getMemberById(memberId);
   }, [memberId])
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -38,7 +38,7 @@ const MemberPage: React.FC = () => {
       changeFullName("");
       changeDni("");
       changePhoneNumber("");
-      navigate("../list");
+      navigate("Member:List");
     })
   }
 
@@ -126,7 +126,7 @@ const MemberPage: React.FC = () => {
         <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
           <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
             <Button size="sm" variant="outlined" color="neutral"
-              onClick={() => { navigate("../list") }}>
+              onClick={() => { navigate("Member:List") }}>
               Volver atrás
             </Button>
             <Button size="sm" variant="solid" type="submit" disabled={!edit}>
