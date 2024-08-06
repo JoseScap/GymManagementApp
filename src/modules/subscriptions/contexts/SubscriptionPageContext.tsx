@@ -10,6 +10,7 @@ type SubscriptionPageContextType = {
     amount: number;
     open: boolean;
     paymentMethod: PaymentMethod;
+    isCanceled: boolean;
     lastAmount: number;
     setId: Dispatch<SetStateAction<string>>;
     setFullName: Dispatch<SetStateAction<string>>;
@@ -18,6 +19,7 @@ type SubscriptionPageContextType = {
     setDateTo: Dispatch<SetStateAction<string>>;
     setAmount: Dispatch<SetStateAction<number>>;
     setPaymentMethod: Dispatch<SetStateAction<PaymentMethod>>;
+    setIsCanceled: Dispatch<SetStateAction<boolean>>;
     setLastAmount: Dispatch<SetStateAction<number>>;
     setOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -30,6 +32,7 @@ const INITIAL_STATE: SubscriptionPageContextType = {
     dateTo: '',
     amount: 0,
     paymentMethod: "Efectivo",
+    isCanceled: false,
     lastAmount: 0,
     open: false,
     setId: () => undefined,
@@ -39,6 +42,7 @@ const INITIAL_STATE: SubscriptionPageContextType = {
     setDateTo: () => undefined,
     setAmount: () => undefined,
     setPaymentMethod: () => undefined,
+    setIsCanceled: () => undefined,
     setLastAmount: () => undefined,
     setOpen: () => undefined,
 }
@@ -54,6 +58,7 @@ const SubscriptionPageProvider: React.FC<PropsWithChildren<{}>> = ({ children })
     const [dateTo, setDateTo] = useState<string>(INITIAL_STATE.dateTo)
     const [amount, setAmount] = useState<number>(INITIAL_STATE.amount)
     const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>(INITIAL_STATE.paymentMethod)
+    const [isCanceled, setIsCanceled] = useState<boolean>(INITIAL_STATE.isCanceled)
     const [lastAmount, setLastAmount] = useState<number>(INITIAL_STATE.lastAmount)
     const [open, setOpen] = useState<boolean>(INITIAL_STATE.open)
 
@@ -67,6 +72,7 @@ const SubscriptionPageProvider: React.FC<PropsWithChildren<{}>> = ({ children })
                 dateTo,
                 amount,
                 paymentMethod,
+                isCanceled,
                 lastAmount,
                 open,
                 setId,
@@ -76,6 +82,7 @@ const SubscriptionPageProvider: React.FC<PropsWithChildren<{}>> = ({ children })
                 setDateTo,
                 setAmount,
                 setPaymentMethod,
+                setIsCanceled,
                 setLastAmount,
                 setOpen,
             }}

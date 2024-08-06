@@ -9,7 +9,8 @@ const SubscriptionDeleteModal: React.FC = () => {
 
   const handleDelete = () => {
     deleteSubscriptionById().finally(() => {
-      navigate("Subscription:List");
+      alternateModal();
+      navigate("Subscription:Detail", { id: subscription.id });
     })
   }
 
@@ -25,11 +26,11 @@ const SubscriptionDeleteModal: React.FC = () => {
               </DialogTitle>
               <Divider />
               <DialogContent>
-                Estás por eliminar la subscripción de {subscription.fullName}, ¿Estás seguro?
+                Estás por anular la subscripción de {subscription.fullName}, ¿Estás seguro?
               </DialogContent>
               <DialogActions>
                 <Button variant="solid" color="danger" onClick={handleDelete}>
-                  Eliminar Subscripción
+                  Anula Subscripción
                 </Button>
                 <Button variant="plain" color="neutral" onClick={alternateModal}>
                   Cancelar

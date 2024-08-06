@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useContext } from "react";
+import { useContext } from "react";
 import axios from "axios";
 import dayjs from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
@@ -14,21 +14,39 @@ interface SubscriptionHooks {
     dateTo: string;
     amount: number;
     paymentMethod: PaymentMethod;
+    isCanceled: boolean
   };
   lastAmount: number;
   open: boolean;
-  getMemberBySubscriptionId: (id: string | undefined) => Promise<void>;
+  getMemberBySubscriptionId: (id: string) => Promise<void>;
   resetValues: () => void;
   deleteSubscriptionById: () => Promise<void>;
-  changeSubscriptionAmount: (newAmount: number) => void;
+  changeSubscriptionAmount: (amount: number) => void;
   alternateModal: () => void;
 }
 
 export const useSubscriptionHooks = (): SubscriptionHooks => {
   const {
-    id, fullName, dni, dateFrom, dateTo, amount, paymentMethod, lastAmount,
-    setId, setFullName, setDni, setDateFrom, setDateTo, setAmount, setPaymentMethod, setLastAmount,
-    open, setOpen
+    id, 
+    fullName, 
+    dni, 
+    dateFrom, 
+    dateTo, 
+    amount, 
+    paymentMethod, 
+    isCanceled, 
+    lastAmount,
+    setId, 
+    setFullName, 
+    setDni, 
+    setDateFrom, 
+    setDateTo, 
+    setAmount, 
+    setPaymentMethod, 
+    setIsCanceled, 
+    setLastAmount,
+    open, 
+    setOpen
   } = useContext(SubscriptionPageContext);
 
   const alternateModal = () => {
@@ -39,11 +57,11 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
     setAmount(lastAmount);
   }
 
-  const changeSubscriptionAmount = (newAmount: number) => {
-    setAmount(newAmount);
+  const changeSubscriptionAmount = (amount: number) => {
+    setAmount(amount);
   }
 
-  const getMemberBySubscriptionId = async (id: string | undefined) => {
+  const getMemberBySubscriptionId = async (id: string) => {
     if (!id) {
       return;
     }
@@ -59,6 +77,7 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
     setDateTo(dayjs(response.data.dateTo).format("DD/MM/YYYY"));
     setAmount(response.data.amount);
     setPaymentMethod(response.data.paymentMethod);
+    setIsCanceled(response.data.isCanceled);
     setLastAmount(response.data.amount);
     
   };
@@ -84,6 +103,7 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
       dateTo,
       amount,
       paymentMethod,
+      isCanceled,
     },
     lastAmount,
     open,

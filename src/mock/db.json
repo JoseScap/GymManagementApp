@@ -195,7 +195,7 @@
       "dateTo": "2024-08-08T03:00:00.000Z",
       "memberId": "3",
       "paymentMethod": "Efectivo",
-      "isCanceled": false
+      "isCanceled": true
     },
     {
       "id": "6b96",
@@ -204,7 +204,7 @@
       "dateTo": "2024-08-08T03:00:00.000Z",
       "memberId": "4",
       "paymentMethod": "Efectivo",
-      "isCanceled": false
+      "isCanceled": true
     },
     {
       "id": "b511",
