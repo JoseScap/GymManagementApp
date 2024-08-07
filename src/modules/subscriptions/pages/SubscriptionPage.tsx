@@ -23,6 +23,9 @@ import { PaymentMethod } from "../../common/types/subscription";
 import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import { useNavigate, useParams } from "../../../routers/useRouterHooks.ts";
+import { DeleteForeverRounded, StarsRounded } from "@mui/icons-material";
+import SubscriptionDeleteModal from "../components/SubscriptionDeleteModal.tsx";
+import DoNotDisturbRoundedIcon from '@mui/icons-material/DoNotDisturbRounded';
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
   Efectivo: <LocalAtmRoundedIcon />,
@@ -48,7 +51,7 @@ const GetBadge = (status: PaymentMethod) => {
 }
 
 const SubscriptionPage: React.FC = () => {
-  const { subscription, getMemberBySubscriptionId, changeAmount, resetValues, lastAmount } = useSubscriptionHooks();
+  const { subscription, lastAmount, getMemberBySubscriptionId, resetValues, changeSubscriptionAmount, alternateModal } = useSubscriptionHooks();
 
   const [edit, setEdit] = useState(false);
 
@@ -56,8 +59,10 @@ const SubscriptionPage: React.FC = () => {
   const { id: subscriptionId } = useParams();
 
   useEffect(() => {
+    if (!subscriptionId) {
+      return;
+    }
     getMemberBySubscriptionId(subscriptionId);
-    console.log(subscription)
   }, [subscriptionId])
 
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -83,12 +88,17 @@ const SubscriptionPage: React.FC = () => {
     <Box>
       <AppBreadcrumbs
         items={[
-          <GroupRoundedIcon />,
-          // <Typography fontWeight="bold">Socio: {member.fullName}</Typography>
+          <StarsRounded />,
+            <Typography fontWeight="bold">Subscripciones</Typography>,
+            <Typography fontWeight="bold">Lista de Subscripciones</Typography>,
+            <Typography fontWeight="bold">Socio {`${subscription.fullName}`}</Typography>,
         ]}
       />
     </Box>
-    <Typography level="h2">Subscripción</Typography>
+
+    <Box sx={{ display: 'flex', gap: '20px'}}>
+      <Typography level="h2">Subscripción</Typography>
+    </Box>
     <Card>
       <Grid container spacing={2}>
         <Grid xs={8}>
@@ -98,20 +108,44 @@ const SubscriptionPage: React.FC = () => {
           </Box>
         </Grid>
         <Grid xs={4} display="flex" gap="8px" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
-          <IconButton
-            variant="outlined"
-            color="warning"
-            onClick={handleActiveEdit}
-          >
-            <EditRoundedIcon />
-          </IconButton>
-          <IconButton
-            variant="outlined"
-            color="danger"
-            onClick={() => { resetValues() }}
-          >
-            <ReplayRoundedIcon />
-          </IconButton>
+          {
+            subscription.isCanceled ? (
+              <Chip
+                variant="soft"
+                size="md"
+                color="danger"
+                startDecorator={<DoNotDisturbRoundedIcon />}
+              >
+                Anulada
+              </Chip>
+            ) : (
+              <>
+
+                <IconButton
+                  variant="outlined"
+                  color="warning"
+                  onClick={handleActiveEdit}
+                >
+                  <EditRoundedIcon />
+                </IconButton>
+                <IconButton
+                  variant="outlined"
+                  color="danger"
+                  onClick={() => { resetValues() }}
+                >
+                  <ReplayRoundedIcon />
+                </IconButton>
+                <IconButton
+                  variant="outlined"
+                  color="danger"
+                  onClick={() => { alternateModal() }}
+                >
+                  <DeleteForeverRounded />
+                </IconButton>
+              </>
+            )
+          }
+
         </Grid>
       </Grid>
       <Divider />
@@ -152,7 +186,7 @@ const SubscriptionPage: React.FC = () => {
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
                 <Input size="sm" defaultValue={lastAmount} value={subscription.amount}
-                onChange={(e) => { changeAmount(Number(e.target.value)) }}
+                  onChange={(e) => { changeSubscriptionAmount(Number(e.target.value)) }}
 
                   disabled={!edit}
                 />
@@ -188,14 +222,23 @@ const SubscriptionPage: React.FC = () => {
               onClick={() => { navigate("Subscription:List") }}>
               Volver atrás
             </Button>
-            <Button size="sm" variant="solid" type="submit" disabled={!edit}
-            >
-              Guardar
-            </Button>
+            {
+              subscription.isCanceled ? (
+                <>
+                </>
+              ) : (
+                <Button size="sm" variant="solid" type="submit" disabled={!edit}
+                >
+                  Guardar
+                </Button>
+              )
+            }
+
           </CardActions>
         </CardOverflow>
       </form>
     </Card>
+    <SubscriptionDeleteModal />
   </>
 }
 

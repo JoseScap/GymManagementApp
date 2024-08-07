@@ -58,27 +58,31 @@ const MemberTable: React.FC = () => {
         <thead>
           <tr>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" alignItems="center">
+              <Box width="100%" height="100%" display="flex" 
+              justifyContent="start" alignItems="center">
                 Nombre completo
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" alignItems="center">
+              <Box width="100%" height="100%" display="flex" 
+              justifyContent="start" alignItems="center">
                 Estado
               </Box>
             </th>
             <th scope="col" >
-              <Box width="100%" height="100%" display="flex" alignItems="center">
+              <Box width="100%" height="100%" display="flex" 
+              justifyContent="start" alignItems="center">
                 DNI
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" alignItems="center">
+              <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="start">
                 Numero de telefono
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end">
+              <Box width="100%" height="100%" display="flex" 
+              alignItems="center" justifyContent="center">
                 Acciones
               </Box>
             </th>
@@ -98,7 +102,8 @@ const MemberTable: React.FC = () => {
               members.map(({ id, dni, currentStatus, phoneNumber, fullName }) => (
                 <tr key={id}>
                   <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center">
+                    <Box width="100%" height="100%" display="flex" alignItems="center"
+                    >
                       {fullName}
                     </Box>
                   </td>
@@ -120,12 +125,14 @@ const MemberTable: React.FC = () => {
                     </Box>
                   </td>
                   <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center">
+                    <Box width="100%" height="100%" display="flex" 
+                    alignItems="center">
                       {phoneNumber}
                     </Box>
                   </td>
                   <td scope="col">
-                    <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end" gap="4px">
+                    <Box width="100%" height="100%" display="flex" 
+                    justifyContent="center" alignItems="center" gap="25px">
                       <IconButton
                         variant="outlined"
                         color="warning"

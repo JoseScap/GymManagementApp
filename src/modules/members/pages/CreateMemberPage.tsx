@@ -32,6 +32,7 @@ const CreateMemberPage: React.FC = () => {
       <AppBreadcrumbs
         items={[
           <GroupRoundedIcon />,
+          <Typography fontWeight="bold">Socios</Typography>,
           <Typography fontWeight="bold">Nuevo socio</Typography>
         ]}
       />

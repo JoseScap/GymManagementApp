@@ -1,10 +1,10 @@
 import {Box, Typography} from "@mui/joy";
-import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import SubscriptionTable from "../components/SubscriptionTable.tsx";
 import { useListSubscription } from "../hooks/useListSubscriptionHooks.ts";
 import {useEffect} from "react";
 import SubscriptionPaginator from "../components/SubscriptionPaginator.tsx";
+import { StarsRounded } from "@mui/icons-material";
 
 const ListSubscriptionPage: React.FC = () => {
   const { numberPage, findAllSubscription } = useListSubscription()
@@ -17,7 +17,8 @@ const ListSubscriptionPage: React.FC = () => {
     <Box>
       <AppBreadcrumbs
         items={[
-          <GroupRoundedIcon />,
+          <StarsRounded />,
+          <Typography fontWeight="bold">Subscripciones</Typography>,
           <Typography fontWeight="bold">Lista de Subscripciones</Typography>
         ]}
       />

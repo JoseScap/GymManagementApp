@@ -12,7 +12,6 @@ import dayjs from 'dayjs';
 import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
-import { DeleteForeverRounded } from "@mui/icons-material";
 import { useNavigate } from "../../../../src/routers";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
@@ -101,7 +100,8 @@ const SubscriptionTable: React.FC = () => {
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end">
+              <Box width="100%" height="100%" display="flex" 
+              alignItems="center" justifyContent="center">
                 Acciones
               </Box>
             </th>
@@ -120,7 +120,7 @@ const SubscriptionTable: React.FC = () => {
                 ) : (
                     subscriptions.map(({ id: id, dateFrom: dateFrom, dateTo: dateTo, 
                         amount: amount, paymentMethod: paymentMethod, member: member }) => (
-                        <tr key={id}>
+                        <tr key={id} >
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
                               {member.fullName}
@@ -166,7 +166,7 @@ const SubscriptionTable: React.FC = () => {
                             </Box>
                           </td>
                           <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="flex-end" gap="4px">
+                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center" gap="4px">
                               <IconButton
                                 variant="outlined"
                                 color="warning"
@@ -174,15 +174,6 @@ const SubscriptionTable: React.FC = () => {
                               >
                                 <VisibilityRoundedIcon />
                               </IconButton>
-                              <IconButton
-                                variant="outlined"
-                                color="danger"
-                                // onClick={() => changeIdToDelete(id)}
-                                disabled
-                              >
-                                <DeleteForeverRounded />
-                              </IconButton>
-        
                             </Box>
                           </td>
                         </tr>
