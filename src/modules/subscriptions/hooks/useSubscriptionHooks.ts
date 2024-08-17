@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import dayjs from "dayjs";
-import { PaymentMethod } from "../../common/types/subscription";
+import { PaymentMethod, Subscription } from "../../common/types/subscription";
 import { SubscriptionPageContext } from "../contexts/SubscriptionPageContext";
+import { SingleApiResponse } from "../../common/types/api";
 
 // Interface that should be return by the hook
 interface SubscriptionHooks {
@@ -67,18 +68,18 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
     }
 
     setId(id);
-    const response = await axios.get(
-      `http://localhost:3000/subscriptions/${id}?_embed=member`
+    const response: AxiosResponse<SingleApiResponse<Subscription>> = await axios.get(
+      `http://localhost:3000/subscriptions/${id}?embedMember=true`
     );
 
-    setFullName(response.data.member.fullName);
-    setDni(response.data.member.dni);
-    setDateFrom(dayjs(response.data.dateFrom).format("DD/MM/YYYY"));
-    setDateTo(dayjs(response.data.dateTo).format("DD/MM/YYYY"));
-    setAmount(response.data.amount);
-    setPaymentMethod(response.data.paymentMethod);
-    setIsCanceled(response.data.isCanceled);
-    setLastAmount(response.data.amount);
+    setFullName(response.data.data.member.fullName);
+    setDni(response.data.data.member.dni);
+    setDateFrom(dayjs(response.data.data.dateFrom).format("DD/MM/YYYY"));
+    setDateTo(dayjs(response.data.data.dateTo).format("DD/MM/YYYY"));
+    setAmount(response.data.data.amount);
+    setPaymentMethod(response.data.data.paymentMethod);
+    setIsCanceled(response.data.data.isCanceled);
+    setLastAmount(response.data.data.amount);
     
   };
 
