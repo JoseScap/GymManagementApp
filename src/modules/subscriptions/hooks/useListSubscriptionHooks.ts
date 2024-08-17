@@ -16,7 +16,7 @@ export const useListSubscription = (): MemberListHooks => {
   const { currentPage, setCurrentPage, numberPage, setNumberPage } = useContext(ListSubscriptionContext)
 
   const findAllSubscription = async () => {
-    const response : AxiosResponse<PaginatedApiResponse<Subscription>> = await axios.get(`http://localhost:3000/subscriptions?_page=${numberPage}&_per_page=10&_embed=member`)
+    const response : AxiosResponse<PaginatedApiResponse<Subscription>> = await axios.get(`http://localhost:3000/subscriptions?embedMember=true&page=${numberPage}`)
     setCurrentPage(response.data)
   }
 
