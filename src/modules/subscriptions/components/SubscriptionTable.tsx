@@ -1,4 +1,4 @@
-import { Box, Chip, ColorPaletteProp, IconButton, Table } from "@mui/joy";
+import { Box, Button, Chip, ColorPaletteProp, IconButton, Table } from "@mui/joy";
 import InactiveIcon from "@mui/icons-material/Block"
 import DayIcon from "@mui/icons-material/WbSunny"
 import WeekIcon from "@mui/icons-material/Filter7"
@@ -39,7 +39,7 @@ const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
 }
 
 const SubscriptionTable: React.FC = () => {
-    const { currentPage: { data: subscriptions } } = useListSubscription();
+    const { subscriptions, findNextPage } = useListSubscription();
     const navigate = useNavigate();
 
   return (
@@ -69,37 +69,42 @@ const SubscriptionTable: React.FC = () => {
       >
         <thead>
           <tr>
-            <th scope="col">
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
                 Nombre completo
               </Box>
             </th>
-            <th scope="col">
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
+              <Box width="100%" height="100%" display="flex" alignItems="center">
+                DNI
+              </Box>
+            </th>
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
                 Tipo
               </Box>
             </th>
-            <th scope="col" >
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
                 Desde
               </Box>
             </th>
-            <th scope="col">
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
                 Hasta
               </Box>
             </th>
-            <th scope="col">
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
                 Monto
               </Box>
             </th>
-            <th scope="col">
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
                 Medio de Pago
               </Box>
             </th>
-            <th scope="col">
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" 
               alignItems="center" justifyContent="center">
                 Acciones
@@ -111,7 +116,7 @@ const SubscriptionTable: React.FC = () => {
             {
                 subscriptions.length === 0 ? (
                     <tr>
-                        <td scope="col" colSpan={7}>
+                        <td scope="col" colSpan={8}>
                             <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
                                 No se encontraron subscripciones.
                             </Box>
@@ -124,6 +129,11 @@ const SubscriptionTable: React.FC = () => {
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
                               {member.fullName}
+                            </Box>
+                          </td>
+                          <td scope="col">
+                            <Box width="100%" height="100%" display="flex" alignItems="center">
+                              {member.dni}
                             </Box>
                           </td>
                           <td scope="col">
@@ -180,6 +190,13 @@ const SubscriptionTable: React.FC = () => {
                       ))
                 )
             }
+            <tr>
+              <td scope="col" colSpan={8} style={{ padding: 0 }}>
+                <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
+                  <Button fullWidth style={{ margin: 0 }} onClick={() => findNextPage()}>Cargar más</Button>
+                </Box>
+              </td>
+            </tr>
         </tbody>
       </Table>
     </Sheet>
