@@ -206,7 +206,7 @@ const SubscriptionMemberForm: React.FC = () => {
               </FormControl>
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Numero de telefono</FormLabel>
+              <FormLabel style={{ fontWeight: 'bold' }}>Numero de telefono (Opcional)</FormLabel>
               <FormControl
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >

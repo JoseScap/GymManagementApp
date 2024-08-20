@@ -180,7 +180,7 @@ const SubscriptionTable: React.FC = () => {
                               <IconButton
                                 variant="outlined"
                                 color="warning"
-                                onClick={() => navigate('Subscription:Detail', { id })}
+                                onClick={() => navigate('Member:Detail', { id: member.id })}
                               >
                                 <VisibilityRoundedIcon />
                               </IconButton>

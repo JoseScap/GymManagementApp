@@ -123,33 +123,22 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem nested>
-            <Toggler
-              renderToggle={({ open, setOpen }) => (
-                <ListItemButton onClick={() => setOpen(!open)}>
-                  <StarsRounded />
-                  <ListItemContent>
-                    <Typography level="title-sm">Suscripciones</Typography>
-                  </ListItemContent>
-                  <KeyboardArrowDownIcon
-                    sx={{ transform: open ? 'rotate(180deg)' : 'none' }}
-                  />
-                </ListItemButton>
-              )}
-            >
-              <List sx={{ gap: 0.5 }}>
-                <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton onClick={() => navigate('Subscription:Create')}>
-                    Nueva suscripción
-                  </ListItemButton>
-                </ListItem>
-                <ListItem sx={{ mt: 0.5 }}>
-                  <ListItemButton onClick={() => navigate('Subscription:List')}>
-                    Lista de Suscripciones
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            </Toggler>
+          <ListItem>
+            <ListItemButton onClick={() => navigate('Subscription:Create')}>
+              <GroupRoundedIcon />
+              <ListItemContent>
+                <Typography level="title-sm">Nueva suscripción</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem>
+            <ListItemButton onClick={() => navigate('Subscription:List')}>
+              <StarsRounded />
+              <ListItemContent>
+                <Typography level="title-sm">Lista de Suscripciones</Typography>
+              </ListItemContent>
+            </ListItemButton>
           </ListItem>
 
           <ListItem>

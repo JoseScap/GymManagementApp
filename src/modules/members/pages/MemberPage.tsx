@@ -67,8 +67,7 @@ const MemberPage: React.FC = () => {
         <Grid xs={8}>
           <Box sx={{ mb: 1 }}>
             <Typography level="title-lg" color="primary">Información del socio {`${member.fullName}`}</Typography>
-            <Typography level="body-sm">Clickea en el lapiz para cambiar la información del socio</Typography>
-            <Typography level="body-sm">Clickea en el 'restart' para volver a los datos anteriores.</Typography>
+            <Typography level="body-lg">Clickea en el lapiz para cambiar la información del socio</Typography>
           </Box>
         </Grid>
         <Grid xs={4} display="flex" gap="8px" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
