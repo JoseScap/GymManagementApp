@@ -5,7 +5,6 @@ import {
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
 import { useEffect } from "react";
-import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import SubscriptionMemberForm from "../components/SubscriptionMemberForm.tsx";
 import { StarsRounded } from "@mui/icons-material";
 

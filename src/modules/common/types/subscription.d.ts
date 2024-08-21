@@ -8,7 +8,7 @@ export type Subscription = {
   dateTo: string;
   isCanceled: boolean;
   paymentMethod: PaymentMethod;
-  member: Member;
+  member?: Member;
 };
 
 export type PaymentMethod = "Efectivo" | "Transferencia";

@@ -1,30 +1,62 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionGroup,
+  AccordionSummary,
+  Avatar,
   Box,
   Button,
   Card, CardActions,
   CardOverflow,
+  Chip,
+  ColorPaletteProp,
   Divider,
   FormControl,
   FormLabel,
   Grid,
-  IconButton,
   Input,
+  ListItemContent,
   Typography
 } from "@mui/joy";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';
 import { useMember } from "../hooks/useMemberHooks.ts";
 import { useNavigate, useParams } from "../../../routers";
+import { AccountBalanceRounded, CancelRounded, LocalAtmRounded, StarRounded } from "@mui/icons-material";
+import dayjs from "dayjs";
+import { PaymentMethod } from "../../common/types/subscription";
+
+const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
+  Efectivo: <LocalAtmRounded />,
+  Transferencia: <AccountBalanceRounded />,
+}
+
+const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
+  Efectivo: "success",
+  Transferencia: "warning",
+}
+
+const GetBadge = (status: PaymentMethod) => {
+  return (
+    <Chip
+      variant="soft"
+      size="md"
+      startDecorator={startDecoratorPaymentMethod[status]}
+      color={colorPaymentMethodDictionary[status]}
+    >
+      {status}
+    </Chip>
+  )
+}
 
 const MemberPage: React.FC = () => {
-  const { member, getMemberById, resetValues, changeFullName, changeDni, changePhoneNumber, editMember } = useMember();
+  const { member, subscriptions, getMemberById, resetValues, changeFullName, changeDni, changePhoneNumber, editMember } = useMember();
 
   const [edit, setEdit] = useState(false);
+  const [index, setIndex] = useState(-1);
 
-  const navigate = useNavigate();
   const { id: memberId } = useParams(); 
 
   useEffect(() => {
@@ -34,12 +66,11 @@ const MemberPage: React.FC = () => {
   const handleEdit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    editMember().finally(() => {
-      changeFullName("");
-      changeDni("");
-      changePhoneNumber("");
-      navigate("Member:List");
-    })
+    editMember()
+      .finally(() => {
+        getMemberById(memberId!)
+        setEdit(false)
+      })
   }
 
   const handleActiveEdit = () => {
@@ -67,25 +98,18 @@ const MemberPage: React.FC = () => {
         <Grid xs={8}>
           <Box sx={{ mb: 1 }}>
             <Typography level="title-lg" color="primary">Información del socio {`${member.fullName}`}</Typography>
-            <Typography level="body-sm">Clickea en el lapiz para cambiar la información del socio</Typography>
-            <Typography level="body-sm">Clickea en el 'restart' para volver a los datos anteriores.</Typography>
+            <Typography level="body-lg">Clickea en el lapiz para cambiar la información del socio</Typography>
           </Box>
         </Grid>
         <Grid xs={4} display="flex" gap="8px" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
-          <IconButton
+          <Button
             variant="outlined"
-            color="warning"
             onClick={handleActiveEdit}
+            color={edit ? 'danger' : 'primary'}
+            endDecorator={edit ? <CancelRounded /> : <EditRoundedIcon />}
           >
-            <EditRoundedIcon />
-          </IconButton>
-          <IconButton
-            variant="outlined"
-            color="danger"
-            onClick={() => { resetValues() }}
-          >
-            <ReplayRoundedIcon />
-          </IconButton>
+            { edit ? "Cancelar edicion" : "Editar miembro" }
+          </Button>
         </Grid>
       </Grid>
       <Divider />
@@ -96,9 +120,12 @@ const MemberPage: React.FC = () => {
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >
-              <Input size="sm" placeholder="Ingrese el apellido y nombre del socio. Ej: Cristian Orellana."
-                onChange={(e) => { changeFullName(e.target.value) }} value={member.fullName}
-                disabled={!edit}
+              <Input
+                size="md"
+                style={{ fontWeight: 'bold' }}
+                placeholder="Ingrese el apellido y nombre del socio. Ej: Cristian Orellana."
+                onChange={(e) => { if (edit) changeFullName(e.target.value) }}
+                value={member.fullName}
               />
             </FormControl>
           </Grid>
@@ -107,9 +134,12 @@ const MemberPage: React.FC = () => {
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >
-              <Input size="sm" placeholder="Ingrese el DNI. Ej: 40123456"
-                onChange={(e) => { changeDni(e.target.value) }} value={member.dni}
-                disabled={!edit}
+              <Input
+                size="md"
+                style={{ fontWeight: 'bold' }}
+                placeholder="Ingrese el DNI. Ej: 40123456"
+                onChange={(e) => { if(edit) changeDni(e.target.value) }}
+                value={member.dni}
               />
             </FormControl>
           </Grid>
@@ -118,25 +148,104 @@ const MemberPage: React.FC = () => {
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >
-              <Input size="sm" placeholder="Ingrese un numero de contacto. Ej:3814556677"
-                onChange={(e) => { changePhoneNumber(e.target.value) }} value={member.phoneNumber}
-                disabled={!edit}
+              <Input
+                size="md"
+                style={{ fontWeight: 'bold' }}
+                placeholder="Ingrese un numero de contacto. Ej:3814556677"
+                onChange={(e) => { if (edit) changePhoneNumber(e.target.value) }}
+                value={member.phoneNumber ?? ''}
               />
             </FormControl>
           </Grid>
         </Grid>
         <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
           <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-            <Button size="sm" variant="outlined" color="neutral"
-              onClick={() => { navigate("Member:List") }}>
-              Volver atrás
-            </Button>
             <Button size="sm" variant="solid" type="submit" disabled={!edit}>
               Guardar
             </Button>
           </CardActions>
         </CardOverflow>
       </form>
+    </Card>
+    <Typography level="h3">Historial</Typography>
+    <Card>
+      <Grid container spacing={2}>
+        <Grid xs={8}>
+          <Box sx={{ mb: 1 }}>
+            <Typography level="title-lg" color="primary">Historial de {`${member.fullName}`}</Typography>
+          </Box>
+        </Grid>
+      </Grid>
+      <Divider />
+      <AccordionGroup>
+        {
+          subscriptions.map((sub, idx) => (
+            <Accordion
+              key={sub.id}
+              expanded={index === idx}
+              onChange={(_, expanded) => {
+                setIndex(expanded ? idx : -1)
+              }}
+            >
+              <AccordionSummary>
+                <Avatar color={sub.isCanceled ? 'danger' : 'primary'}>
+                  <StarRounded />
+                </Avatar>
+                <ListItemContent>
+                  <Typography level="title-lg">Suscripcion {sub.isCanceled && <Chip color="danger">Cancelada</Chip>}</Typography>
+                  <Typography level="body-lg">Desde {dayjs(sub.dateFrom).format("DD/MM/YYYY")} Hasta {dayjs(sub.dateTo).format("DD/MM/YYYY")}</Typography>
+                </ListItemContent>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Card>
+                  <Grid container spacing={2}>
+                    <Grid xs={6} display="flex" gap="8px" flexDirection="column">
+                      <FormLabel>Método de Pago</FormLabel>
+                      {
+                        GetBadge(sub.paymentMethod)
+                      }
+                    </Grid>
+                    <Grid xs={6} display="flex" gap="8px" flexDirection="column">
+                      <FormLabel>Monto de la Subscripción</FormLabel>
+                      <FormControl
+                        sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
+                      >
+                        <Input
+                          size="sm"
+                          value={sub.amount}
+                          style={{ fontWeight: 'bold' }}
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={6} display="flex" gap="8px" flexDirection="column">
+                      <FormLabel>Fecha de Inicio de la Subscripción</FormLabel>
+                      <FormControl
+                        sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
+                      >
+                        <Input
+                          size="sm"
+                          value={dayjs(sub.dateFrom).format("DD/MM/YYYY")}
+                        />
+                      </FormControl>
+                    </Grid>
+                    <Grid xs={6} display="flex" gap="8px" flexDirection="column">
+                      <FormLabel>Fecha de Finalización de la Subscripción</FormLabel>
+                      <FormControl
+                        sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
+                      >
+                        <Input
+                          size="sm"
+                          value={dayjs(sub.dateTo).format("DD/MM/YYYY")}
+                        />
+                      </FormControl>
+                    </Grid>
+                  </Grid>
+                </Card>
+              </AccordionDetails>
+            </Accordion>
+          ))
+        }
+      </AccordionGroup>
     </Card>
   </>
 }

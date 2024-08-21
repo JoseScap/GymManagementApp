@@ -1,9 +1,12 @@
+import { Subscription } from "./subscription"
+
 export type Member = {
   id: string
   fullName: string
   phoneNumber: string
   currentStatus: MemberStatus
-  dni: string
+  dni: string,
+  subscriptions?: Subscription[]
 }
 
 export type MemberStatus = 'Inactivo' | 'Día' | 'Semana' | 'Mes'

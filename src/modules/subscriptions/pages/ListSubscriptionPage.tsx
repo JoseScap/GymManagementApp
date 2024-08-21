@@ -3,15 +3,14 @@ import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import SubscriptionTable from "../components/SubscriptionTable.tsx";
 import { useListSubscription } from "../hooks/useListSubscriptionHooks.ts";
 import {useEffect} from "react";
-import SubscriptionPaginator from "../components/SubscriptionPaginator.tsx";
 import { StarsRounded } from "@mui/icons-material";
 
 const ListSubscriptionPage: React.FC = () => {
-  const { numberPage, findAllSubscription } = useListSubscription()
+  const { findNextPage } = useListSubscription()
 
   useEffect(() => {
-    findAllSubscription()
-  }, [numberPage]);
+    findNextPage()
+  }, []);
 
   return <>
     <Box>
@@ -25,7 +24,6 @@ const ListSubscriptionPage: React.FC = () => {
     </Box>
     <Typography level="h2">Lista de Subscripciones</Typography>
     <SubscriptionTable />
-    <SubscriptionPaginator />
   </>
 }
 

@@ -1,5 +1,8 @@
 import { SetStateAction, useState } from "react";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
+import { SingleApiResponse } from "../../common/types/api";
+import { Member } from "../../common/types/members";
+import { Subscription } from "../../common/types/subscription";
 
 // Interface that should be return by the hook
 interface MemberHooks {
@@ -8,6 +11,7 @@ interface MemberHooks {
     dni: string;
     phoneNumber: string;
   };
+  subscriptions: Subscription[]
   resetValues: () => void;
   changeFullName: (fullName: SetStateAction<string>) => void;
   changeDni: (dni: SetStateAction<string>) => void;
@@ -24,6 +28,7 @@ export const useMember = (): MemberHooks => {
   const [fullName, setFullName] = useState<string>("");
   const [dni, setDni] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>([])
 
   const changeFullName = (fullName: SetStateAction<string>) => {
     setFullName(fullName);
@@ -43,7 +48,7 @@ export const useMember = (): MemberHooks => {
     setPhoneNumber(phoneNumberLast);
   };
 
-  const fullLastMember = (
+  const setFullLastMember = (
     fullname: string,
     dni: string,
     phoneNumber: string
@@ -53,7 +58,7 @@ export const useMember = (): MemberHooks => {
     setPhoneNumberLast(phoneNumber);
   };
 
-  const fullMember = (fullname: string, dni: string, phoneNumber: string) => {
+  const setFullMember = (fullname: string, dni: string, phoneNumber: string) => {
     setFullName(fullname);
     setDni(dni);
     setPhoneNumber(phoneNumber);
@@ -65,24 +70,25 @@ export const useMember = (): MemberHooks => {
     }
 
     setMemberId(id);
-    const response = await axios.get(`http://localhost:3000/members/${id}`);
-    fullLastMember(
-      response.data.fullName,
-      response.data.dni,
-      response.data.phoneNumber
+    const response: AxiosResponse<SingleApiResponse<Member>> = await axios.get(`http://localhost:3000/members/find-one/${id}?embedSubscriptions=true`);
+    setFullLastMember(
+      response.data.data.fullName,
+      response.data.data.dni,
+      response.data.data.phoneNumber
     );
-    fullMember(
-      response.data.fullName,
-      response.data.dni,
-      response.data.phoneNumber
+    setFullMember(
+      response.data.data.fullName,
+      response.data.data.dni,
+      response.data.data.phoneNumber
     );
+    setSubscriptions(response.data.data.subscriptions ?? [])
   };
 
   const editMember = async () => {
-    await axios.patch(`http://localhost:3000/members/${memberId}`, {
+    await axios.patch(`http://localhost:3000/members/update/${memberId}`, {
       fullName: fullName,
       dni: dni,
-      phoneNumber: phoneNumber,
+      phoneNumber: phoneNumber === '' ? undefined : phoneNumber,
     });
   };
 
@@ -92,6 +98,7 @@ export const useMember = (): MemberHooks => {
       dni: dni,
       phoneNumber: phoneNumber,
     },
+    subscriptions,
     resetValues,
     getMemberById,
     changeFullName,

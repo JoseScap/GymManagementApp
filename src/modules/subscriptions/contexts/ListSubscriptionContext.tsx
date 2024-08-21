@@ -1,43 +1,34 @@
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
 import { Subscription } from "../../common/types/subscription";
-import { PaginatedApiResponse } from "../../common/types/api";
 
 type ListSubscriptionContextType = {
-  currentPage: PaginatedApiResponse<Subscription>,
-  numberPage: number,
-  setCurrentPage: Dispatch<SetStateAction<PaginatedApiResponse<Subscription>>>,
-  setNumberPage: Dispatch<SetStateAction<number>>,
+  currentPage: number
+  subscriptions: Subscription[]  
+  setCurrentPage: Dispatch<SetStateAction<number>>
+  setSubscriptions: Dispatch<SetStateAction<Subscription[]>>
 }
 
 const INITIAL_STATE: ListSubscriptionContextType = {
-  currentPage: {
-    data: [],
-    items: 0,
-    pages: 1,
-    first: 1,
-    last: 1,
-    next: null,
-    prev: null,
-  },
-  numberPage: 1,
+  currentPage: 0,
+  subscriptions: [],
   setCurrentPage: () => undefined,
-  setNumberPage: () => undefined,
+  setSubscriptions: () => undefined
 }
 
 const ListSubscriptionContext = createContext<ListSubscriptionContextType>(INITIAL_STATE)
 const Provider = ListSubscriptionContext.Provider
 
 const ListSubscriptionProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [currentPage, setCurrentPage] = useState<PaginatedApiResponse<Subscription>>(INITIAL_STATE.currentPage)
-  const [numberPage, setNumberPage] = useState<number>(INITIAL_STATE.numberPage)
+  const [currentPage, setCurrentPage] = useState<number>(INITIAL_STATE.currentPage)
+  const [subscriptions, setSubscriptions] = useState<Subscription[]>(INITIAL_STATE.subscriptions)
 
   return (
     <Provider
       value={{
         currentPage,
-        numberPage,
+        subscriptions,
         setCurrentPage,
-        setNumberPage
+        setSubscriptions
       }}
     >
       {children}
