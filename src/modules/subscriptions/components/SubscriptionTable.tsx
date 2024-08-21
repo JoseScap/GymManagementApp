@@ -128,12 +128,12 @@ const SubscriptionTable: React.FC = () => {
                         <tr key={id} >
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
-                              {member.fullName}
+                              {member!.fullName}
                             </Box>
                           </td>
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
-                              {member.dni}
+                              {member!.dni}
                             </Box>
                           </td>
                           <td scope="col">
@@ -141,10 +141,10 @@ const SubscriptionTable: React.FC = () => {
                               <Chip
                                 variant="soft"
                                 size="md"
-                                startDecorator={startDecoratorDictionary[member.currentStatus]}
-                                color={colorDictionary[member.currentStatus]}
+                                startDecorator={startDecoratorDictionary[member!.currentStatus]}
+                                color={colorDictionary[member!.currentStatus]}
                               >
-                                {member.currentStatus}
+                                {member!.currentStatus}
                               </Chip>
                             </Box>
                           </td>
@@ -180,7 +180,7 @@ const SubscriptionTable: React.FC = () => {
                               <IconButton
                                 variant="outlined"
                                 color="warning"
-                                onClick={() => navigate('Member:Detail', { id: member.id })}
+                                onClick={() => navigate('Member:Detail', { id: member!.id })}
                               >
                                 <VisibilityRoundedIcon />
                               </IconButton>
