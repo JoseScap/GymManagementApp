@@ -4,9 +4,10 @@ import axios, { AxiosResponse } from "axios";
 import { CreateSubscriptionContext } from "../contexts/CreateSubscriptionContext.tsx";
 import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
-import { PaginatedApiResponse } from "../../common/types/api";
+import { PaginatedApiResponse, SingleApiResponse } from "../../common/types/api";
 import { CreateMemberWithSubRequest, CreateSubRequest } from "../../common/types/requests.ts";
 import { useSocket } from "../../../socket/SocketContext.tsx";
+import { CreateNewMember } from "../../common/types/responses.ts";
 
 // TODO: Seguir la convención de nombres de carpetas que tomamos en cuenta.
 interface CreateSubscriptionHooks {
@@ -125,7 +126,8 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
         status: memberStatus
       }
       if(fingerTemplate != null && fingerTemplate.length > 0) body.fingerTemplate = fingerTemplate
-      await axios.post("http://localhost:3000/members/create-one-with-sub", body)
+      const result: AxiosResponse<SingleApiResponse<CreateNewMember>> = await axios.post("http://localhost:3000/members/create-one-with-sub", body)
+      if (socket) socket.emit("App:AddFingerTemplate", result.data.data)
     } else {
       const body: CreateSubRequest = {
         amount: amount,
