@@ -1,5 +1,5 @@
-import { AspectRatio, Autocomplete, Box, Button, Card, CardActions, CardOverflow, Divider, FormControl, FormLabel, Grid, Input, Radio, RadioGroup, Stack, Step, StepButton, StepIndicator, Stepper, Typography } from "@mui/joy";
-import { Member, MemberField, MemberFieldValue, MemberStatus } from "../../common/types/members";
+import { Autocomplete, Box, Button, Card, CardActions, CardOverflow, Divider, FormControl, FormLabel, Grid, Input, Radio, RadioGroup, Stack, Step, StepButton, StepIndicator, Stepper, Typography } from "@mui/joy";
+import { Member,  MemberStatus } from "../../common/types/members";
 import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
@@ -14,8 +14,10 @@ const SubscriptionMemberForm: React.FC = () => {
   const navigate = useNavigate()
   const {
     amount,
+    captureStep,
     dateFrom,
     dateTo,
+    fingerTemplate,
     members,
     memberStatus,
     isNewMember,
@@ -23,6 +25,7 @@ const SubscriptionMemberForm: React.FC = () => {
     selectedMember,
     step,
     changeAmount,
+    changeCaptureStep,
     changeDateFrom,
     changeDateTo,
     changeMemberStatus,
@@ -219,6 +222,70 @@ const SubscriptionMemberForm: React.FC = () => {
                 />
               </FormControl>
             </Grid>
+          </Grid>
+        </Card>
+        )}
+      </Grid>
+      )}
+
+      {step >= 2 && (
+      <Grid xs={12}>
+        {!isNewMember && (<></>)}
+        
+        {isNewMember && (
+        <Card>
+          <Box sx={{ mb: 1 }}>
+            <Typography level="title-lg" color="primary">Identificacion por huella.</Typography>
+            <Typography level="body-md">Inicie la identificación por huella.</Typography>
+          </Box>
+          <Divider />
+          <Grid container spacing={2}>
+            <Grid xs={2}><Button fullWidth disabled={fingerTemplate != null} onClick={() => changeCaptureStep(1)}>Iniciar registro</Button></Grid>
+            {(captureStep >= 1 || fingerTemplate != null) &&
+              <Grid xs={10}>
+                <Stepper>
+                  <Step
+                    key={step}
+                    indicator={
+                      <StepIndicator
+                        variant={captureStep < 2 && fingerTemplate == null ? 'soft' : 'solid'}
+                        color={captureStep < 2 && fingerTemplate == null ? 'neutral' : 'primary'}
+                      >
+                        {captureStep < 2 && fingerTemplate == null ? 1 : <Check />}
+                      </StepIndicator>
+                    }
+                  >
+                    <Typography>Primera huella</Typography>
+                  </Step>
+                  <Step
+                    key={step}
+                    indicator={
+                      <StepIndicator
+                        variant={captureStep < 3 && fingerTemplate == null ? 'soft' : 'solid'}
+                        color={captureStep < 3 && fingerTemplate == null ? 'neutral' : 'primary'}
+                      >
+                        {captureStep < 3 && fingerTemplate == null ? 2 : <Check />}
+                      </StepIndicator>
+                    }
+                  >
+                    <Typography>Segunda huella</Typography>
+                  </Step>
+                  <Step
+                    key={step}
+                    indicator={
+                      <StepIndicator
+                        variant={fingerTemplate == null ? 'soft' : 'solid'}
+                        color={fingerTemplate == null ? 'neutral' : 'primary'}
+                      >
+                        {fingerTemplate == null ? 3 : <Check />}
+                      </StepIndicator>
+                    }
+                  >
+                    <Typography>Huella registrada</Typography>
+                  </Step>
+                </Stepper>
+              </Grid>
+            }
           </Grid>
         </Card>
         )}

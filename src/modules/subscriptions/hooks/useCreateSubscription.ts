@@ -1,17 +1,20 @@
 import { Member, MemberField, MemberFieldValue, MemberStatus } from "../../common/types/members";
-import { SetStateAction, useContext } from "react";
+import { SetStateAction, useContext, useDebugValue, useEffect } from "react";
 import axios, { AxiosResponse } from "axios";
 import { CreateSubscriptionContext } from "../contexts/CreateSubscriptionContext.tsx";
 import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
 import { PaginatedApiResponse } from "../../common/types/api";
 import { CreateMemberWithSubRequest, CreateSubRequest } from "../../common/types/requests.ts";
+import { useSocket } from "../../../socket/SocketContext.tsx";
 
 // TODO: Seguir la convención de nombres de carpetas que tomamos en cuenta.
 interface CreateSubscriptionHooks {
   amount: number,
+  captureStep: number,
   dateFrom: Dayjs | null
   dateTo: Dayjs | null
+  fingerTemplate: string | null
   isNewMember: boolean | null
   members: Member[]
   memberStatus: MemberStatus
@@ -19,6 +22,7 @@ interface CreateSubscriptionHooks {
   selectedMember: Member | null
   step: number
   changeAmount: (amount: SetStateAction<number>) => void
+  changeCaptureStep: (captureStep: number) => void,
   changeDateFrom: (date: SetStateAction<Dayjs | null>) => void
   changeDateTo: (date: SetStateAction<Dayjs | null>) => void
   changeIsNewMember: (isNewMember: SetStateAction<boolean | null>) => void,
@@ -34,8 +38,10 @@ interface CreateSubscriptionHooks {
 export const useCreateSubscription = (): CreateSubscriptionHooks => {
   const {
     amount,
+    captureStep,
     dateFrom,
     dateTo,
+    fingerTemplate,
     isNewMember,
     members,
     memberStatus,
@@ -43,8 +49,10 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     selectedMember,
     step,
     setAmount,
+    setCaptureStep,
     setDateFrom,
     setDateTo,
+    setFingerTemplate,
     setMembers,
     setMemberStatus,
     setIsNewMember,
@@ -52,9 +60,15 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     setSelectedMember,
     setStep
   } = useContext(CreateSubscriptionContext)
+  const { socket } = useSocket()
 
   const changeAmount = (amount: SetStateAction<number>) => {
     setAmount(amount)
+  }
+
+  const changeCaptureStep = (captureStep: number) => {
+    setCaptureStep(captureStep)
+    if (socket) socket.emit('App:ChangeAction', { number: captureStep });
   }
 
   const changeDateFrom = (date: SetStateAction<Dayjs | null>) => {
@@ -110,6 +124,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
         paymentMethod: paymentMethod,
         status: memberStatus
       }
+      if(fingerTemplate != null && fingerTemplate.length > 0) body.fingerTemplate = fingerTemplate
       await axios.post("http://localhost:3000/members/create-one-with-sub", body)
     } else {
       const body: CreateSubRequest = {
@@ -124,10 +139,23 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     }
   }
 
+  useEffect(() => {
+    if (socket) socket.on('App:Capture', (data: { Number: number, FingerImage: ArrayBuffer, FingerMergedTemplate64: string }) => {
+      if (data.Number < 3) changeCaptureStep(data.Number + 1)
+      else if (data.Number === 3 && data.FingerMergedTemplate64?.length > 0) setFingerTemplate(data.FingerMergedTemplate64)
+    })
+
+    return () => {
+      if (socket) socket.emit('App:ChangeAction', { number: 0 });
+    }
+  }, [])
+
   return {
     amount,
+    captureStep,
     dateFrom,
     dateTo,
+    fingerTemplate,
     isNewMember,
     members,
     memberStatus,
@@ -135,6 +163,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     selectedMember,
     step,
     changeAmount,
+    changeCaptureStep,
     changeDateFrom,
     changeDateTo,
     changeIsNewMember,

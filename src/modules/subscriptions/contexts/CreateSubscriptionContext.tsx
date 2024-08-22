@@ -5,8 +5,10 @@ import { PaymentMethod, Subscription } from "../../common/types/subscription";
 
 type CreateSubscriptionContextType = {
   amount: number,
+  captureStep: number,
   dateFrom: Dayjs | null
   dateTo: Dayjs | null
+  fingerTemplate: string | null
   isNewMember: boolean | null,
   members: Member[]
   memberStatus: MemberStatus
@@ -14,8 +16,10 @@ type CreateSubscriptionContextType = {
   selectedMember: Member | null
   step: number
   setAmount: Dispatch<SetStateAction<number>>
+  setCaptureStep: Dispatch<SetStateAction<number>>
   setDateFrom: Dispatch<SetStateAction<Dayjs | null>>
   setDateTo: Dispatch<SetStateAction<Dayjs | null>>
+  setFingerTemplate: Dispatch<SetStateAction<string | null>>
   setIsNewMember: Dispatch<SetStateAction<boolean | null>>
   setMembers: Dispatch<SetStateAction<Member[]>>
   setMemberStatus: Dispatch<SetStateAction<MemberStatus>>
@@ -29,8 +33,10 @@ type CreationStep = 'Member' | 'Subscription'
 
 const INITIAL_STATE: CreateSubscriptionContextType = {
   amount: 0,
+  captureStep: 0,
   dateFrom: null,
   dateTo: null,
+  fingerTemplate: null,
   isNewMember: null,
   members: [],
   memberStatus: 'Inactivo',
@@ -38,8 +44,10 @@ const INITIAL_STATE: CreateSubscriptionContextType = {
   selectedMember: null,
   step: 1,
   setAmount: () => undefined,
+  setCaptureStep: () => undefined,
   setDateFrom: () => undefined,
   setDateTo: () => undefined,
+  setFingerTemplate: () => undefined,
   setIsNewMember: () => undefined,
   setMembers: () => undefined,
   setMemberStatus: () => undefined,
@@ -53,8 +61,10 @@ const Provider = CreateSubscriptionContext.Provider
 
 const CreateSubscriptionProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [amount, setAmount] = useState<number>(INITIAL_STATE.amount)
+  const [captureStep, setCaptureStep] = useState<number>(INITIAL_STATE.captureStep)
   const [dateFrom, setDateFrom] = useState<Dayjs | null>(INITIAL_STATE.dateFrom)
   const [dateTo, setDateTo] = useState<Dayjs | null>(INITIAL_STATE.dateTo)
+  const [fingerTemplate, setFingerTemplate] = useState<string | null>(INITIAL_STATE.fingerTemplate)
   const [isNewMember, setIsNewMember] = useState<boolean | null>(INITIAL_STATE.isNewMember)
   const [members, setMembers] = useState<Member[]>(INITIAL_STATE.members)
   const [memberStatus, setMemberStatus] = useState<MemberStatus>(INITIAL_STATE.memberStatus)
@@ -65,8 +75,10 @@ const CreateSubscriptionProvider: React.FC<PropsWithChildren> = ({ children }) =
   return <Provider
     value={{
       amount,
+      captureStep,
       dateFrom,
       dateTo,
+      fingerTemplate,
       isNewMember,
       members,
       memberStatus,
@@ -74,8 +86,10 @@ const CreateSubscriptionProvider: React.FC<PropsWithChildren> = ({ children }) =
       selectedMember,
       step,
       setAmount,
+      setCaptureStep,
       setDateFrom,
       setDateTo,
+      setFingerTemplate,
       setIsNewMember,
       setMembers,
       setMemberStatus,
