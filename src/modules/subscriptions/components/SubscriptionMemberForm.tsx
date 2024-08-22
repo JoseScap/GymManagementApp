@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Button, Card, CardActions, CardOverflow, Divider, FormControl, FormLabel, Grid, Input, Radio, RadioGroup, Stack, Step, StepButton, StepIndicator, Stepper, Typography } from "@mui/joy";
+import { Autocomplete, Box, Button, Card, CardActions, CardOverflow, Divider, FormControl, FormLabel, Grid, Input, Radio, RadioGroup, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
 import { Member,  MemberStatus } from "../../common/types/members";
 import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -71,7 +71,8 @@ const SubscriptionMemberForm: React.FC = () => {
         dni: '',
         currentStatus: 'Inactivo',
         fullName: '',
-        phoneNumber: ''
+        phoneNumber: '',
+        isActive: true,
       })
     } else {
       changeSelectedMember(null)

@@ -23,7 +23,7 @@ import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import { ReactNode, useEffect, useState } from "react";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { useMember } from "../hooks/useMemberHooks.ts";
-import { useNavigate, useParams } from "../../../routers";
+import { useParams } from "../../../routers";
 import { AccountBalanceRounded, CancelRounded, LocalAtmRounded, StarRounded } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";

@@ -72,14 +72,16 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
       `http://localhost:3000/subscriptions/${id}?embedMember=true`
     );
 
-    setFullName(response.data.data.member.fullName);
-    setDni(response.data.data.member.dni);
-    setDateFrom(dayjs(response.data.data.dateFrom).format("DD/MM/YYYY"));
-    setDateTo(dayjs(response.data.data.dateTo).format("DD/MM/YYYY"));
-    setAmount(response.data.data.amount);
-    setPaymentMethod(response.data.data.paymentMethod);
-    setIsCanceled(response.data.data.isCanceled);
-    setLastAmount(response.data.data.amount);
+    if (response.data.data.member) {
+      setFullName(response.data.data.member.fullName);
+      setDni(response.data.data.member.dni);
+      setDateFrom(dayjs(response.data.data.dateFrom).format("DD/MM/YYYY"));
+      setDateTo(dayjs(response.data.data.dateTo).format("DD/MM/YYYY"));
+      setAmount(response.data.data.amount);
+      setPaymentMethod(response.data.data.paymentMethod);
+      setIsCanceled(response.data.data.isCanceled);
+      setLastAmount(response.data.data.amount);
+    }
     
   };
 

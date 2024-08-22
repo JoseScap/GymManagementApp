@@ -14,7 +14,6 @@ import {
   Typography
 } from "@mui/joy";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
-import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import { ReactNode, useEffect, useState } from "react";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import ReplayRoundedIcon from '@mui/icons-material/ReplayRounded';

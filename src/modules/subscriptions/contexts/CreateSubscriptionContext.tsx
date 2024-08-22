@@ -1,7 +1,7 @@
 import { Member, MemberStatus } from "../../common/types/members";
 import { createContext, Dispatch, PropsWithChildren, SetStateAction, useState } from "react";
 import { Dayjs } from "dayjs";
-import { PaymentMethod, Subscription } from "../../common/types/subscription";
+import { PaymentMethod } from "../../common/types/subscription";
 
 type CreateSubscriptionContextType = {
   amount: number,

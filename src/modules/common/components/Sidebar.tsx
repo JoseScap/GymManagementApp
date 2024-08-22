@@ -10,43 +10,9 @@ import Sheet from '@mui/joy/Sheet';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import QuestionAnswerRoundedIcon from '@mui/icons-material/QuestionAnswerRounded';
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import {Dispatch, ReactNode, SetStateAction, useState} from "react";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import {StarsRounded} from "@mui/icons-material";
 import { useNavigate } from '../../../routers';
-
-function Toggler({
-                   defaultExpanded = false,
-                   renderToggle,
-                   children,
-                 }: {
-  defaultExpanded?: boolean;
-  children: ReactNode;
-  renderToggle: (params: {
-    open: boolean;
-    setOpen: Dispatch<SetStateAction<boolean>>;
-  }) => ReactNode;
-}) {
-  const [open, setOpen] = useState(defaultExpanded);
-  return (
-    <>
-      {renderToggle({ open, setOpen })}
-      <Box
-        sx={{
-          display: 'grid',
-          gridTemplateRows: open ? '1fr' : '0fr',
-          transition: '0.2s ease',
-          '& > *': {
-            overflow: 'hidden',
-          },
-        }}
-      >
-        {children}
-      </Box>
-    </>
-  );
-}
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -142,6 +108,15 @@ export default function Sidebar() {
           </ListItem>
 
           <ListItem>
+            <ListItemButton onClick={() => navigate('Core:MiSocio')}>
+              <GroupRoundedIcon />
+              <ListItemContent>
+                <Typography level="title-sm">Mi socío</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          {/* <ListItem>
             <ListItemButton onClick={() => navigate('Core:Notification')}>
               <QuestionAnswerRoundedIcon />
               <ListItemContent>
@@ -151,7 +126,7 @@ export default function Sidebar() {
                 4
               </Chip>
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
         </List>
       </Box>
     </Sheet>
