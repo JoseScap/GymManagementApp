@@ -10,6 +10,7 @@ export type CreateMemberWithSubRequest = {
   dateTo: string
   paymentMethod: PaymentMethod
   status: MemberStatus
+  fingerTemplate?: string
 }
 
 export type CreateSubRequest = {
