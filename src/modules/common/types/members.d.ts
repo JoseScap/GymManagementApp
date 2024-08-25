@@ -4,7 +4,7 @@ import { Subscription } from "./subscription"
 export type Member = {
   id: string
   fullName: string
-  phoneNumber?: string
+  phoneNumber: string
   currentStatus: MemberStatus
   dni: string,
   isActive: boolean
