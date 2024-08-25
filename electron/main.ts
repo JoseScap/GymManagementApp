@@ -24,6 +24,8 @@ function createWindows() {
     webPreferences: {
       preload: path.join(__dirname, 'preload.mjs'),
     },
+    width: displays[0].bounds.width,
+    height: displays[0].bounds.height,
     x: displays[0].bounds.x,
     y: displays[0].bounds.y,
   })
@@ -45,6 +47,8 @@ function createWindows() {
       webPreferences: {
         preload: path.join(__dirname, 'preload.mjs'),
       },
+      width: displays[1].bounds.width,
+      height: displays[1].bounds.height,
       x: displays[1].bounds.x,
       y: displays[1].bounds.y,
     })
