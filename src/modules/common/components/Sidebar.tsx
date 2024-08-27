@@ -11,6 +11,7 @@ import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import {StarsRounded} from "@mui/icons-material";
 import { useNavigate } from '../../../routers';
+import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -110,6 +111,15 @@ export default function Sidebar() {
               <GroupRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Mi socío</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem>
+            <ListItemButton onClick={() => navigate('Class:List')}>
+              <ClassOutlinedIcon />
+              <ListItemContent>
+                <Typography level="title-sm">Clases</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
