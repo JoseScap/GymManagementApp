@@ -75,7 +75,6 @@ const ClassTable: React.FC = () => {
         <tbody>
           {
             gymClasses.length > 0 ? gymClasses
-            .filter((gymClass) => gymClass.isCanceled === false) /* Evaluar si esto iría aquí o no */
             .map((gymClass) => (
               <tr key={gymClass.id}>
                 <td>
