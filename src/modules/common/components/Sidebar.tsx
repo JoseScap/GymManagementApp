@@ -9,8 +9,9 @@ import Sheet from '@mui/joy/Sheet';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import {StarsRounded} from "@mui/icons-material";
+import {MoneyOutlined, StarsRounded} from "@mui/icons-material";
 import { useNavigate } from '../../../routers';
+import { DollarSign } from 'lucide-react';
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -80,9 +81,9 @@ export default function Sidebar() {
 
           <ListItem>
             <ListItemButton onClick={() => navigate('Core:Dashboard')}>
-              <DashboardRoundedIcon />
+              <DollarSign />
               <ListItemContent>
-                <Typography level="title-sm">Analisis</Typography>
+                <Typography level="title-sm">Caja</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>
@@ -114,17 +115,6 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-          {/* <ListItem>
-            <ListItemButton onClick={() => navigate('Core:Notification')}>
-              <QuestionAnswerRoundedIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Notificaciones</Typography>
-              </ListItemContent>
-              <Chip size="sm" color="primary" variant="solid">
-                4
-              </Chip>
-            </ListItemButton>
-          </ListItem> */}
         </List>
       </Box>
     </Sheet>

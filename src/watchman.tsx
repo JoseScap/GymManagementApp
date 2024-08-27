@@ -4,10 +4,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { SocketProvider } from './socket/SocketContext';
 import { useWatchman, WatchmanProvider } from './watchman/WatchmanContext';
-import { Alert, Avatar, Box, Button, Card, Divider, Grid, Typography } from '@mui/joy';
+import { Alert, AspectRatio, Avatar, Box, Button, Card, Divider, Grid, Sheet, Typography } from '@mui/joy';
 import AppBreadcrumbs from './modules/common/components/AppBreadcrumbs';
 import { CalendarMonthOutlined, Check, Close, GroupRounded, PersonOutline, ScreenShare, TimerOutlined, WarningOutlined } from '@mui/icons-material';
 import dayjs from 'dayjs';
+import fondo1 from "./assets/fondo2.jpg"
 
 const WatchmanApp = () => {
   const { identifiedMember, daysDifference } = useWatchman()
@@ -16,7 +17,12 @@ const WatchmanApp = () => {
     window.electron.ipcRenderer.send('switch-screens');
   };
 
-  return <Box paddingX={8} paddingY={4}>
+  return <Box paddingX={8} paddingY={4} position='relative'>
+    <Box position='absolute' left={0} top={0} width='100vw' height='100vh' overflow='hidden' zIndex={-100}>
+      <AspectRatio ratio="16/9" objectFit='cover'>
+        <img src={fondo1} />
+      </AspectRatio>
+    </Box>
     <Box>
       <AppBreadcrumbs
         items={[
@@ -69,7 +75,6 @@ const WatchmanApp = () => {
       <Grid xs={6} xsOffset={3}>
         <Card
           variant='soft'
-          color='success'
           sx={{ p: 2, display: 'flex', flexDirection: 'column', rowGap: 1 }}
         >
           <Box display='flex' flexDirection='row'>
