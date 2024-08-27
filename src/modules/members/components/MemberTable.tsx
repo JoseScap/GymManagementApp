@@ -144,8 +144,8 @@ const MemberTable: React.FC = () => {
                         variant="outlined"
                         color="danger"
                         onClick={() => changeIdToDelete(id)}
-                      >
-                        <DeleteForeverRounded />
+                      > 
+                        <DeleteForeverRounded/>
                       </IconButton>
 
                     </Box>
