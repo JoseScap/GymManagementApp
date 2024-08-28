@@ -12,6 +12,7 @@ import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import {MoneyOutlined, StarsRounded} from "@mui/icons-material";
 import { useNavigate } from '../../../routers';
 import { DollarSign } from 'lucide-react';
+import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 
 export default function Sidebar() {
   const navigate = useNavigate();
@@ -115,6 +116,26 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
+          <ListItem>
+            <ListItemButton onClick={() => navigate('Class:List')}>
+              <ClassOutlinedIcon />
+              <ListItemContent>
+                <Typography level="title-sm">Clases</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          {/* <ListItem>
+            <ListItemButton onClick={() => navigate('Core:Notification')}>
+              <QuestionAnswerRoundedIcon />
+              <ListItemContent>
+                <Typography level="title-sm">Notificaciones</Typography>
+              </ListItemContent>
+              <Chip size="sm" color="primary" variant="solid">
+                4
+              </Chip>
+            </ListItemButton>
+          </ListItem> */}
         </List>
       </Box>
     </Sheet>
