@@ -8,6 +8,8 @@ import { ListSubscriptionProvider } from "../modules/subscriptions/contexts/List
 import ListSubscriptionPage from "../modules/subscriptions/pages/ListSubscriptionPage.tsx";
 import { Route } from "./index.ts";
 import MiSocioPage from "../modules/core/pages/MiSocioPage.tsx";
+import ClassListPage from "../modules/classes/pages/ClassListPage.tsx";
+import { ClassListProvider } from "../modules/classes/contexts/ClassContext.tsx";
 
 export const AppRouter: React.FC = () => {
   return <PageLayout>
@@ -18,5 +20,6 @@ export const AppRouter: React.FC = () => {
     <Route page='Subscription:Create' element={<CreateSubscriptionProvider><CreateSubscriptionPage /></CreateSubscriptionProvider>} />
     <Route page='Subscription:List' element={<ListSubscriptionProvider><ListSubscriptionPage /></ListSubscriptionProvider>} />
     <Route page='Core:MiSocio' element={<MiSocioPage />} />
+    <Route page='Class:List' element={<ClassListProvider><ClassListPage /></ClassListProvider>} />
   </PageLayout>
 }
