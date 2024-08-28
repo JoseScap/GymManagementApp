@@ -23,16 +23,10 @@ const WatchmanApp = () => {
         <img src={fondo1} />
       </AspectRatio>
     </Box>
-    <Box>
-      <AppBreadcrumbs
-        items={[
-          <GroupRounded />,
-          <Typography fontWeight="bold">Mi Socio</Typography>
-        ]}
-      />
+    <Box position='absolute' left={0} top={0} width='100vw' height='100vh' overflow='hidden' zIndex={-99} bgcolor='black' style={{ opacity: .5 }}>
     </Box>
     <Box display='flex' flexDirection="row" justifyContent='space-between' alignItems='center'>
-      <Typography level="h1">Mi Socio</Typography>
+      <Typography level="h1" style={{ color: 'white' }}>Mi Socio</Typography>
       <Button
         size='sm'
         startDecorator={<ScreenShare />}
