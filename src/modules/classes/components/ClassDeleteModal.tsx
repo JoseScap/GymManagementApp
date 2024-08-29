@@ -39,11 +39,11 @@ const ClassDeleteModal: React.FC = () => {
               </DialogTitle>
               <Divider />
               <DialogContent>
-                ¿Estás seguro que quieres eliminar la clase de {gymClass?.className}?
+                ¿Estás seguro que quieres cancelar la clase de {gymClass?.className}?
               </DialogContent>
               <DialogActions>
                 <Button variant="solid" color="danger" onClick={handleDelete}>
-                  Eliminar Miembro
+                  Cancelar clase
                 </Button>
                 <Button variant="plain" color="neutral" onClick={() => changeIdToDelete("")}>
                   Cancelar

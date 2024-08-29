@@ -7,9 +7,8 @@ import ListItemContent from '@mui/joy/ListItemContent';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import {MoneyOutlined, StarsRounded} from "@mui/icons-material";
+import { StarsRounded} from "@mui/icons-material";
 import { useNavigate } from '../../../routers';
 import { DollarSign } from 'lucide-react';
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
@@ -49,7 +48,6 @@ export default function Sidebar() {
       />
       <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
         <Typography level="title-lg">Orellana Gym</Typography>
-        {/*<ColorSchemeToggle sx={{ ml: 'auto' }} />*/}
       </Box>
       <Box
         sx={{
@@ -73,15 +71,6 @@ export default function Sidebar() {
         >
           <ListItem>
             <ListItemButton onClick={() => navigate('Core:Home')}>
-              <HomeRoundedIcon />
-              <ListItemContent>
-                <Typography level="title-sm">Inicio</Typography>
-              </ListItemContent>
-            </ListItemButton>
-          </ListItem>
-
-          <ListItem>
-            <ListItemButton onClick={() => navigate('Core:Dashboard')}>
               <DollarSign />
               <ListItemContent>
                 <Typography level="title-sm">Caja</Typography>
