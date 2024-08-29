@@ -1,8 +1,13 @@
-import { Button, Card, CardActions, CardOverflow, FormControl, FormLabel, Grid, Input } from "@mui/joy"
+import { Box, Button, Card, CardActions, CardOverflow, FormControl, FormLabel, Grid, Input } from "@mui/joy"
 import { DatePicker } from "@mui/x-date-pickers"
 import dayjs from "dayjs"
 import { useState } from "react"
 import { useClassListHooks } from "../hooks/useClassListHooks"
+import AbcOutlinedIcon from '@mui/icons-material/AbcOutlined';
+import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
+import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 
 const ClassCreate: React.FC = () => {
 
@@ -31,7 +36,10 @@ const ClassCreate: React.FC = () => {
             <form onSubmit={handleEdit}>
                 <Grid container spacing={2} sx={{ paddingBottom: '15px' }}>
                     <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-                        <FormLabel>Nombre de la Clase</FormLabel>
+                        <Box display="flex" gap="5px">
+                            <AbcOutlinedIcon />
+                            <FormLabel>Nombre de la clase</FormLabel>
+                        </Box>
                         <FormControl
                             sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
                         >
@@ -44,7 +52,10 @@ const ClassCreate: React.FC = () => {
                         </FormControl>
                     </Grid>
                     <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-                        <FormLabel>Profesor</FormLabel>
+                        <Box display="flex" gap="5px">
+                            <AccountBoxOutlinedIcon />
+                            <FormLabel>Profesor</FormLabel>
+                        </Box>
                         <FormControl
                             sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
                         >
@@ -57,7 +68,10 @@ const ClassCreate: React.FC = () => {
                         </FormControl>
                     </Grid>
                     <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-                        <FormLabel>Total recaudado por la clase</FormLabel>
+                        <Box display="flex" gap="5px">
+                            <AttachMoneyOutlinedIcon />
+                            <FormLabel>Total recaudado por clase</FormLabel>
+                        </Box>
                         <FormControl
                             sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
                         >
@@ -70,7 +84,10 @@ const ClassCreate: React.FC = () => {
                         </FormControl>
                     </Grid>
                     <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-                        <FormLabel>Cantidad de personas que asistieron</FormLabel>
+                        <Box display="flex" gap="5px">
+                            <PeopleOutlineOutlinedIcon />
+                            <FormLabel>Cantidad de personas que asistieron</FormLabel>
+                        </Box>
                         <FormControl
                             sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
                         >
@@ -83,7 +100,10 @@ const ClassCreate: React.FC = () => {
                         </FormControl>
                     </Grid>
                     <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-                        <FormLabel>Fecha de la Clase</FormLabel>
+                        <Box display="flex" gap="5px">
+                            <DateRangeOutlinedIcon />
+                            <FormLabel>Fecha de la clase</FormLabel>
+                        </Box>
                         <DatePicker
                             value={dayjs(data.date)}
                             format="DD/MM/YYYY"

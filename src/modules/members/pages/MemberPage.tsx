@@ -27,6 +27,9 @@ import { useParams } from "../../../routers";
 import { AccountBalanceRounded, CancelRounded, LocalAtmRounded, StarRounded } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
+import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
+import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
+import AbcOutlinedIcon from '@mui/icons-material/AbcOutlined';
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
   Efectivo: <LocalAtmRounded />,
@@ -116,7 +119,10 @@ const MemberPage: React.FC = () => {
       <form onSubmit={handleEdit}>
         <Grid container spacing={2} sx={{paddingBottom: '15px'}}>
           <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-            <FormLabel>Apellido y nombre</FormLabel>
+            <Box display="flex" gap="5px">
+              <AbcOutlinedIcon />
+              <FormLabel>Apellido y Nombre</FormLabel>
+            </Box>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >
@@ -130,7 +136,10 @@ const MemberPage: React.FC = () => {
             </FormControl>
           </Grid>
           <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-            <FormLabel>DNI</FormLabel>
+            <Box display="flex" gap="5px">
+              <BadgeOutlinedIcon />
+              <FormLabel>DNI</FormLabel>
+            </Box>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >
@@ -144,7 +153,10 @@ const MemberPage: React.FC = () => {
             </FormControl>
           </Grid>
           <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-            <FormLabel>Numero de telefono</FormLabel>
+            <Box display="flex" gap="5px">
+              <LocalPhoneOutlinedIcon />
+              <FormLabel>Numero de telefono</FormLabel>
+            </Box>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >

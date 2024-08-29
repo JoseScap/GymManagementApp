@@ -4,6 +4,10 @@ import { useClassListHooks } from "../hooks/useClassListHooks";
 import dayjs from "dayjs";
 import { IconButton } from "@mui/material";
 import { DeleteForeverRounded } from "@mui/icons-material";
+import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
+import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 
 const ClassTable: React.FC = () => {
   const { currentPage: { data: gymClasses }, changeIdToDelete } = useClassListHooks()
@@ -43,25 +47,29 @@ const ClassTable: React.FC = () => {
             </th>
             <th scope="col">
               <Box width="100%" height="100%" display="flex" 
-              justifyContent="start" alignItems="center">
+              justifyContent="start" alignItems="center" gap="3px">
                 Profesor
+                <PermIdentityOutlinedIcon/>
               </Box>
             </th>
             <th scope="col" >
               <Box width="100%" height="100%" display="flex" 
-              justifyContent="start" alignItems="center">
-                Total ($)
+              justifyContent="start" alignItems="center" gap="3px">
+                Total
+                <AttachMoneyOutlinedIcon/>
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="start">
+              <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="start" gap="3px">
                 Asistentes
+                <PeopleOutlineOutlinedIcon/>
               </Box>
             </th>
             <th scope="col">
               <Box width="100%" height="100%" display="flex" 
-              alignItems="center" justifyContent="start">
+              alignItems="center" justifyContent="start" gap="3px">
                 Fecha
+                <DateRangeOutlinedIcon/>
               </Box>
             </th>
             <th scope="col">

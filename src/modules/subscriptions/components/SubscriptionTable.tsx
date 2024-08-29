@@ -13,6 +13,8 @@ import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { useNavigate } from "../../../../src/routers";
+import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -87,16 +89,19 @@ const SubscriptionTable: React.FC = () => {
             <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
                 Desde
+                <DateRangeOutlinedIcon/>
               </Box>
             </th>
             <th scope="col" style={{ backgroundColor: "#fff" }}>
-              <Box width="100%" height="100%" display="flex" alignItems="center">
+              <Box width="100%" height="100%" display="flex" alignItems="center" gap="3px">
                 Hasta
+                <DateRangeOutlinedIcon/>
               </Box>
             </th>
             <th scope="col" style={{ backgroundColor: "#fff" }}>
-              <Box width="100%" height="100%" display="flex" alignItems="center">
+              <Box width="100%" height="100%" display="flex" alignItems="center" gap="3px">
                 Monto
+                <AttachMoneyOutlinedIcon/>
               </Box>
             </th>
             <th scope="col" style={{ backgroundColor: "#fff" }}>

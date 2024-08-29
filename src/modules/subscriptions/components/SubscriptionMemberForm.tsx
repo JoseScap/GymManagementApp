@@ -6,6 +6,10 @@ import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
 import { useNavigate } from "../../../routers";
 import { Check } from "@mui/icons-material";
+import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
+import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 
 const memberStatusOptions: MemberStatus[] = ['Día', 'Semana', 'Mes']
 const paymentMethodOptions: PaymentMethod[] = ['Efectivo', 'Transferencia']
@@ -130,7 +134,10 @@ const SubscriptionMemberForm: React.FC = () => {
         {!isNewMember && (
         <Card>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información del socio</Typography>
+            <Box display="flex" gap="5px">
+                <ContactEmergencyOutlinedIcon />
+                <Typography level="title-lg" color="primary">Información del socio</Typography>
+            </Box>
             <Typography level="body-md">Seleccioné el socio a suscribir.</Typography>
           </Box>
           <Divider />
@@ -174,7 +181,10 @@ const SubscriptionMemberForm: React.FC = () => {
         {isNewMember && (
         <Card>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información del nuevo socio</Typography>
+            <Box display="flex" gap="5px">
+              <ContactEmergencyOutlinedIcon />
+              <Typography level="title-lg" color="primary">Información del nuevo socio</Typography>
+            </Box>
             <Typography level="body-md">Ingresa en el formulario la informacion del nuevo socio.</Typography>
           </Box>
           <Divider />
@@ -236,7 +246,10 @@ const SubscriptionMemberForm: React.FC = () => {
         {isNewMember && (
         <Card>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Identificacion por huella.</Typography>
+            <Box display="flex" gap="5px">
+              <FingerprintOutlinedIcon />
+              <Typography level="title-lg" color="primary">Identificacion por huella.</Typography>
+            </Box>
             <Typography level="body-md">Inicie la identificación por huella.</Typography>
           </Box>
           <Divider />
@@ -297,7 +310,10 @@ const SubscriptionMemberForm: React.FC = () => {
       <Grid xs={12}>
         <Card>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información de la suscripción</Typography>
+            <Box display="flex" gap="5px">
+                <InfoOutlinedIcon />
+                <Typography level="title-lg" color="primary">Información de la suscripción</Typography>
+            </Box>
             <Typography level="body-md">Indique el periodo de asistencia habilitada.</Typography>
           </Box>
           <Divider />
@@ -349,7 +365,10 @@ const SubscriptionMemberForm: React.FC = () => {
       <Grid xs={12}>
         <Card>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información del pago</Typography>
+            <Box display="flex" gap="5px">
+                <AttachMoneyOutlinedIcon />
+                <Typography level="title-lg" color="primary">Información del pago</Typography>
+            </Box>
             <Typography level="body-md">Indique la modalidad de pago utilizada</Typography>
           </Box>
           <Divider />
