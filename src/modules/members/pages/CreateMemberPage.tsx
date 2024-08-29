@@ -13,6 +13,7 @@ import {
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import { useCreateMember } from "../hooks/useCreateMemberHooks.ts";
+import { PersonOutlineRounded } from "@mui/icons-material";
 
 const CreateMemberPage: React.FC = () => {
   const { member, changeDni, changeFullName, changePhoneNumber, createMember } = useCreateMember();
@@ -47,7 +48,7 @@ const CreateMemberPage: React.FC = () => {
         <Divider />
         <Grid container spacing={2}>
           <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-            <FormLabel>Apellido y nombre</FormLabel>
+            <Typography startDecorator={<PersonOutlineRounded />}>Apellido y nombre</Typography>
             <FormControl
               sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
             >

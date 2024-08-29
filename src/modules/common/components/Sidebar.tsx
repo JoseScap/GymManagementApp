@@ -6,11 +6,9 @@ import ListItemButton, { listItemButtonClasses } from '@mui/joy/ListItemButton';
 import ListItemContent from '@mui/joy/ListItemContent';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import { StarsRounded} from "@mui/icons-material";
+import { AttachMoneyOutlined, StarsRounded} from "@mui/icons-material";
 import { useNavigate } from '../../../routers';
-import { DollarSign } from 'lucide-react';
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 
 export default function Sidebar() {
@@ -71,7 +69,7 @@ export default function Sidebar() {
         >
           <ListItem>
             <ListItemButton onClick={() => navigate('Core:Home')}>
-              <DollarSign />
+              <AttachMoneyOutlined />
               <ListItemContent>
                 <Typography level="title-sm">Caja</Typography>
               </ListItemContent>

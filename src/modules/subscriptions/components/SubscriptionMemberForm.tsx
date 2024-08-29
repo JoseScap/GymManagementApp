@@ -1,15 +1,17 @@
-import { Autocomplete, Box, Button, Card, CardActions, CardOverflow, Divider, FormControl, FormLabel, Grid, Input, Radio, RadioGroup, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
+import { Autocomplete, Box, Button, Card, CardActions, CardOverflow, Divider, FormControl, Grid, Input, Radio, RadioGroup, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
 import { Member,  MemberStatus } from "../../common/types/members";
 import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
 import { useNavigate } from "../../../routers";
-import { Check } from "@mui/icons-material";
+import { AccountBalanceOutlined, AttachMoneyOutlined, Check, LocalAtmOutlined, PersonOutlineRounded, PhoneAndroidOutlined, PhoneIphoneOutlined } from "@mui/icons-material";
 import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
 import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import WbSunny from "@mui/icons-material/WbSunny";
+import { Banknote, CalendarCheck } from "lucide-react";
 
 const memberStatusOptions: MemberStatus[] = ['Día', 'Semana', 'Mes']
 const paymentMethodOptions: PaymentMethod[] = ['Efectivo', 'Transferencia']
@@ -133,7 +135,7 @@ const SubscriptionMemberForm: React.FC = () => {
       <Grid xs={12}>
         {!isNewMember && (
         <Card>
-          <Box sx={{ mb: 1 }}>
+          <Box>
             <Box display="flex" gap="5px">
                 <ContactEmergencyOutlinedIcon />
                 <Typography level="title-lg" color="success">Información del socio</Typography>
@@ -143,7 +145,7 @@ const SubscriptionMemberForm: React.FC = () => {
           <Divider />
           <Grid container spacing={2}>
             <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>DNI</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<ContactEmergencyOutlinedIcon />}>DNI</Typography>
               <Autocomplete
                 size="md"
                 placeholder="Ingrese el DNI del socio. Ej: 40401501"
@@ -159,7 +161,7 @@ const SubscriptionMemberForm: React.FC = () => {
               />
             </Grid>
             <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Apellido y nombre</FormLabel>
+              <Typography startDecorator={<PersonOutlineRounded />} style={{ fontWeight: 'bold' }}>Apellido y nombre</Typography>
               <Autocomplete
                 size="md"
                 placeholder="Ingrese el nombre del socio. Ej: Juan Perez."
@@ -180,7 +182,7 @@ const SubscriptionMemberForm: React.FC = () => {
 
         {isNewMember && (
         <Card>
-          <Box sx={{ mb: 1 }}>
+          <Box>
             <Box display="flex" gap="5px">
               <ContactEmergencyOutlinedIcon />
               <Typography level="title-lg" color="success">Información del nuevo socio</Typography>
@@ -190,7 +192,7 @@ const SubscriptionMemberForm: React.FC = () => {
           <Divider />
           <Grid container spacing={2}>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Apellido y nombre</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<PersonOutlineRounded />}>Apellido y nombre</Typography>
               <FormControl
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
@@ -205,7 +207,7 @@ const SubscriptionMemberForm: React.FC = () => {
               </FormControl>
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>DNI</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<ContactEmergencyOutlinedIcon />}>DNI</Typography>
               <FormControl
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
@@ -220,7 +222,7 @@ const SubscriptionMemberForm: React.FC = () => {
               </FormControl>
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Numero de telefono (Opcional)</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<PhoneIphoneOutlined />}>Numero de telefono (Opcional)</Typography>
               <FormControl
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
@@ -263,7 +265,7 @@ const SubscriptionMemberForm: React.FC = () => {
                     indicator={
                       <StepIndicator
                         variant={captureStep < 2 && fingerTemplate == null ? 'soft' : 'solid'}
-                        color={captureStep < 2 && fingerTemplate == null ? 'neutral' : 'primary'}
+                        color={captureStep < 2 && fingerTemplate == null ? 'neutral' : 'success'}
                       >
                         {captureStep < 2 && fingerTemplate == null ? 1 : <Check />}
                       </StepIndicator>
@@ -276,7 +278,7 @@ const SubscriptionMemberForm: React.FC = () => {
                     indicator={
                       <StepIndicator
                         variant={captureStep < 3 && fingerTemplate == null ? 'soft' : 'solid'}
-                        color={captureStep < 3 && fingerTemplate == null ? 'neutral' : 'primary'}
+                        color={captureStep < 3 && fingerTemplate == null ? 'neutral' : 'success'}
                       >
                         {captureStep < 3 && fingerTemplate == null ? 2 : <Check />}
                       </StepIndicator>
@@ -289,7 +291,7 @@ const SubscriptionMemberForm: React.FC = () => {
                     indicator={
                       <StepIndicator
                         variant={fingerTemplate == null ? 'soft' : 'solid'}
-                        color={fingerTemplate == null ? 'neutral' : 'primary'}
+                        color={fingerTemplate == null ? 'neutral' : 'success'}
                       >
                         {fingerTemplate == null ? 3 : <Check />}
                       </StepIndicator>
@@ -319,7 +321,7 @@ const SubscriptionMemberForm: React.FC = () => {
           <Divider />
           <Grid container spacing={2}>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Tipo de suscripción</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<WbSunny />}>Tipo de suscripción</Typography>
               <RadioGroup>
                 {
                   memberStatusOptions.map((option) => (
@@ -340,7 +342,7 @@ const SubscriptionMemberForm: React.FC = () => {
               </RadioGroup>
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Fecha de inicio</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<CalendarCheck />}>Fecha de inicio</Typography>
               <DatePicker
                 value={dateFrom}
                 onChange={handleChangeDateFrom}
@@ -349,7 +351,7 @@ const SubscriptionMemberForm: React.FC = () => {
               />
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Fecha de vencimiento (Último dia permitido)</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<CalendarCheck />}>Fecha de vencimiento (Último dia permitido)</Typography>
               <DatePicker
                 value={dateTo}
                 onChange={(newValue) => changeDateTo(newValue)}
@@ -375,7 +377,7 @@ const SubscriptionMemberForm: React.FC = () => {
           <Divider />
           <Grid container spacing={2}>
             <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Forma de pago</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<AccountBalanceOutlined />}>Forma de pago</Typography>
               <RadioGroup>
                 {
                   paymentMethodOptions.map((option) => (
@@ -396,9 +398,9 @@ const SubscriptionMemberForm: React.FC = () => {
               </RadioGroup>
             </Grid>
             <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Monto</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<AttachMoneyOutlined />}>Monto</Typography>
               <Input
-              size="md"
+                size="md"
                 value={amount}
                 onChange={handleChangeAmount}
                 type="number"

@@ -6,6 +6,7 @@ import { PaginatedApiResponse } from "../../common/types/api";
 
 // Interface that should be return by the hook
 interface MemberListHooks {
+  hasMore: boolean
   subscriptions: Subscription[]
   findNextPage: () => void
 }
@@ -13,8 +14,10 @@ interface MemberListHooks {
 export const useListSubscription = (): MemberListHooks => {
   const {
     currentPage,
+    hasMore,
     subscriptions,
     setCurrentPage,
+    setHasMore,
     setSubscriptions
   } = useContext(ListSubscriptionContext)
 
@@ -22,10 +25,12 @@ export const useListSubscription = (): MemberListHooks => {
     const nextPage = currentPage + 1
     const response : AxiosResponse<PaginatedApiResponse<Subscription>> = await axios.get(`http://localhost:3000/subscriptions/find-paginated?embedMember=true&page=${nextPage}`)
     setCurrentPage(nextPage)
+    setHasMore(!!response.data.next)
     setSubscriptions([...subscriptions, ...response.data.data])
   }
 
   return {
+    hasMore,
     subscriptions,
     findNextPage
   }
