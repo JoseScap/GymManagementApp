@@ -3,15 +3,19 @@ import { Subscription } from "../../common/types/subscription";
 
 type ListSubscriptionContextType = {
   currentPage: number
+  hasMore: boolean
   subscriptions: Subscription[]  
   setCurrentPage: Dispatch<SetStateAction<number>>
+  setHasMore: Dispatch<SetStateAction<boolean>>
   setSubscriptions: Dispatch<SetStateAction<Subscription[]>>
 }
 
 const INITIAL_STATE: ListSubscriptionContextType = {
   currentPage: 0,
+  hasMore: true,
   subscriptions: [],
   setCurrentPage: () => undefined,
+  setHasMore: () => undefined,
   setSubscriptions: () => undefined
 }
 
@@ -20,14 +24,17 @@ const Provider = ListSubscriptionContext.Provider
 
 const ListSubscriptionProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState<number>(INITIAL_STATE.currentPage)
+  const [hasMore, setHasMore] = useState<boolean>(INITIAL_STATE.hasMore)
   const [subscriptions, setSubscriptions] = useState<Subscription[]>(INITIAL_STATE.subscriptions)
 
   return (
     <Provider
       value={{
         currentPage,
+        hasMore,
         subscriptions,
         setCurrentPage,
+        setHasMore,
         setSubscriptions
       }}
     >

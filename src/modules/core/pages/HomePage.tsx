@@ -4,6 +4,7 @@ import AppBreadcrumbs from "../../common/components/AppBreadcrumbs";
 import { useEffect, useState } from "react";
 import { TodaySummary } from "../../common/types/responses";
 import axios, { AxiosResponse } from "axios";
+import { AttachMoneyOutlined } from "@mui/icons-material";
 
 const HomePage: React.FC = () => {
   const [today, setToday] = useState<TodaySummary | null>(null)
@@ -21,12 +22,12 @@ const HomePage: React.FC = () => {
     <Box>
       <AppBreadcrumbs
         items={[
-          <DollarSign />,
-          <Typography fontWeight="bold">Caja</Typography>
+          <DollarSign color="white"/>,
+          <Typography fontWeight="bold" style={{ color: 'white' }}>Caja</Typography>
         ]}
       />
     </Box>
-    <Typography level="h2">Resumenes de caja</Typography>
+    <Typography level="h2" style={{ color: 'white' }}>Resumenes de caja</Typography>
     <Tabs>
       <TabList>
         <Tab style={{ fontWeight: 'bold' }}>Día de hoy</Tab>
@@ -38,7 +39,7 @@ const HomePage: React.FC = () => {
         <Grid container spacing={2}>
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>Ingresos del día</Typography>
+              <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>Ingresos del día</Typography>
               <Button color="success">Cerrar día</Button>
             </Box>
           </Grid>
@@ -59,21 +60,21 @@ const HomePage: React.FC = () => {
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{today?.newMembersIncome ?? 0}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{today?.newMembersIncome ?? 0}</Typography>
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{today?.renewedMembersIncome ?? 0}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{today?.renewedMembersIncome ?? 0}</Typography>
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{today?.gymClassesIncome ?? 0}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{today?.gymClassesIncome ?? 0}</Typography>
                 </Grid>
               </Grid>
             </Card>
           </Grid>
           <Grid xs={12}>
-            <Typography level="h3" color="danger" startDecorator={<DollarSign />}>Cancelaciones del día</Typography>
+            <Typography level="h3" color="danger" startDecorator={<AttachMoneyOutlined />}>Cancelaciones del día</Typography>
           </Grid>
           <Grid xs={12}>
             <Card color="danger">
@@ -92,15 +93,15 @@ const HomePage: React.FC = () => {
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{today?.newMembersCanceledIncome ?? 0}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{today?.newMembersCanceledIncome ?? 0}</Typography>
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{today?.renewedMembersCanceledIncome ?? 0}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{today?.renewedMembersCanceledIncome ?? 0}</Typography>
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{today?.gymClassesCanceledIncome ?? 0}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{today?.gymClassesCanceledIncome ?? 0}</Typography>
                 </Grid>
               </Grid>
             </Card>
@@ -110,8 +111,8 @@ const HomePage: React.FC = () => {
           </Grid>
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>Total del día</Typography>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>{today?.totalIncome ?? 0}</Typography>
+              <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>Total del día</Typography>
+              <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>{today?.totalIncome ?? 0}</Typography>
             </Box>
           </Grid>
         </Grid>

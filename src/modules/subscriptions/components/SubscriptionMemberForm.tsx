@@ -1,11 +1,17 @@
-import { Autocomplete, Box, Button, Card, CardActions, CardOverflow, Divider, FormControl, FormLabel, Grid, Input, Radio, RadioGroup, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
+import { Autocomplete, Box, Button, Card, CardActions, CardOverflow, Divider, FormControl, Grid, Input, Radio, RadioGroup, Step, StepIndicator, Stepper, Typography } from "@mui/joy";
 import { Member,  MemberStatus } from "../../common/types/members";
 import { useCreateSubscription } from "../hooks/useCreateSubscription.ts";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
 import { useNavigate } from "../../../routers";
-import { Check } from "@mui/icons-material";
+import { AccountBalanceOutlined, AttachMoneyOutlined, Check, LocalAtmOutlined, PersonOutlineRounded, PhoneAndroidOutlined, PhoneIphoneOutlined } from "@mui/icons-material";
+import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
+import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import WbSunny from "@mui/icons-material/WbSunny";
+import { Banknote, CalendarCheck } from "lucide-react";
 
 const memberStatusOptions: MemberStatus[] = ['Día', 'Semana', 'Mes']
 const paymentMethodOptions: PaymentMethod[] = ['Efectivo', 'Transferencia']
@@ -91,7 +97,7 @@ const SubscriptionMemberForm: React.FC = () => {
         <Grid xs={12}>
           <Card>
             <Box sx={{ mb: 1 }}>
-              <Typography level="title-lg" color="primary">¿Es un miembro nuevo?</Typography>
+              <Typography level="title-lg" color="success">¿Es un miembro nuevo?</Typography>
               <Typography level="body-md">Indique si el miembro ya asistió a este gimnasio previamente.</Typography>
             </Box>
             <Divider />
@@ -129,14 +135,17 @@ const SubscriptionMemberForm: React.FC = () => {
       <Grid xs={12}>
         {!isNewMember && (
         <Card>
-          <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información del socio</Typography>
+          <Box>
+            <Box display="flex" gap="5px">
+                <ContactEmergencyOutlinedIcon />
+                <Typography level="title-lg" color="success">Información del socio</Typography>
+            </Box>
             <Typography level="body-md">Seleccioné el socio a suscribir.</Typography>
           </Box>
           <Divider />
           <Grid container spacing={2}>
             <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>DNI</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<ContactEmergencyOutlinedIcon />}>DNI</Typography>
               <Autocomplete
                 size="md"
                 placeholder="Ingrese el DNI del socio. Ej: 40401501"
@@ -152,7 +161,7 @@ const SubscriptionMemberForm: React.FC = () => {
               />
             </Grid>
             <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Apellido y nombre</FormLabel>
+              <Typography startDecorator={<PersonOutlineRounded />} style={{ fontWeight: 'bold' }}>Apellido y nombre</Typography>
               <Autocomplete
                 size="md"
                 placeholder="Ingrese el nombre del socio. Ej: Juan Perez."
@@ -173,14 +182,17 @@ const SubscriptionMemberForm: React.FC = () => {
 
         {isNewMember && (
         <Card>
-          <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información del nuevo socio</Typography>
+          <Box>
+            <Box display="flex" gap="5px">
+              <ContactEmergencyOutlinedIcon />
+              <Typography level="title-lg" color="success">Información del nuevo socio</Typography>
+            </Box>
             <Typography level="body-md">Ingresa en el formulario la informacion del nuevo socio.</Typography>
           </Box>
           <Divider />
           <Grid container spacing={2}>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Apellido y nombre</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<PersonOutlineRounded />}>Apellido y nombre</Typography>
               <FormControl
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
@@ -195,7 +207,7 @@ const SubscriptionMemberForm: React.FC = () => {
               </FormControl>
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>DNI</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<ContactEmergencyOutlinedIcon />}>DNI</Typography>
               <FormControl
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
@@ -210,7 +222,7 @@ const SubscriptionMemberForm: React.FC = () => {
               </FormControl>
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Numero de telefono (Opcional)</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<PhoneIphoneOutlined />}>Numero de telefono (Opcional)</Typography>
               <FormControl
                 sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
               >
@@ -236,12 +248,15 @@ const SubscriptionMemberForm: React.FC = () => {
         {isNewMember && (
         <Card>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Identificacion por huella.</Typography>
+            <Box display="flex" gap="5px">
+              <FingerprintOutlinedIcon />
+              <Typography level="title-lg" color="success">Identificacion por huella.</Typography>
+            </Box>
             <Typography level="body-md">Inicie la identificación por huella.</Typography>
           </Box>
           <Divider />
           <Grid container spacing={2}>
-            <Grid xs={2}><Button fullWidth disabled={fingerTemplate != null} onClick={() => changeCaptureStep(1)}>Iniciar registro</Button></Grid>
+            <Grid xs={2}><Button fullWidth disabled={fingerTemplate != null} color="success" onClick={() => changeCaptureStep(1)}>Iniciar registro</Button></Grid>
             {(captureStep >= 1 || fingerTemplate != null) &&
               <Grid xs={10}>
                 <Stepper>
@@ -250,7 +265,7 @@ const SubscriptionMemberForm: React.FC = () => {
                     indicator={
                       <StepIndicator
                         variant={captureStep < 2 && fingerTemplate == null ? 'soft' : 'solid'}
-                        color={captureStep < 2 && fingerTemplate == null ? 'neutral' : 'primary'}
+                        color={captureStep < 2 && fingerTemplate == null ? 'neutral' : 'success'}
                       >
                         {captureStep < 2 && fingerTemplate == null ? 1 : <Check />}
                       </StepIndicator>
@@ -263,7 +278,7 @@ const SubscriptionMemberForm: React.FC = () => {
                     indicator={
                       <StepIndicator
                         variant={captureStep < 3 && fingerTemplate == null ? 'soft' : 'solid'}
-                        color={captureStep < 3 && fingerTemplate == null ? 'neutral' : 'primary'}
+                        color={captureStep < 3 && fingerTemplate == null ? 'neutral' : 'success'}
                       >
                         {captureStep < 3 && fingerTemplate == null ? 2 : <Check />}
                       </StepIndicator>
@@ -276,7 +291,7 @@ const SubscriptionMemberForm: React.FC = () => {
                     indicator={
                       <StepIndicator
                         variant={fingerTemplate == null ? 'soft' : 'solid'}
-                        color={fingerTemplate == null ? 'neutral' : 'primary'}
+                        color={fingerTemplate == null ? 'neutral' : 'success'}
                       >
                         {fingerTemplate == null ? 3 : <Check />}
                       </StepIndicator>
@@ -297,13 +312,16 @@ const SubscriptionMemberForm: React.FC = () => {
       <Grid xs={12}>
         <Card>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información de la suscripción</Typography>
+            <Box display="flex" gap="5px">
+                <InfoOutlinedIcon />
+                <Typography level="title-lg" color="success">Información de la suscripción</Typography>
+            </Box>
             <Typography level="body-md">Indique el periodo de asistencia habilitada.</Typography>
           </Box>
           <Divider />
           <Grid container spacing={2}>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Tipo de suscripción</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<WbSunny />}>Tipo de suscripción</Typography>
               <RadioGroup>
                 {
                   memberStatusOptions.map((option) => (
@@ -313,6 +331,7 @@ const SubscriptionMemberForm: React.FC = () => {
                       value={option}
                       onChange={() => handleChangeMemberStatus(option)}
                       checked={memberStatus === option}
+                      color="success"
                       name="memberStatus"
                       slotProps={{ input: { 'aria-label': option } }}
                       required
@@ -323,7 +342,7 @@ const SubscriptionMemberForm: React.FC = () => {
               </RadioGroup>
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Fecha de inicio</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<CalendarCheck />}>Fecha de inicio</Typography>
               <DatePicker
                 value={dateFrom}
                 onChange={handleChangeDateFrom}
@@ -332,7 +351,7 @@ const SubscriptionMemberForm: React.FC = () => {
               />
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Fecha de vencimiento (Último dia permitido)</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<CalendarCheck />}>Fecha de vencimiento (Último dia permitido)</Typography>
               <DatePicker
                 value={dateTo}
                 onChange={(newValue) => changeDateTo(newValue)}
@@ -349,13 +368,16 @@ const SubscriptionMemberForm: React.FC = () => {
       <Grid xs={12}>
         <Card>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información del pago</Typography>
+            <Box display="flex" gap="5px">
+                <AttachMoneyOutlinedIcon />
+                <Typography level="title-lg" color="success">Información del pago</Typography>
+            </Box>
             <Typography level="body-md">Indique la modalidad de pago utilizada</Typography>
           </Box>
           <Divider />
           <Grid container spacing={2}>
             <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Forma de pago</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<AccountBalanceOutlined />}>Forma de pago</Typography>
               <RadioGroup>
                 {
                   paymentMethodOptions.map((option) => (
@@ -363,6 +385,7 @@ const SubscriptionMemberForm: React.FC = () => {
                       key={option}
                       label={option}
                       value={option}
+                      color="success"
                       onChange={() => changePaymentMethod(option)}
                       checked={paymentMethod === option}
                       name="paymentMethod"
@@ -375,9 +398,9 @@ const SubscriptionMemberForm: React.FC = () => {
               </RadioGroup>
             </Grid>
             <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-              <FormLabel style={{ fontWeight: 'bold' }}>Monto</FormLabel>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<AttachMoneyOutlined />}>Monto</Typography>
               <Input
-              size="md"
+                size="md"
                 value={amount}
                 onChange={handleChangeAmount}
                 type="number"
@@ -391,7 +414,7 @@ const SubscriptionMemberForm: React.FC = () => {
               <Button size="sm" variant="outlined" color="neutral">
                 Cancelar
               </Button>
-              <Button size="sm" variant="solid" type="submit">
+              <Button size="sm" variant="solid" color="success" type="submit">
                 Guardar
               </Button>
             </CardActions>

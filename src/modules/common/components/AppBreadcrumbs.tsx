@@ -10,7 +10,8 @@ const AppBreadcrumbs: React.FC<Props> = ({ items }) => {
     size="sm"
     aria-label="breadcrumbs"
     separator={<ChevronRightRoundedIcon fontSize="small" />}
-    sx={{ pl: 0 }}
+    sx={{ pl: 0, color: 'white' }}
+    style={{ color: 'white' }}
   >
     {items.map((item, index) => (
       <span key={index}>{item}</span>

@@ -1,4 +1,4 @@
-import { Box, Button, Chip, ColorPaletteProp, IconButton, Table } from "@mui/joy";
+import { Box, Button, Chip, ColorPaletteProp, IconButton, Table, Typography } from "@mui/joy";
 import InactiveIcon from "@mui/icons-material/Block"
 import DayIcon from "@mui/icons-material/WbSunny"
 import WeekIcon from "@mui/icons-material/Filter7"
@@ -13,6 +13,9 @@ import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import { useNavigate } from "../../../../src/routers";
+import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
+import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
+import { NumbersOutlined, PersonOutlineRounded } from "@mui/icons-material";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -39,7 +42,7 @@ const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
 }
 
 const SubscriptionTable: React.FC = () => {
-    const { subscriptions, findNextPage } = useListSubscription();
+    const { hasMore, subscriptions, findNextPage } = useListSubscription();
     const navigate = useNavigate();
 
   return (
@@ -71,36 +74,49 @@ const SubscriptionTable: React.FC = () => {
           <tr>
             <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
-                Nombre completo
+                <Typography startDecorator={<PersonOutlineRounded />}>
+                  Nombre completo
+                </Typography>
               </Box>
             </th>
             <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
-                DNI
+                <Typography startDecorator={<NumbersOutlined />}>
+                  DNI
+                </Typography>
               </Box>
             </th>
             <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
-                Tipo
+                <Typography startDecorator={<DayIcon />}>
+                  Tipo
+                </Typography>
               </Box>
             </th>
             <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
-                Desde
+                <Typography startDecorator={<DateRangeOutlinedIcon />}>
+                  Desde
+                </Typography>
+              </Box>
+            </th>
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
+              <Box width="100%" height="100%" display="flex" alignItems="center" gap="3px">
+                <Typography startDecorator={<DateRangeOutlinedIcon />}>
+                  Hasta
+                </Typography>
+              </Box>
+            </th>
+            <th scope="col" style={{ backgroundColor: "#fff" }}>
+              <Box width="100%" height="100%" display="flex" alignItems="center" gap="3px">
+                <Typography startDecorator={<AttachMoneyOutlinedIcon />}>
+                  Monto
+                </Typography>
               </Box>
             </th>
             <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" alignItems="center">
-                Hasta
-              </Box>
-            </th>
-            <th scope="col" style={{ backgroundColor: "#fff" }}>
-              <Box width="100%" height="100%" display="flex" alignItems="center">
-                Monto
-              </Box>
-            </th>
-            <th scope="col" style={{ backgroundColor: "#fff" }}>
-              <Box width="100%" height="100%" display="flex" alignItems="center">
+                <LocalAtmRoundedIcon />
                 Medio de Pago
               </Box>
             </th>
@@ -128,7 +144,9 @@ const SubscriptionTable: React.FC = () => {
                         <tr key={id} >
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
-                              {member!.fullName}
+                              <Typography startDecorator={<PersonOutlineRounded />}>
+                                {member!.fullName}
+                              </Typography>
                             </Box>
                           </td>
                           <td scope="col">
@@ -160,7 +178,9 @@ const SubscriptionTable: React.FC = () => {
                           </td>
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
-                              $ {amount.toLocaleString('es-AR')}
+                              <Typography startDecorator={<AttachMoneyOutlinedIcon />}>
+                                {amount.toLocaleString('es-AR')}
+                              </Typography>
                             </Box>
                           </td>
                           <td scope="col">
@@ -177,13 +197,14 @@ const SubscriptionTable: React.FC = () => {
                           </td>
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center" gap="4px">
-                              <IconButton
+                              <Button
                                 variant="outlined"
-                                color="warning"
+                                color="neutral"
                                 onClick={() => navigate('Member:Detail', { id: member!.id })}
+                                startDecorator={<VisibilityRoundedIcon />}
                               >
-                                <VisibilityRoundedIcon />
-                              </IconButton>
+                                Detalle
+                              </Button>
                             </Box>
                           </td>
                         </tr>
@@ -193,7 +214,7 @@ const SubscriptionTable: React.FC = () => {
             <tr>
               <td scope="col" colSpan={8} style={{ padding: 0 }}>
                 <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
-                  <Button fullWidth style={{ margin: 0 }} onClick={() => findNextPage()}>Cargar más</Button>
+                  <Button fullWidth style={{ margin: 0 }} color="success" disabled={!hasMore} onClick={() => findNextPage()}>Cargar más</Button>
                 </Box>
               </td>
             </tr>
