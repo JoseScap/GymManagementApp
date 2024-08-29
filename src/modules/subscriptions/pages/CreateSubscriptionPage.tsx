@@ -27,7 +27,7 @@ const CreateSubscriptionPage: React.FC = () => {
         ]}
       />
     </Box>
-    <Typography level="h2">Nueva suscripción</Typography>
+    <Typography level="h2" sx={{ color: "white" }}>Nueva suscripción</Typography>
     <SubscriptionMemberForm />
   </>
 }

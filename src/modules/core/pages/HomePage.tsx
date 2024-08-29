@@ -1,9 +1,10 @@
-import {Box, Button, Card, Divider, Grid, Tab, TabList, TabPanel, Tabs, Typography} from "@mui/joy";
+import {AspectRatio, Box, Button, Card, Divider, Grid, Tab, TabList, TabPanel, Tabs, Typography} from "@mui/joy";
 import { DollarSign } from "lucide-react";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs";
 import { useEffect, useState } from "react";
 import { TodaySummary } from "../../common/types/responses";
 import axios, { AxiosResponse } from "axios";
+import fondo2 from "../../../assets/fondo2.jpg";
 
 const HomePage: React.FC = () => {
   const [today, setToday] = useState<TodaySummary | null>(null)
@@ -21,12 +22,12 @@ const HomePage: React.FC = () => {
     <Box>
       <AppBreadcrumbs
         items={[
-          <DollarSign />,
-          <Typography fontWeight="bold">Caja</Typography>
+          <DollarSign color="white"/>,
+          <Typography fontWeight="bold" style={{ color: 'white' }}>Caja</Typography>
         ]}
       />
     </Box>
-    <Typography level="h2">Resumenes de caja</Typography>
+    <Typography level="h2" style={{ color: 'white' }}>Resumenes de caja</Typography>
     <Tabs>
       <TabList>
         <Tab style={{ fontWeight: 'bold' }}>Día de hoy</Tab>

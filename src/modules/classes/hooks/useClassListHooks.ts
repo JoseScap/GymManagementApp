@@ -16,6 +16,7 @@ interface ClassListHooks {
   deleteClassById: (id: string, isCanceled: boolean) => Promise<void>
   createClass: (data: any) => Promise<void>
   setCreate: React.Dispatch<React.SetStateAction<boolean>>
+  findNextPage: () => void
 }
 
 export const useClassListHooks = (): ClassListHooks => {
@@ -43,6 +44,16 @@ export const useClassListHooks = (): ClassListHooks => {
     await axios.post(`http://localhost:3000/classes/create-one`, data)
   }
 
+  const findNextPage = async () => {
+    const nextPage = numberPage + 1
+    const response: AxiosResponse<PaginatedApiResponse<GymClass>> = await axios.get(`http://localhost:3000/classes/find-paginated?page=${nextPage}`)
+    console.log(response.data)
+    setCurrentPage(response.data)
+
+    // setCurrentPage(nextPage)
+    // setSubscriptions([...subscriptions, ...response.data.data])
+  }
+
   return {
     currentPage,
     numberPage,
@@ -54,6 +65,7 @@ export const useClassListHooks = (): ClassListHooks => {
     createClass,
     create,
     setCreate,
+    findNextPage,
   }
 }
 

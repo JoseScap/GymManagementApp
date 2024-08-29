@@ -102,7 +102,7 @@ const SubscriptionPage: React.FC = () => {
       <Grid container spacing={2}>
         <Grid xs={8}>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información de la subscripción del socio {`${subscription.fullName}`}</Typography>
+            <Typography level="title-lg" color="success">Información de la subscripción del socio {`${subscription.fullName}`}</Typography>
             <Typography level="body-sm">Solamente puedes cambiar el monto de la suscripción en un plazo menor a 1 día.</Typography>
           </Box>
         </Grid>

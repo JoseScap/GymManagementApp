@@ -96,14 +96,14 @@ export default function Sidebar() {
             </ListItemButton>
           </ListItem>
 
-          <ListItem>
+          {/* <ListItem>
             <ListItemButton onClick={() => navigate('Core:MiSocio')}>
               <GroupRoundedIcon />
               <ListItemContent>
                 <Typography level="title-sm">Mi socío</Typography>
               </ListItemContent>
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
 
           <ListItem>
             <ListItemButton onClick={() => navigate('Class:List')}>

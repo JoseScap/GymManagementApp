@@ -198,7 +198,7 @@ const SubscriptionTable: React.FC = () => {
             <tr>
               <td scope="col" colSpan={8} style={{ padding: 0 }}>
                 <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
-                  <Button fullWidth style={{ margin: 0 }} onClick={() => findNextPage()}>Cargar más</Button>
+                  <Button fullWidth style={{ margin: 0 }} color="success" onClick={() => findNextPage()}>Cargar más</Button>
                 </Box>
               </td>
             </tr>

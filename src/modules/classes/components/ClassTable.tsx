@@ -1,17 +1,18 @@
-import { Box, Table } from "@mui/joy";
+import { Box, Button, Chip, Table } from "@mui/joy";
 import Sheet from "@mui/joy/Sheet";
 import { useClassListHooks } from "../hooks/useClassListHooks";
 import dayjs from "dayjs";
 import { IconButton } from "@mui/material";
-import { DeleteForeverRounded } from "@mui/icons-material";
+
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
+import RecyclingOutlinedIcon from '@mui/icons-material/RecyclingOutlined';
 
 const ClassTable: React.FC = () => {
-  const { currentPage: { data: gymClasses }, changeIdToDelete } = useClassListHooks()
-  
+  const { currentPage: { data: gymClasses }, changeIdToDelete, findNextPage } = useClassListHooks()
+
   return (
     <Sheet
       className="OrderTableContainer"
@@ -40,41 +41,41 @@ const ClassTable: React.FC = () => {
         <thead>
           <tr>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" 
-              justifyContent="start" alignItems="center">
+              <Box width="100%" height="100%" display="flex"
+                justifyContent="start" alignItems="center">
                 Nombre de la Clase
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" 
-              justifyContent="start" alignItems="center" gap="3px">
+              <Box width="100%" height="100%" display="flex"
+                justifyContent="start" alignItems="center" gap="3px">
                 Profesor
-                <PermIdentityOutlinedIcon/>
+                <PermIdentityOutlinedIcon />
               </Box>
             </th>
             <th scope="col" >
-              <Box width="100%" height="100%" display="flex" 
-              justifyContent="start" alignItems="center" gap="3px">
+              <Box width="100%" height="100%" display="flex"
+                justifyContent="start" alignItems="center" gap="3px">
                 Total
-                <AttachMoneyOutlinedIcon/>
+                <AttachMoneyOutlinedIcon />
               </Box>
             </th>
             <th scope="col">
               <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="start" gap="3px">
                 Asistentes
-                <PeopleOutlineOutlinedIcon/>
+                <PeopleOutlineOutlinedIcon />
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" 
-              alignItems="center" justifyContent="start" gap="3px">
+              <Box width="100%" height="100%" display="flex"
+                alignItems="center" justifyContent="start" gap="3px">
                 Fecha
-                <DateRangeOutlinedIcon/>
+                <DateRangeOutlinedIcon />
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex" 
-              alignItems="center" justifyContent="center">
+              <Box width="100%" height="100%" display="flex"
+                alignItems="center" justifyContent="center">
                 Acciones
               </Box>
             </th>
@@ -83,53 +84,61 @@ const ClassTable: React.FC = () => {
         <tbody>
           {
             gymClasses.length > 0 ? gymClasses
-            .map((gymClass) => (
-              <tr key={gymClass.id}>
-                <td>
-                  <Box display="flex" alignItems="center">
-                    {
-                      gymClass.className
-                    }
-                  </Box>
-                </td>
+              .map((gymClass) => (
+                <tr key={gymClass.id}>
+                  <td>
+                    <Box display="flex" alignItems="center" gap="3px">
+                      {
+                        gymClass.className
+                      }
+                      <Chip
+                        variant="soft"
+                        size="md"
+                        color={gymClass.isCanceled ? 'danger' : 'success'}
+                      >
+                        {gymClass.isCanceled ? 'Cancelada' : 'Activa'}
+                      </Chip>
+                    </Box>
+                  </td>
 
-                <td>
-                  <Box display="flex" alignItems="center">
-                    {gymClass.professor}
-                  </Box>
-                </td>
-                <td>
-                  <Box display="flex" alignItems="center">
-                    {gymClass.total}
-                  </Box>
-                </td>
-                <td>
-                  <Box display="flex" alignItems="center">
-                    {gymClass.countAssistant}
-                  </Box>
-                </td>
-                <td>
-                  <Box display="flex" alignItems="center">
-                    {dayjs(gymClass.date).format('DD/MM/YYYY')}
-                  </Box>
-                </td>
-                <td scope="col">
-                    <Box width="100%" height="100%" display="flex" 
-                    justifyContent="center" alignItems="center" gap="25px">
+                  <td>
+                    <Box display="flex" alignItems="center">
+                      {gymClass.professor}
+                    </Box>
+                  </td>
+                  <td>
+                    <Box display="flex" alignItems="center">
+                      {gymClass.total}
+                    </Box>
+                  </td>
+                  <td>
+                    <Box display="flex" alignItems="center">
+                      {gymClass.countAssistant}
+                    </Box>
+                  </td>
+                  <td>
+                    <Box display="flex" alignItems="center">
+                      {dayjs(gymClass.date).format('DD/MM/YYYY')}
+                    </Box>
+                  </td>
+                  <td scope="col">
+                    <Box width="100%" height="100%" display="flex"
+                      justifyContent="center" alignItems="center" gap="25px">
                       <IconButton
                         variant="outlined"
-                        color="danger"
+                        color={ gymClass.isCanceled ? 'success' : 'error' }
                         onClick={() => changeIdToDelete(gymClass.id)}
                       >
-                        <DeleteForeverRounded />
+                        <RecyclingOutlinedIcon />
                       </IconButton>
 
                     </Box>
                   </td>
-              </tr>
-            )) : (
+                </tr>
+              ))
+              : (
               <tr>
-                <td colSpan={5}>
+                <td colSpan={6}>
                   <Box display="flex" justifyContent="center" alignItems="center">
                     No hay clases registradas
                   </Box>
@@ -137,6 +146,15 @@ const ClassTable: React.FC = () => {
               </tr>
             )
           }
+          <tr>
+              <td scope="col" colSpan={6} style={{ padding: 0 }}>
+                <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center">
+                  <Button fullWidth style={{ margin: 0 }} 
+                    color="success"
+                    onClick={() => findNextPage()}>Cargar más</Button>
+                </Box>
+              </td>
+          </tr>
         </tbody>
       </Table>
     </Sheet>

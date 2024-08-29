@@ -29,14 +29,14 @@ const ClassListPage: React.FC = () => {
     <Grid container spacing={2}>
       <Grid xs={8}>
         <Box sx={{ mb: 1 }}>
-          <Typography level="h2">Lista de Clases</Typography>
+          <Typography level="h2" sx={{ color: "white" }}>Lista de Clases</Typography>
         </Box>
       </Grid>
       <Grid xs={4} display="flex" gap="8px" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
         <Button
-          variant="outlined"
+          variant="solid"
           onClick={() => setCreate(!create)}
-          color={create ? 'warning' : 'primary'}
+          color={create ? 'primary' : 'warning'}
           endDecorator={<AddCircleOutlineOutlinedIcon />}
         >
           Crear Miembro
@@ -47,7 +47,7 @@ const ClassListPage: React.FC = () => {
       create && <ClassCreate/>
     }
     <ClassTable />
-    <ClassPaginator />
+    {/* <ClassPaginator /> */}
     <ClassDeleteModal />
   </>
 }

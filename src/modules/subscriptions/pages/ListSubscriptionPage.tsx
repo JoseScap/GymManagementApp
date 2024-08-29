@@ -22,7 +22,7 @@ const ListSubscriptionPage: React.FC = () => {
         ]}
       />
     </Box>
-    <Typography level="h2">Lista de Subscripciones</Typography>
+    <Typography level="h2" sx={{ color: "white" }}>Lista de Subscripciones</Typography>
     <SubscriptionTable />
   </>
 }

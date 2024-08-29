@@ -95,12 +95,12 @@ const MemberPage: React.FC = () => {
         ]}
       />
     </Box>
-    <Typography level="h2">Perfil del Socio</Typography>
+    <Typography level="h2" sx={{color: "white" }}>Perfil del Socio</Typography>
     <Card>
       <Grid container spacing={2}>
         <Grid xs={8}>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Información del socio {`${member.fullName}`}</Typography>
+            <Typography level="title-lg" color="success">Información del socio {`${member.fullName}`}</Typography>
             <Typography level="body-lg">Clickea en el lapiz para cambiar la información del socio</Typography>
           </Box>
         </Grid>
@@ -108,7 +108,7 @@ const MemberPage: React.FC = () => {
           <Button
             variant="outlined"
             onClick={handleActiveEdit}
-            color={edit ? 'danger' : 'primary'}
+            color={edit ? 'danger' : 'success'}
             endDecorator={edit ? <CancelRounded /> : <EditRoundedIcon />}
           >
             { edit ? "Cancelar edicion" : "Editar miembro" }
@@ -172,19 +172,19 @@ const MemberPage: React.FC = () => {
         </Grid>
         <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
           <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-            <Button size="sm" variant="solid" type="submit" disabled={!edit}>
+            <Button size="sm" variant="solid" color="success" type="submit" disabled={!edit}>
               Guardar
             </Button>
           </CardActions>
         </CardOverflow>
       </form>
     </Card>
-    <Typography level="h3">Historial</Typography>
+    <Typography level="h3" sx={{color: "white" }}>Historial</Typography>
     <Card>
       <Grid container spacing={2}>
         <Grid xs={8}>
           <Box sx={{ mb: 1 }}>
-            <Typography level="title-lg" color="primary">Historial de {`${member.fullName}`}</Typography>
+            <Typography level="title-lg" color="success">Historial de {`${member.fullName}`}</Typography>
           </Box>
         </Grid>
       </Grid>

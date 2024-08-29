@@ -20,7 +20,7 @@ const MiSocioPage: React.FC = () => {
         ]}
       />
     </Box>
-    <Typography level="h1">Mi Socio</Typography>
+    <Typography level="h1" sx={{ color: "white" }}>Mi Socio</Typography>
     <Card>
       <Grid container spacing={2}>
         <Grid xs={12}>

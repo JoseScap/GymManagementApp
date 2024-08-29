@@ -95,7 +95,7 @@ const SubscriptionMemberForm: React.FC = () => {
         <Grid xs={12}>
           <Card>
             <Box sx={{ mb: 1 }}>
-              <Typography level="title-lg" color="primary">¿Es un miembro nuevo?</Typography>
+              <Typography level="title-lg" color="success">¿Es un miembro nuevo?</Typography>
               <Typography level="body-md">Indique si el miembro ya asistió a este gimnasio previamente.</Typography>
             </Box>
             <Divider />
@@ -136,7 +136,7 @@ const SubscriptionMemberForm: React.FC = () => {
           <Box sx={{ mb: 1 }}>
             <Box display="flex" gap="5px">
                 <ContactEmergencyOutlinedIcon />
-                <Typography level="title-lg" color="primary">Información del socio</Typography>
+                <Typography level="title-lg" color="success">Información del socio</Typography>
             </Box>
             <Typography level="body-md">Seleccioné el socio a suscribir.</Typography>
           </Box>
@@ -183,7 +183,7 @@ const SubscriptionMemberForm: React.FC = () => {
           <Box sx={{ mb: 1 }}>
             <Box display="flex" gap="5px">
               <ContactEmergencyOutlinedIcon />
-              <Typography level="title-lg" color="primary">Información del nuevo socio</Typography>
+              <Typography level="title-lg" color="success">Información del nuevo socio</Typography>
             </Box>
             <Typography level="body-md">Ingresa en el formulario la informacion del nuevo socio.</Typography>
           </Box>
@@ -248,13 +248,13 @@ const SubscriptionMemberForm: React.FC = () => {
           <Box sx={{ mb: 1 }}>
             <Box display="flex" gap="5px">
               <FingerprintOutlinedIcon />
-              <Typography level="title-lg" color="primary">Identificacion por huella.</Typography>
+              <Typography level="title-lg" color="success">Identificacion por huella.</Typography>
             </Box>
             <Typography level="body-md">Inicie la identificación por huella.</Typography>
           </Box>
           <Divider />
           <Grid container spacing={2}>
-            <Grid xs={2}><Button fullWidth disabled={fingerTemplate != null} onClick={() => changeCaptureStep(1)}>Iniciar registro</Button></Grid>
+            <Grid xs={2}><Button fullWidth disabled={fingerTemplate != null} color="success" onClick={() => changeCaptureStep(1)}>Iniciar registro</Button></Grid>
             {(captureStep >= 1 || fingerTemplate != null) &&
               <Grid xs={10}>
                 <Stepper>
@@ -312,7 +312,7 @@ const SubscriptionMemberForm: React.FC = () => {
           <Box sx={{ mb: 1 }}>
             <Box display="flex" gap="5px">
                 <InfoOutlinedIcon />
-                <Typography level="title-lg" color="primary">Información de la suscripción</Typography>
+                <Typography level="title-lg" color="success">Información de la suscripción</Typography>
             </Box>
             <Typography level="body-md">Indique el periodo de asistencia habilitada.</Typography>
           </Box>
@@ -329,6 +329,7 @@ const SubscriptionMemberForm: React.FC = () => {
                       value={option}
                       onChange={() => handleChangeMemberStatus(option)}
                       checked={memberStatus === option}
+                      color="success"
                       name="memberStatus"
                       slotProps={{ input: { 'aria-label': option } }}
                       required
@@ -367,7 +368,7 @@ const SubscriptionMemberForm: React.FC = () => {
           <Box sx={{ mb: 1 }}>
             <Box display="flex" gap="5px">
                 <AttachMoneyOutlinedIcon />
-                <Typography level="title-lg" color="primary">Información del pago</Typography>
+                <Typography level="title-lg" color="success">Información del pago</Typography>
             </Box>
             <Typography level="body-md">Indique la modalidad de pago utilizada</Typography>
           </Box>
@@ -382,6 +383,7 @@ const SubscriptionMemberForm: React.FC = () => {
                       key={option}
                       label={option}
                       value={option}
+                      color="success"
                       onChange={() => changePaymentMethod(option)}
                       checked={paymentMethod === option}
                       name="paymentMethod"
@@ -410,7 +412,7 @@ const SubscriptionMemberForm: React.FC = () => {
               <Button size="sm" variant="outlined" color="neutral">
                 Cancelar
               </Button>
-              <Button size="sm" variant="solid" type="submit">
+              <Button size="sm" variant="solid" color="success" type="submit">
                 Guardar
               </Button>
             </CardActions>
