@@ -10,11 +10,11 @@ import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOu
 import ClassCreate from "../components/ClassCreate.tsx";
 
 const ClassListPage: React.FC = () => {
-  const { numberPage, findAllClass, create, setCreate } = useClassListHooks()
+  const { findNextPage, create, setCreate } = useClassListHooks()
 
   useEffect(() => {
-    findAllClass()
-  }, [numberPage]);
+    findNextPage()
+  }, []);
 
   return <>
     <Box>
@@ -47,7 +47,6 @@ const ClassListPage: React.FC = () => {
       create && <ClassCreate/>
     }
     <ClassTable />
-    {/* <ClassPaginator /> */}
     <ClassDeleteModal />
   </>
 }

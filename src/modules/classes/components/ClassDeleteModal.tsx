@@ -7,23 +7,21 @@ import { GymClass } from "../../common/types/gymClass";
 const ClassDeleteModal: React.FC = () => {
   const {
     idToDelete,
-    currentPage: { data: gymClasses },
+    classes,
     changeIdToDelete,
-    deleteClassById,
-    findAllClass
+    deleteClassById
   } = useClassListHooks()
 
   const open = useMemo<boolean>(() => !!idToDelete, [idToDelete])
-  const gymClass = useMemo<GymClass>(() => {
-    if (idToDelete === null) return "";
+  const gymClass = useMemo<GymClass | null>(() => {
+    if (idToDelete === null) return null;
 
-    return gymClasses.find(gymClass => gymClass.id === idToDelete)
-  }, [idToDelete, gymClasses])
+    return classes.find(gymClass => gymClass.id === idToDelete) ?? null
+  }, [idToDelete, classes])
 
   const handleDelete = () => {
-    idToDelete !== null && deleteClassById(idToDelete, gymClass.isCanceled).finally(() => {
+    idToDelete !== null && gymClass !== null && deleteClassById(idToDelete, gymClass.isCanceled).finally(() => {
       changeIdToDelete("")
-      findAllClass()
     })
   }
 
