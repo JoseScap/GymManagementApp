@@ -11,7 +11,7 @@ import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 
 const ClassCreate: React.FC = () => {
 
-    const { createClass, findAllClass, setCreate } = useClassListHooks()
+    const { createClass, setCreate } = useClassListHooks()
 
 
     const [data, setData] = useState({
@@ -26,7 +26,6 @@ const ClassCreate: React.FC = () => {
         event.preventDefault()
 
         createClass(data).finally(() => {
-            findAllClass()
             setCreate(false)
         })
     }
@@ -113,7 +112,7 @@ const ClassCreate: React.FC = () => {
                 </Grid>
                 <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
                     <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-                        <Button size="sm" variant="solid" type="submit">
+                        <Button size="sm" variant="solid" color="success" type="submit">
                             Guardar
                         </Button>
                     </CardActions>

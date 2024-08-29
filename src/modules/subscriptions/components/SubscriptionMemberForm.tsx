@@ -12,6 +12,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import WbSunny from "@mui/icons-material/WbSunny";
 import { Banknote, CalendarCheck } from "lucide-react";
+import { toast } from "react-toastify";
 
 const memberStatusOptions: MemberStatus[] = ['Día', 'Semana', 'Mes']
 const paymentMethodOptions: PaymentMethod[] = ['Efectivo', 'Transferencia']
@@ -88,7 +89,10 @@ const SubscriptionMemberForm: React.FC = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     subscribeMember()
-      .finally(() => navigate('Subscription:List'))
+      .finally(() => {
+        navigate('Subscription:List')
+        toast.success('Se cargo una nueva suscripción')
+      })
   }
 
   return <form onSubmit={handleSubmit}>

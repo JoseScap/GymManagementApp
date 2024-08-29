@@ -2,9 +2,8 @@ import { Box, Button, Grid, Typography } from "@mui/joy";
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
 import { useClassListHooks } from "../hooks/useClassListHooks.ts";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ClassTable from "../components/ClassTable.tsx";
-import ClassPaginator from "../components/ClassPaginator.tsx";
 import ClassDeleteModal from "../components/ClassDeleteModal.tsx";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import ClassCreate from "../components/ClassCreate.tsx";
@@ -36,7 +35,7 @@ const ClassListPage: React.FC = () => {
         <Button
           variant="solid"
           onClick={() => setCreate(!create)}
-          color={create ? 'primary' : 'warning'}
+          color={'success'}
           endDecorator={<AddCircleOutlineOutlinedIcon />}
         >
           Crear Miembro
