@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
               <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>
-                Ingresos del día {todayIsClosed && <Chip color="danger" style={{ fontWeight: 'bold' }}>DIA CERRADO</Chip>}
+                Ingresos del día {todayIsClosed && <Chip color="danger" style={{ fontWeight: 'bold' }}>DÍA CERRADO</Chip>}
               </Typography>
               <Button color="success" onClick={() => setSignModal(true)} disabled={todayIsClosed}>Cerrar día</Button>
             </Box>
@@ -168,7 +168,10 @@ const HomePage: React.FC = () => {
         <Grid container spacing={2}>
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>Ingresos del día</Typography>
+              <Typography level="h3" color="success" startDecorator={<DollarSign />}>
+                Ingresos del día
+                {day?.isModified && <Chip color="danger" style={{ fontWeight: 'bold' }}>DÍA MODIFICADO</Chip>}
+              </Typography>
               <Box display='flex'>
                 <DatePicker
                   value={calendarDay}
