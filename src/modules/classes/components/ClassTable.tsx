@@ -1,4 +1,4 @@
-import { Box, Button, Chip, Table } from "@mui/joy";
+import { Box, Button, Chip, IconButton, Table } from "@mui/joy";
 import Sheet from "@mui/joy/Sheet";
 import { useClassListHooks } from "../hooks/useClassListHooks";
 import dayjs from "dayjs";
@@ -73,8 +73,13 @@ const ClassTable: React.FC = () => {
               </Box>
             </th>
             <th scope="col">
-              <Box width="100%" height="100%" display="flex"
-                alignItems="center" justifyContent="center">
+              <Box
+                width="100%"
+                height="100%"
+                display="flex"
+                alignItems="center"
+                justifyContent="right"
+              >
                 Acciones
               </Box>
             </th>
@@ -121,24 +126,25 @@ const ClassTable: React.FC = () => {
                     </Box>
                   </td>
                   <td scope="col">
-                    <Box width="100%" height="100%" display="flex"
-                      justifyContent="center" alignItems="center" gap="25px">
-                      <Button
+                    <Box
+                      width="100%"
+                      height="100%"
+                      display="flex"
+                      justifyContent="right"
+                      alignItems="center"
+                      gap="25px"
+                    >
+                      <IconButton
                         variant="outlined"
                         color={ gymClass.isCanceled ? 'success' : 'danger' }
                         onClick={() => changeIdToDelete(gymClass.id)}
-                        startDecorator={
+                      >
+                        {
                           gymClass.isCanceled
                             ? <RecyclingOutlinedIcon />
                             : <Trash2 />
                         }
-                      >
-                        {
-                          gymClass.isCanceled
-                            ? "Activar"
-                            : "Cancelar"
-                        }
-                      </Button>
+                      </IconButton>
                     </Box>
                   </td>
                 </tr>

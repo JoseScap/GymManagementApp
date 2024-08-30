@@ -125,7 +125,7 @@ const SubscriptionTable: React.FC = () => {
             </th>
             <th scope="col" style={{ backgroundColor: "#fff" }}>
               <Box width="100%" height="100%" display="flex" 
-              alignItems="center" justifyContent="center">
+              alignItems="center" justifyContent="right">
                 Acciones
               </Box>
             </th>
@@ -188,36 +188,36 @@ const SubscriptionTable: React.FC = () => {
                           </td>
                           <td scope="col">
                           <Box width="100%" height="100%" display="flex" alignItems="center">
-                              <Chip
-                                variant="soft"
-                                size="md"
-                                startDecorator={startDecoratorPaymentMethod[paymentMethod]}
-                                color={colorPaymentMethodDictionary[paymentMethod]}
-                              >
-                                {paymentMethod}
-                              </Chip>
-                            </Box>
+                            <Chip
+                              variant="soft"
+                              size="md"
+                              startDecorator={startDecoratorPaymentMethod[paymentMethod]}
+                              color={colorPaymentMethodDictionary[paymentMethod]}
+                            >
+                              {paymentMethod}
+                            </Chip>
+                          </Box>
                           </td>
                           <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center" gap="5px">
-                              <Button
+                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="right" gap="5px">
+                              <IconButton
                                 variant="outlined"
                                 color="neutral"
                                 onClick={() => navigate('Member:Detail', { id: member!.id })}
-                                startDecorator={<VisibilityRoundedIcon />}
                               >
-                              </Button>
-                              <Button
+                                <VisibilityRoundedIcon />
+                              </IconButton>
+                              <IconButton
                                 variant="outlined"
-                                color={isCanceled ? "danger" : "primary"}
+                                color={!isCanceled ? "danger" : "success"}
                                 onClick={() => {
                                   deleteSubscriptionById(id, isCanceled)
                                   if(isCanceled) toast.success('Subscripción restaurada con éxito')
                                   else toast.success('Subscripción desactivada con éxito')
                                 }}
-                                startDecorator={isCanceled ? <DeleteOutlineOutlinedIcon /> : <RestoreOutlinedIcon />}
                               >
-                              </Button>
+                                {!isCanceled ? <DeleteOutlineOutlinedIcon /> : <RestoreOutlinedIcon />}
+                              </IconButton>
                             </Box>
                           </td>
                         </tr>

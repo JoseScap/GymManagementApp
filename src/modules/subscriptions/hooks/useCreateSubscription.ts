@@ -127,7 +127,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
       }
       if(fingerTemplate != null && fingerTemplate.length > 0) body.fingerTemplate = fingerTemplate
       const result: AxiosResponse<SingleApiResponse<CreateNewMember>> = await axios.post("http://localhost:3000/members/create-one-with-sub", body)
-      if (socket) socket.emit("App:AddFingerTemplate", result.data.data)
+      if (socket && fingerTemplate != null && fingerTemplate.length > 0) socket.emit("App:AddFingerTemplate", result.data.data)
     } else {
       const body: CreateSubRequest = {
         amount: amount,

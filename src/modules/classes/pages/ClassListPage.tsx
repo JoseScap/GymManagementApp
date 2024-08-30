@@ -38,7 +38,7 @@ const ClassListPage: React.FC = () => {
           color={'success'}
           endDecorator={<AddCircleOutlineOutlinedIcon />}
         >
-          Crear Miembro
+          Nueva clase
         </Button>
       </Grid>
     </Grid>

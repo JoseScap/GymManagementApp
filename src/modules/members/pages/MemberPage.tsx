@@ -202,7 +202,7 @@ const MemberPage: React.FC = () => {
               }}
             >
               <AccordionSummary>
-                <Avatar color={sub.isCanceled ? 'danger' : 'primary'}>
+                <Avatar color={sub.isCanceled ? 'danger' : 'success'}>
                   <StarRounded />
                 </Avatar>
                 <ListItemContent>

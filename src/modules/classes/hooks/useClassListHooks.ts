@@ -3,6 +3,7 @@ import { SetStateAction, useContext } from "react";
 import axios, { AxiosResponse } from "axios";
 import { PaginatedApiResponse } from "../../common/types/api";
 import { GymClass } from "../../common/types/gymClass";
+import { toast } from "react-toastify";
 
 // Interface that should be return by the hook
 interface ClassListHooks {
@@ -26,6 +27,7 @@ export const useClassListHooks = (): ClassListHooks => {
     setClasses([...classes, ...response.data.data])
     setCurrentPage(nextPage)
     setHasMore(!!response.data.next)
+    if (!response.data.next) toast.success('No hay más clases para cargar')
   }
 
   const changeIdToDelete = async (id: SetStateAction<string>) => {
