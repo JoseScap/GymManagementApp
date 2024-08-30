@@ -1,9 +1,9 @@
-import {Box, Button, Card, DialogActions, DialogContent, DialogTitle, Divider, FormLabel, Grid, Modal, ModalDialog, Tab, TabList, TabPanel, Tabs, Typography} from "@mui/joy";
+import {Box, Button, Card, Chip, DialogActions, DialogContent, DialogTitle, Divider, FormLabel, Grid, Modal, ModalDialog, Tab, TabList, TabPanel, Tabs, Typography} from "@mui/joy";
 import { DollarSign } from "lucide-react";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs";
 import { useEffect, useState } from "react";
 import { TodaySummary } from "../../common/types/responses";
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
 import { AttachMoneyOutlined, WarningRounded } from "@mui/icons-material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
@@ -12,11 +12,23 @@ import { toast } from "react-toastify";
 
 const HomePage: React.FC = () => {
   const [today, setToday] = useState<TodaySummary | null>(null)
+  const [todayIsClosed, setTodayIsClosed] = useState<boolean>(false)
   const [calendarDay, setCalendarDay] = useState<Dayjs | null>(null)
   const [day, setDay] = useState<Summary | null>(null)
   const [signModal, setSignModal] = useState<boolean>(false)
 
   const findToday = async () => {
+    try {
+      const date = new Date()
+      await axios.get(`http://localhost:3000/summaries/day?day=${date.toISOString()}`)
+      setTodayIsClosed(true)
+    } catch (error) {
+      const customError = error as AxiosError<{ message: string, statusCode: number }>
+      if (customError.response?.status === 404) {
+        setTodayIsClosed(false)
+      }
+    }
+
     const response: AxiosResponse<TodaySummary> = await axios.get('http://localhost:3000/summaries')
     setToday(response.data)
   }
@@ -26,6 +38,7 @@ const HomePage: React.FC = () => {
     try {
       await axios.post('http://localhost:3000/summaries')
       toast.success('El dia fue cerrado correctamente')
+      findToday()
     } catch (error) {
       toast.success('Ocurrio un error, no se pudo cerrar el dia')
     }
@@ -71,8 +84,10 @@ const HomePage: React.FC = () => {
         <Grid container spacing={2}>
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
-              <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>Ingresos del día</Typography>
-              <Button color="success" onClick={() => setSignModal(true)}>Cerrar día</Button>
+              <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>
+                Ingresos del día {todayIsClosed && <Chip color="danger" style={{ fontWeight: 'bold' }}>DIA CERRADO</Chip>}
+              </Typography>
+              <Button color="success" onClick={() => setSignModal(true)} disabled={todayIsClosed}>Cerrar día</Button>
             </Box>
           </Grid>
           <Grid xs={12}>
@@ -112,7 +127,7 @@ const HomePage: React.FC = () => {
             <Card color="danger">
               <Grid container spacing={2}>
                 <Grid xs={4}>
-                  <Typography level="body-lg" fontWeight='bold'>Nuevos miembros cancelados</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>Nuevos miembros</Typography>
                   <Typography level="body-lg" fontWeight='bold'>{today?.newMembersCanceledCount ?? 0}</Typography>
                 </Grid>
                 <Grid xs={4}>
