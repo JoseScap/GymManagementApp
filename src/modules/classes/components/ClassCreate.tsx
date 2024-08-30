@@ -8,6 +8,7 @@ import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
+import { toast } from "react-toastify"
 
 const ClassCreate: React.FC = () => {
 
@@ -27,6 +28,7 @@ const ClassCreate: React.FC = () => {
 
         createClass(data).finally(() => {
             setCreate(false)
+            toast.success('Se cargo una nueva clase')
         })
     }
 

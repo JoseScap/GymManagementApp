@@ -2,14 +2,12 @@ import { Box, Button, Chip, Table } from "@mui/joy";
 import Sheet from "@mui/joy/Sheet";
 import { useClassListHooks } from "../hooks/useClassListHooks";
 import dayjs from "dayjs";
-import { IconButton } from "@mui/joy";
-
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import RecyclingOutlinedIcon from '@mui/icons-material/RecyclingOutlined';
-import { Trash, Trash2 } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 const ClassTable: React.FC = () => {
   const { classes, changeIdToDelete, findNextPage, hasMore } = useClassListHooks()

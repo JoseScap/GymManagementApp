@@ -16,6 +16,9 @@ import { useNavigate } from "../../../../src/routers";
 import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import { NumbersOutlined, PersonOutlineRounded } from "@mui/icons-material";
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
+import { toast } from "react-toastify";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -42,7 +45,7 @@ const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
 }
 
 const SubscriptionTable: React.FC = () => {
-    const { hasMore, subscriptions, findNextPage } = useListSubscription();
+    const { hasMore, subscriptions, findNextPage, deleteSubscriptionById } = useListSubscription();
     const navigate = useNavigate();
 
   return (
@@ -140,7 +143,7 @@ const SubscriptionTable: React.FC = () => {
                   </tr>
                 ) : (
                     subscriptions.map(({ id: id, dateFrom: dateFrom, dateTo: dateTo, 
-                        amount: amount, paymentMethod: paymentMethod, member: member }) => (
+                        amount: amount, paymentMethod: paymentMethod, member: member, isCanceled: isCanceled }) => (
                         <tr key={id} >
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
@@ -196,14 +199,24 @@ const SubscriptionTable: React.FC = () => {
                             </Box>
                           </td>
                           <td scope="col">
-                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center" gap="4px">
+                            <Box width="100%" height="100%" display="flex" alignItems="center" justifyContent="center" gap="5px">
                               <Button
                                 variant="outlined"
                                 color="neutral"
                                 onClick={() => navigate('Member:Detail', { id: member!.id })}
                                 startDecorator={<VisibilityRoundedIcon />}
                               >
-                                Detalle
+                              </Button>
+                              <Button
+                                variant="outlined"
+                                color={isCanceled ? "danger" : "primary"}
+                                onClick={() => {
+                                  deleteSubscriptionById(id, isCanceled)
+                                  if(isCanceled) toast.success('Subscripción restaurada con éxito')
+                                  else toast.success('Subscripción desactivada con éxito')
+                                }}
+                                startDecorator={isCanceled ? <DeleteOutlineOutlinedIcon /> : <RestoreOutlinedIcon />}
+                              >
                               </Button>
                             </Box>
                           </td>

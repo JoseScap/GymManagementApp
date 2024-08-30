@@ -3,6 +3,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import { useMemo } from "react";
 import { useClassListHooks } from "../hooks/useClassListHooks";
 import { GymClass } from "../../common/types/gymClass";
+import { toast } from "react-toastify";
 
 const ClassDeleteModal: React.FC = () => {
   const {
@@ -22,6 +23,11 @@ const ClassDeleteModal: React.FC = () => {
   const handleDelete = () => {
     idToDelete !== null && gymClass !== null && deleteClassById(idToDelete, gymClass.isCanceled).finally(() => {
       changeIdToDelete("")
+      if(gymClass.isCanceled){
+        toast.success('Se ha reactivado la clase')
+      } else {
+        toast.success('Se ha cancelado la clase')
+      }
     })
   }
 

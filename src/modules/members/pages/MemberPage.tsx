@@ -30,6 +30,7 @@ import { PaymentMethod } from "../../common/types/subscription";
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import AbcOutlinedIcon from '@mui/icons-material/AbcOutlined';
+import { toast } from "react-toastify";
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
   Efectivo: <LocalAtmRounded />,
@@ -73,6 +74,7 @@ const MemberPage: React.FC = () => {
       .finally(() => {
         getMemberById(memberId!)
         setEdit(false)
+        toast.success("Socio editado correctamente")
       })
   }
 

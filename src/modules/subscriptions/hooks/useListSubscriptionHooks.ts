@@ -9,6 +9,7 @@ interface MemberListHooks {
   hasMore: boolean
   subscriptions: Subscription[]
   findNextPage: () => void
+  deleteSubscriptionById: (id: string, isCanceled: boolean) => void
 }
 
 export const useListSubscription = (): MemberListHooks => {
@@ -29,10 +30,16 @@ export const useListSubscription = (): MemberListHooks => {
     setSubscriptions([...subscriptions, ...response.data.data])
   }
 
+  const deleteSubscriptionById = async (id: string, isCanceled: boolean) => {
+    if(isCanceled) await axios.delete(`http://localhost:3000/subscriptions/restore/${id}`)
+    else await axios.delete(`http://localhost:3000/subscriptions/remove/${id}`)
+  }
+
   return {
     hasMore,
     subscriptions,
-    findNextPage
+    findNextPage,
+    deleteSubscriptionById
   }
 }
 
