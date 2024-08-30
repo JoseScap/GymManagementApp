@@ -1,22 +1,34 @@
-import {Box, Button, Card, Divider, FormLabel, Grid, Tab, TabList, TabPanel, Tabs, Typography} from "@mui/joy";
+import {Box, Button, Card, DialogActions, DialogContent, DialogTitle, Divider, FormLabel, Grid, Modal, ModalDialog, Tab, TabList, TabPanel, Tabs, Typography} from "@mui/joy";
 import { DollarSign } from "lucide-react";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs";
 import { useEffect, useState } from "react";
 import { TodaySummary } from "../../common/types/responses";
 import axios, { AxiosResponse } from "axios";
-import { AttachMoneyOutlined } from "@mui/icons-material";
+import { AttachMoneyOutlined, WarningRounded } from "@mui/icons-material";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
 import { Summary } from "../../common/types/summary";
+import { toast } from "react-toastify";
 
 const HomePage: React.FC = () => {
   const [today, setToday] = useState<TodaySummary | null>(null)
   const [calendarDay, setCalendarDay] = useState<Dayjs | null>(null)
   const [day, setDay] = useState<Summary | null>(null)
+  const [signModal, setSignModal] = useState<boolean>(false)
 
   const findToday = async () => {
     const response: AxiosResponse<TodaySummary> = await axios.get('http://localhost:3000/summaries')
     setToday(response.data)
+  }
+
+  const handleSignToday = async () => {
+    setSignModal(false)
+    try {
+      await axios.post('http://localhost:3000/summaries')
+      toast.success('El dia fue cerrado correctamente')
+    } catch (error) {
+      toast.success('Ocurrio un error, no se pudo cerrar el dia')
+    }
   }
 
   const handleChangeCalendarDay = async (date: Dayjs | null) => {
@@ -60,7 +72,7 @@ const HomePage: React.FC = () => {
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
               <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>Ingresos del día</Typography>
-              <Button color="success">Cerrar día</Button>
+              <Button color="success" onClick={() => setSignModal(true)}>Cerrar día</Button>
             </Box>
           </Grid>
           <Grid xs={12}>
@@ -227,6 +239,29 @@ const HomePage: React.FC = () => {
         </Grid>
       </TabPanel>
     </Tabs>
+    <Modal
+      open={signModal}
+      // onClose={() => changeIdToDelete("")}
+    >
+      <ModalDialog variant="outlined" role="alertdialog">
+        <DialogTitle>
+          <WarningRounded />
+          Atención
+        </DialogTitle>
+        <Divider />
+        <DialogContent>
+          ¿Estás seguro que quieres cerrar el dia?
+        </DialogContent>
+        <DialogActions>
+          <Button variant="solid" color="success" onClick={handleSignToday}>
+            Cerrar dia
+          </Button>
+          <Button variant="plain" color="neutral" onClick={() => setSignModal(false)}>
+            Cancelar
+          </Button>
+        </DialogActions>
+      </ModalDialog>
+    </Modal>
   </>
 }
 
