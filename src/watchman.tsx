@@ -30,6 +30,7 @@ const WatchmanApp = () => {
       <Button
         size='sm'
         startDecorator={<ScreenShare />}
+        color='success'
         onClick={handleSwitchScreens}  
       >
         Cambiar pantallas
