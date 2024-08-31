@@ -6,7 +6,8 @@ import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-import RecyclingOutlinedIcon from '@mui/icons-material/RecyclingOutlined';
+import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
+import InactiveIcon from "@mui/icons-material/Block"
 import { Trash2 } from "lucide-react";
 
 const ClassTable: React.FC = () => {
@@ -95,13 +96,18 @@ const ClassTable: React.FC = () => {
                       {
                         gymClass.className
                       }
-                      <Chip
-                        variant="soft"
-                        size="md"
-                        color={gymClass.isCanceled ? 'danger' : 'success'}
-                      >
-                        {gymClass.isCanceled ? 'Cancelada' : 'Activa'}
-                      </Chip>
+                      {
+                      gymClass.isCanceled && (
+                        <Chip
+                          variant="soft"
+                          size="md"
+                          color="danger"
+                          startDecorator={<InactiveIcon />}
+                        >
+                          Cancelada
+                        </Chip>
+                      )
+                      }
                     </Box>
                   </td>
 
@@ -141,7 +147,7 @@ const ClassTable: React.FC = () => {
                       >
                         {
                           gymClass.isCanceled
-                            ? <RecyclingOutlinedIcon />
+                            ? <RestoreOutlinedIcon />
                             : <Trash2 />
                         }
                       </IconButton>

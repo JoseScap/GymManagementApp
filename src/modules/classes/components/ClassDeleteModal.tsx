@@ -23,7 +23,7 @@ const ClassDeleteModal: React.FC = () => {
   const handleDelete = () => {
     idToDelete !== null && gymClass !== null && deleteClassById(idToDelete, gymClass.isCanceled).finally(() => {
       changeIdToDelete("")
-      if(gymClass.isCanceled){
+      if (gymClass.isCanceled) {
         toast.success('Se ha reactivado la clase')
       } else {
         toast.success('Se ha cancelado la clase')
@@ -33,30 +33,34 @@ const ClassDeleteModal: React.FC = () => {
 
   return (
     <>
-      {
-        open && (
-          <Modal open={open} onClose={() => changeIdToDelete("")}>
-            <ModalDialog variant="outlined" role="alertdialog">
-              <DialogTitle>
-                <WarningRoundedIcon />
-                Atención
-              </DialogTitle>
-              <Divider />
-              <DialogContent>
-                ¿Estás seguro que quieres cancelar la clase de {gymClass?.className}?
-              </DialogContent>
-              <DialogActions>
-                <Button variant="solid" color="danger" onClick={handleDelete}>
-                  Cancelar clase
-                </Button>
-                <Button variant="plain" color="neutral" onClick={() => changeIdToDelete("")}>
-                  Cancelar
-                </Button>
-              </DialogActions>
-            </ModalDialog>
-          </Modal>
-        )
-      }
+      <Modal open={open} onClose={() => changeIdToDelete("")}>
+        <ModalDialog variant="outlined" role="alertdialog">
+          <DialogTitle>
+            <WarningRoundedIcon />
+            Atención
+          </DialogTitle>
+          <Divider />
+          <DialogContent>
+            {
+              gymClass?.isCanceled
+                ? "¿Estás seguro que quieres reactivar la clase?"
+                : "¿Estás seguro que quieres cancelar la clase?"
+            }
+          </DialogContent>
+          <DialogActions>
+            <Button variant="solid" color="danger" onClick={handleDelete}>
+              {
+                gymClass?.isCanceled
+                  ? "Reactivar"
+                  : "Cancelar"
+              }
+            </Button>
+            <Button variant="plain" color="neutral" onClick={() => changeIdToDelete("")}>
+              Cancelar
+            </Button>
+          </DialogActions>
+        </ModalDialog>
+      </Modal>
     </>
   )
 }

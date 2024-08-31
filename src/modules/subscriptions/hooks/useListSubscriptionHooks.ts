@@ -8,9 +8,11 @@ import { toast } from "react-toastify";
 // Interface that should be return by the hook
 interface MemberListHooks {
   hasMore: boolean
-  subscriptions: Subscription[]
+  subscriptions: Subscription[],
+  idToDelete: string,
   findNextPage: () => void
   deleteSubscriptionById: (id: string, isCanceled: boolean) => void
+  changeIdToDelete: (id: string) => void
 }
 
 export const useListSubscription = (): MemberListHooks => {
@@ -18,9 +20,11 @@ export const useListSubscription = (): MemberListHooks => {
     currentPage,
     hasMore,
     subscriptions,
+    idToDelete,
     setCurrentPage,
     setHasMore,
-    setSubscriptions
+    setSubscriptions,
+    setIdToDelete,
   } = useContext(ListSubscriptionContext)
 
   const findNextPage = async () => {
@@ -37,11 +41,17 @@ export const useListSubscription = (): MemberListHooks => {
     else await axios.delete(`http://localhost:3000/subscriptions/remove/${id}`)
   }
 
+  const changeIdToDelete = async (id: string) => {
+    setIdToDelete(id)
+  }
+
   return {
     hasMore,
     subscriptions,
     findNextPage,
-    deleteSubscriptionById
+    deleteSubscriptionById,
+    changeIdToDelete,
+    idToDelete,
   }
 }
 
