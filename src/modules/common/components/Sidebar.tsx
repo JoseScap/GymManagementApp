@@ -107,7 +107,7 @@ export default function Sidebar() {
             <ListItemButton onClick={() => navigate('Class:List')}>
               <ClassOutlinedIcon />
               <ListItemContent>
-                <Typography level="title-sm">Clases</Typography>
+                <Typography level="title-sm">Lista de Clases</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

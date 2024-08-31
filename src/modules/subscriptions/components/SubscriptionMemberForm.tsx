@@ -11,7 +11,7 @@ import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import WbSunny from "@mui/icons-material/WbSunny";
-import { Banknote, CalendarCheck } from "lucide-react";
+import { CalendarCheck } from "lucide-react";
 import { toast } from "react-toastify";
 
 const memberStatusOptions: MemberStatus[] = ['Día', 'Semana', 'Mes']
@@ -260,7 +260,27 @@ const SubscriptionMemberForm: React.FC = () => {
           </Box>
           <Divider />
           <Grid container spacing={2}>
-            <Grid xs={2}><Button fullWidth disabled={fingerTemplate != null} color="success" onClick={() => changeCaptureStep(1)}>Iniciar registro</Button></Grid>
+            <Grid xs={2}>
+              <Button
+                fullWidth
+                disabled={fingerTemplate != null}
+                color={
+                  fingerTemplate !== null
+                    ? 'neutral'
+                    : captureStep > 0
+                    ? 'danger'
+                    : 'success' 
+                }
+                onClick={() => {
+                  if (captureStep === 0) changeCaptureStep(1)
+                  else changeCaptureStep(0)
+                }}
+              >
+                {
+                  captureStep > 0 ? "Cancelar registro" : "Iniciar registro"
+                }
+              </Button>
+            </Grid>
             {(captureStep >= 1 || fingerTemplate != null) &&
               <Grid xs={10}>
                 <Stepper>
