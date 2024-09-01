@@ -2,7 +2,7 @@ import {Box, Button, Card, Chip, DialogActions, DialogContent, DialogTitle, Divi
 import { DollarSign } from "lucide-react";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs";
 import { useEffect, useState } from "react";
-import { TodaySummary } from "../../common/types/responses";
+import { TodaySummary, WeekSummary } from "../../common/types/responses";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { AttachMoneyOutlined, WarningRounded } from "@mui/icons-material";
 import { DatePicker } from "@mui/x-date-pickers";
@@ -15,6 +15,8 @@ const HomePage: React.FC = () => {
   const [todayIsClosed, setTodayIsClosed] = useState<boolean>(false)
   const [calendarDay, setCalendarDay] = useState<Dayjs | null>(null)
   const [day, setDay] = useState<Summary | null>(null)
+  const [calendarDayOfWeek, setCalendarDayOfWeek] = useState<Dayjs | null>(null)
+  const [week, setWeek] = useState<WeekSummary | null>(null)
   const [signModal, setSignModal] = useState<boolean>(false)
 
   const findToday = async () => {
@@ -56,6 +58,21 @@ const HomePage: React.FC = () => {
       setDay(response.data)
     } catch (error) {
       setDay(null)      
+    }
+  }
+
+  const handleChangeCalendarDayOfWeek = async (date: Dayjs | null) => {
+    setCalendarDayOfWeek(date)
+    if (!date) {
+      setWeek(null)
+      return
+    }
+
+    try {
+      const response: AxiosResponse<WeekSummary> = await axios.get(`http://localhost:3000/summaries/week?day=${date.toISOString()}`)
+      setWeek(response.data)
+    } catch (error) {
+      setWeek(null)      
     }
   }
 
@@ -172,7 +189,8 @@ const HomePage: React.FC = () => {
                 Ingresos del día
                 {day?.isModified && <Chip color="danger" style={{ fontWeight: 'bold' }}>DÍA MODIFICADO</Chip>}
               </Typography>
-              <Box display='flex'>
+              <Box>
+                <FormLabel>Seleccione un día</FormLabel>
                 <DatePicker
                   value={calendarDay}
                   onChange={handleChangeCalendarDay}
@@ -252,6 +270,98 @@ const HomePage: React.FC = () => {
             <Box display='flex' justifyContent='space-between'>
               <Typography level="h3" color="success" startDecorator={<DollarSign />}>Total del día</Typography>
               <Typography level="h3" color="success" startDecorator={<DollarSign />}>{day?.totalIncome ?? 0}</Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </TabPanel>
+      <TabPanel value={2}>
+      <Grid container spacing={2}>
+          <Grid xs={12}>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" color="success" startDecorator={<DollarSign />}>
+                Ingresos de la semana
+              </Typography>
+              <Box>
+                <FormLabel>Seleccion un día de la semana</FormLabel>
+                <DatePicker
+                  value={calendarDayOfWeek}
+                  onChange={handleChangeCalendarDayOfWeek}
+                  format="DD/MM/YYYY"
+                  disableFuture
+                />
+              </Box>
+            </Box>
+          </Grid>
+          <Grid xs={12}>
+            <Card>
+              <Grid container spacing={2}>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Nuevos miembros</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{week?.newMembersCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Miembros viejos</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{week?.renewedMembersCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Clases</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{week?.gymClassesCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.newMembersIncome ?? "0.00"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.renewedMembersIncome ?? "0.00"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.gymClassesIncome ?? "0.00"}</Typography>
+                </Grid>
+              </Grid>
+            </Card>
+          </Grid>
+          <Grid xs={12}>
+            <Typography level="h3" color="danger" startDecorator={<DollarSign />}>Cancelaciones del día</Typography>
+          </Grid>
+          <Grid xs={12}>
+            <Card color="danger">
+              <Grid container spacing={2}>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Nuevos miembros cancelados</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{week?.newMembersCanceledCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Miembros viejos</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{week?.renewedMembersCanceledCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Clases</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{week?.gymClassesCanceledCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.newMembersCanceledIncome ?? "0.00"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.renewedMembersCanceledIncome ?? "0.00"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.gymClassesCanceledIncome ?? "0.00"}</Typography>
+                </Grid>
+              </Grid>
+            </Card>
+          </Grid>
+          <Grid xs={12}>
+            <Divider />
+          </Grid>
+          <Grid xs={12}>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" color="success" startDecorator={<DollarSign />}>Total de la semana</Typography>
+              <Typography level="h3" color="success" startDecorator={<DollarSign />}>{week?.totalIncome ?? "0.00"}</Typography>
             </Box>
           </Grid>
         </Grid>

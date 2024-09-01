@@ -18,3 +18,21 @@ export type TodaySummary = {
     gymClassesCanceledIncome: number
     totalIncome: number
 }
+
+export type WeekSummary = {
+    newMembersCount: string
+    newMembersIncome: string
+    newMembersCanceledCount: string
+    newMembersCanceledIncome: string
+    renewedMembersCount: string
+    renewedMembersIncome: string
+    renewedMembersCanceledCount: string
+    renewedMembersCanceledIncome: string
+    gymClassesCount: string
+    gymClassesIncome: string
+    gymClassesCanceledCount: string
+    gymClassesCanceledIncome: string
+    totalIncome: string
+    totalCanceled: string
+    totalAmount: string
+}
