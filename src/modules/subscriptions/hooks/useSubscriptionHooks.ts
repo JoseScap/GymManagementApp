@@ -24,6 +24,7 @@ interface SubscriptionHooks {
   deleteSubscriptionById: () => Promise<void>;
   changeSubscriptionAmount: (amount: number) => void;
   alternateModal: () => void;
+  updateSubscriptionById: (id: string, amount: number, paymentMethod: PaymentMethod) => Promise<void>
 }
 
 export const useSubscriptionHooks = (): SubscriptionHooks => {
@@ -85,6 +86,20 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
     
   };
 
+  const updateSubscriptionById = async (id: string, amount: number, paymentMethod: PaymentMethod) => {
+    if (!id) {
+      return;
+    }
+
+    await axios.patch(`http://localhost:3000/subscriptions/update/${id}`,
+      {
+        paymentMethod,
+        amount,
+      }
+    );
+  }
+
+
   const deleteSubscriptionById = async () => {
     if (!id) {
       return;
@@ -114,6 +129,7 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
     changeSubscriptionAmount,
     resetValues,
     getMemberBySubscriptionId,
-    deleteSubscriptionById
+    deleteSubscriptionById,
+    updateSubscriptionById,
   };
 };

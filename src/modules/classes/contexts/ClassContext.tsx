@@ -6,12 +6,14 @@ type ClassListContextType = {
   currentPage: number
   hasMore: boolean
   idToDelete: string
+  idToUpdate: string
   create: boolean
   setClasses: Dispatch<SetStateAction<GymClass[]>>
   setCurrentPage: Dispatch<SetStateAction<number>>
   setHasMore: Dispatch<SetStateAction<boolean>>
   setIdToDelete: Dispatch<SetStateAction<string>>
   setCreate: Dispatch<SetStateAction<boolean>>
+  setIdToUpdate: Dispatch<SetStateAction<string>>
 }
 
 const INITIAL_STATE: ClassListContextType = {
@@ -20,11 +22,13 @@ const INITIAL_STATE: ClassListContextType = {
   hasMore: true,
   idToDelete: "",
   create: false,
+  idToUpdate: "",
   setClasses: () => undefined,
   setCurrentPage: () => undefined,
   setHasMore: () => undefined,
   setIdToDelete: () => undefined,
   setCreate: () => undefined,
+  setIdToUpdate: () => undefined,
 }
 
 const ClassListContext = createContext<ClassListContextType>(INITIAL_STATE)
@@ -35,6 +39,7 @@ const ClassListProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState<number>(INITIAL_STATE.currentPage)
   const [hasMore, setHasMore] = useState<boolean>(INITIAL_STATE.hasMore)
   const [idToDelete, setIdToDelete] = useState<string>(INITIAL_STATE.idToDelete)
+  const [idToUpdate, setIdToUpdate] = useState<string>(INITIAL_STATE.idToUpdate)
   const [create, setCreate] = useState<boolean>(false)
 
   return (
@@ -45,11 +50,13 @@ const ClassListProvider: React.FC<PropsWithChildren> = ({ children }) => {
         hasMore,
         idToDelete,
         create,
+        idToUpdate,
         setClasses,
         setCurrentPage,
         setHasMore,
         setIdToDelete,
         setCreate,
+        setIdToUpdate,
       }}
     >
       {children}

@@ -19,6 +19,7 @@ import {
   Step,
   StepIndicator,
   Stepper,
+  Option,
   Typography
 } from "@mui/joy";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
@@ -26,8 +27,8 @@ import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
 import { ReactNode, useEffect, useState } from "react";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { useMember } from "../hooks/useMemberHooks.ts";
-import { useParams } from "../../../routers";
 import { AccountBalanceRounded, CancelOutlined, CancelRounded, FingerprintOutlined, LocalAtmRounded, StarRounded } from "@mui/icons-material";
+import { useNavigate, useParams } from "../../../routers";
 import dayjs from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
@@ -35,6 +36,8 @@ import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import AbcOutlinedIcon from '@mui/icons-material/AbcOutlined';
 import { toast } from "react-toastify";
 import { Check } from "lucide-react";
+import { Select } from "@mui/joy";
+import { useSubscriptionHooks } from "../../subscriptions/hooks/useSubscriptionHooks.ts";
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
   Efectivo: <LocalAtmRounded />,
@@ -74,11 +77,18 @@ const MemberPage: React.FC = () => {
     changeCaptureStep,
     createNewFingerprint
   } = useMember();
+  const { updateSubscriptionById } = useSubscriptionHooks()
+
 
   const [edit, setEdit] = useState(false);
+  const [editSubscription, setEditSubscription] = useState(false);
   const [index, setIndex] = useState(-1);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Efectivo")
+  const [amount, setAmount] = useState(0);
+
 
   const { id: memberId } = useParams(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (memberId !== undefined) getMemberById(memberId);
@@ -95,10 +105,40 @@ const MemberPage: React.FC = () => {
       })
   }
 
+  const handleEditSubscription = (id: string): void => {
+
+    updateSubscriptionById(id, amount, paymentMethod)
+    .finally(
+      () => {
+        toast.success("Suscripción editada correctamente")
+        navigate("Subscription:List")
+      }
+    )
+  }
+
+  const handleChangePaymentMethod = (
+    event: React.SyntheticEvent | null,
+    newValue: PaymentMethod,
+  ) => {
+    event?.preventDefault();
+    setPaymentMethod(newValue)
+  }
+
   const handleActiveEdit = () => {
     setEdit(prev => !prev);
     if(edit) {
       resetValues();
+    }
+  }
+
+  const handleActiveEditSubscription = (amount: number, paymentMethod: PaymentMethod) => {
+    setEditSubscription(prev => !prev);
+
+    if(!editSubscription) {
+      setAmount(amount);
+      setPaymentMethod(paymentMethod);
+    } else {
+      setAmount(0);
     }
   }
 
@@ -312,12 +352,39 @@ const MemberPage: React.FC = () => {
               </AccordionSummary>
               <AccordionDetails>
                 <Card>
+                  <Grid xs={4} display="flex" gap="8px" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => { handleActiveEditSubscription(sub.amount, sub.paymentMethod) }}
+                      color={editSubscription ? 'danger' : 'success'}
+                      endDecorator={editSubscription ? <CancelRounded /> : <EditRoundedIcon />}
+                    >
+                      {editSubscription ? "Cancelar Edición" : "Editar suscripción"}
+                    </Button>
+                  </Grid>
                   <Grid container spacing={2}>
                     <Grid xs={6} display="flex" gap="8px" flexDirection="column">
                       <FormLabel>Método de Pago</FormLabel>
-                      {
-                        GetBadge(sub.paymentMethod)
-                      }
+                      <>
+                        {
+                          editSubscription ? (
+                            <FormControl>
+                              <Select
+                                color="success"
+                                placeholder="Seleccione un método de pago"
+                                variant="outlined"
+                                value={paymentMethod ? paymentMethod : sub.paymentMethod}
+                                onChange={handleChangePaymentMethod}
+                              >
+                                <Option value="Efectivo">Efectivo</Option>
+                                <Option value="Transferencia">Transferencia</Option>
+                              </Select>
+                            </FormControl>
+                          ) : (
+                            <Typography level="body-lg">{GetBadge(sub.paymentMethod)}</Typography>
+                          )
+                        }
+                      </>
                     </Grid>
                     <Grid xs={6} display="flex" gap="8px" flexDirection="column">
                       <FormLabel>Monto de la Subscripción</FormLabel>
@@ -326,8 +393,10 @@ const MemberPage: React.FC = () => {
                       >
                         <Input
                           size="sm"
-                          value={sub.amount}
+                          value={!editSubscription ? sub.amount : amount}
+                          onChange={(e) => { if(editSubscription) setAmount(Number(e.target.value)) }}
                           style={{ fontWeight: 'bold' }}
+                          disabled={!editSubscription}
                         />
                       </FormControl>
                     </Grid>
@@ -339,6 +408,7 @@ const MemberPage: React.FC = () => {
                         <Input
                           size="sm"
                           value={dayjs(sub.dateFrom).format("DD/MM/YYYY")}
+                          disabled={true}
                         />
                       </FormControl>
                     </Grid>
@@ -350,10 +420,19 @@ const MemberPage: React.FC = () => {
                         <Input
                           size="sm"
                           value={dayjs(sub.dateTo).format("DD/MM/YYYY")}
+                          disabled={true}
                         />
                       </FormControl>
                     </Grid>
                   </Grid>
+                  <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
+                    <CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
+                      <Button size="sm" variant="solid" color="success" type="submit" disabled={!editSubscription} 
+                        onClick={() => { handleEditSubscription(sub.id) }}>
+                        Guardar
+                      </Button>
+                    </CardActions>
+                  </CardOverflow>
                 </Card>
               </AccordionDetails>
             </Accordion>

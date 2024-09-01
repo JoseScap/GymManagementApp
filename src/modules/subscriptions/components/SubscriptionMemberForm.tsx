@@ -435,7 +435,7 @@ const SubscriptionMemberForm: React.FC = () => {
               <Button size="sm" variant="outlined" color="neutral">
                 Cancelar
               </Button>
-              <Button size="sm" variant="solid" color="success" type="submit">
+              <Button size="sm" variant="solid" color="success" type="submit" disabled={amount > 0}>
                 Guardar
               </Button>
             </CardActions>
