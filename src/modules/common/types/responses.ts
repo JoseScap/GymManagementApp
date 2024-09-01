@@ -36,17 +36,31 @@ export type TodaySummary = {
 export type WeekSummary = {
     newMembersCount: string
     newMembersIncome: string
+    newMembersCashIncome: string
+    newMembersTransferIncome: string
     newMembersCanceledCount: string
     newMembersCanceledIncome: string
+    newMembersCanceledCashIncome: string
+    newMembersCanceledTransferIncome: string
     renewedMembersCount: string
     renewedMembersIncome: string
+    renewedMembersCashIncome: string
+    renewedMembersTransferIncome: string
     renewedMembersCanceledCount: string
     renewedMembersCanceledIncome: string
+    renewedMembersCanceledCashIncome: string
+    renewedMembersCanceledTransferIncome: string
     gymClassesCount: string
     gymClassesIncome: string
+    gymClassesCashIncome: string
+    gymClassesTransferIncome: string
     gymClassesCanceledCount: string
     gymClassesCanceledIncome: string
+    gymClassesCanceledCashIncome: string
+    gymClassesCanceledTransferIncome: string
     totalIncome: string
+    totalCashIncome: string
+    totalTransferIncome: string
     totalCanceled: string
     totalAmount: string
 }

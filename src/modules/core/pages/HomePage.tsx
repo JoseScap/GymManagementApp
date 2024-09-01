@@ -206,7 +206,7 @@ const HomePage: React.FC = () => {
         <Grid container spacing={2}>
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>
+              <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>
                 Ingresos del día
                 {day?.isModified && <Chip color="danger" style={{ fontWeight: 'bold' }}>DÍA MODIFICADO</Chip>}
               </Typography>
@@ -258,7 +258,7 @@ const HomePage: React.FC = () => {
             </Card>
           </Grid>
           <Grid xs={12}>
-            <Typography level="h3" color="danger" startDecorator={<DollarSign />}>Cancelaciones del día</Typography>
+            <Typography level="h3" color="danger" startDecorator={<AttachMoneyOutlined />}>Cancelaciones del día</Typography>
           </Grid>
           <Grid xs={12}>
             <Card color="danger">
@@ -301,8 +301,16 @@ const HomePage: React.FC = () => {
           </Grid>
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>Total del día</Typography>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>{day?.totalIncome ?? 0}</Typography>
+              <Typography level="h3" color="success" startDecorator={<LocalAtmRounded />}>Total efectivo</Typography>
+              <Typography level="h3" color="success" startDecorator={<LocalAtmRounded />}>{day?.totalCashIncome ?? 0}</Typography>
+            </Box>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" color="warning" startDecorator={<AccountBalanceRounded />}>Total transferencía</Typography>
+              <Typography level="h3" color="warning" startDecorator={<AccountBalanceRounded />}>{day?.totalTransferIncome ?? 0}</Typography>
+            </Box>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" startDecorator={<AttachMoneyOutlined />}>Total del día</Typography>
+              <Typography level="h3" startDecorator={<AttachMoneyOutlined />}>{day?.totalIncome ?? 0}</Typography>
             </Box>
           </Grid>
         </Grid>
@@ -311,7 +319,7 @@ const HomePage: React.FC = () => {
       <Grid container spacing={2}>
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>
+              <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>
                 Ingresos de la semana
               </Typography>
               <Box>
@@ -342,21 +350,27 @@ const HomePage: React.FC = () => {
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.newMembersIncome ?? "0.00"}</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{week?.newMembersCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{week?.newMembersTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{week?.newMembersIncome ?? "0.00"}</Typography>
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.renewedMembersIncome ?? "0.00"}</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{week?.renewedMembersCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{week?.renewedMembersTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{week?.renewedMembersIncome ?? "0.00"}</Typography>
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.gymClassesIncome ?? "0.00"}</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{week?.gymClassesCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{week?.gymClassesTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{week?.gymClassesIncome ?? "0.00"}</Typography>
                 </Grid>
               </Grid>
             </Card>
           </Grid>
           <Grid xs={12}>
-            <Typography level="h3" color="danger" startDecorator={<DollarSign />}>Cancelaciones del día</Typography>
+            <Typography level="h3" color="danger" startDecorator={<AttachMoneyOutlined />}>Cancelaciones del día</Typography>
           </Grid>
           <Grid xs={12}>
             <Card color="danger">
@@ -375,15 +389,21 @@ const HomePage: React.FC = () => {
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.newMembersCanceledIncome ?? "0.00"}</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{week?.newMembersCanceledCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{week?.newMembersCanceledTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{week?.newMembersCanceledIncome ?? "0.00"}</Typography>
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.renewedMembersCanceledIncome ?? "0.00"}</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{week?.renewedMembersCanceledCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{week?.renewedMembersCanceledTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{week?.renewedMembersCanceledIncome ?? "0.00"}</Typography>
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<DollarSign />}>{week?.gymClassesCanceledIncome ?? "0.00"}</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{week?.gymClassesCanceledCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{week?.gymClassesCanceledTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{week?.gymClassesCanceledIncome ?? "0.00"}</Typography>
                 </Grid>
               </Grid>
             </Card>
@@ -393,8 +413,16 @@ const HomePage: React.FC = () => {
           </Grid>
           <Grid xs={12}>
             <Box display='flex' justifyContent='space-between'>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>Total de la semana</Typography>
-              <Typography level="h3" color="success" startDecorator={<DollarSign />}>{week?.totalIncome ?? "0.00"}</Typography>
+              <Typography level="h3" color="success" startDecorator={<LocalAtmRounded />}>Total efectivo</Typography>
+              <Typography level="h3" color="success" startDecorator={<LocalAtmRounded />}>{week?.totalCashIncome ?? "0.00"}</Typography>
+            </Box>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" color="warning" startDecorator={<AccountBalanceRounded />}>Total transferencía</Typography>
+              <Typography level="h3" color="warning" startDecorator={<AccountBalanceRounded />}>{week?.totalTransferIncome ?? "0.00"}</Typography>
+            </Box>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" startDecorator={<DollarSign />}>Total de la semana</Typography>
+              <Typography level="h3" startDecorator={<DollarSign />}>{week?.totalIncome ?? "0.00"}</Typography>
             </Box>
           </Grid>
         </Grid>
