@@ -19,6 +19,9 @@ interface ClassListHooks {
   findNextPage: () => void
   changeIdToUpdate: (id: string) => void
   updateClassById: (className: string, professor: string, total: number, countAssistant: number) => Promise<void>
+  filterByClassname: (className: string) => Promise<void>
+  filterByProfessor: (professor: string) => Promise<void>
+  filterByDate: (date: string) => Promise<void>
 }
 
 export const useClassListHooks = (): ClassListHooks => {
@@ -59,6 +62,25 @@ export const useClassListHooks = (): ClassListHooks => {
     })
   }
 
+  const filterByClassname = async (className: string) => {
+    const response: AxiosResponse<PaginatedApiResponse<GymClass>> = await axios.get(`http://localhost:3000/classes/find-paginated/?className=${className}`)
+    setClasses(response.data.data)
+    setHasMore(!!response.data.next)
+
+  }
+
+  const filterByProfessor = async (professor: string) => {
+    const response: AxiosResponse<PaginatedApiResponse<GymClass>> = await axios.get(`http://localhost:3000/classes/find-paginated/?professor=${professor}`)
+    setClasses(response.data.data)
+    setHasMore(!!response.data.next)
+  }
+
+  const filterByDate = async (date: string) => {
+    const response: AxiosResponse<PaginatedApiResponse<GymClass>> = await axios.get(`http://localhost:3000/classes/find-paginated/?date=${date}`)
+    setClasses(response.data.data)
+    setHasMore(!!response.data.next)
+  }
+
   return {
     classes,
     hasMore,
@@ -72,6 +94,9 @@ export const useClassListHooks = (): ClassListHooks => {
     findNextPage,
     changeIdToUpdate,
     updateClassById,
+    filterByClassname,
+    filterByProfessor,
+    filterByDate,
   }
 }
 

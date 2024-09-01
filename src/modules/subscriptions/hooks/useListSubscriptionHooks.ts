@@ -13,6 +13,9 @@ interface MemberListHooks {
   findNextPage: () => void
   deleteSubscriptionById: (id: string, isCanceled: boolean) => void
   changeIdToDelete: (id: string) => void
+  filterByFullname: (fullName: string) => void
+  filterByDni: (dni: string) => void
+  filterByDate: (dateFrom: string, dateTo: string) => void
 }
 
 export const useListSubscription = (): MemberListHooks => {
@@ -45,6 +48,27 @@ export const useListSubscription = (): MemberListHooks => {
     setIdToDelete(id)
   }
 
+  const filterByFullname = async (fullName: string) => {
+    const response : AxiosResponse<PaginatedApiResponse<Subscription>> = await axios.get(`http://localhost:3000/subscriptions/find-paginated?embedMember=true&page=1&fullname=${fullName}`)
+    setCurrentPage(1)
+    setHasMore(!!response.data.next)
+    setSubscriptions(response.data.data)
+  }
+
+  const filterByDni = async (dni: string) => {
+    const response : AxiosResponse<PaginatedApiResponse<Subscription>> = await axios.get(`http://localhost:3000/subscriptions/find-paginated?embedMember=true&page=1&dni=${dni}`)
+    setCurrentPage(1)
+    setHasMore(!!response.data.next)
+    setSubscriptions(response.data.data)
+  }
+
+  const filterByDate = async (dateFrom: string, dateTo: string) => {
+    const response : AxiosResponse<PaginatedApiResponse<Subscription>> = await axios.get(`http://localhost:3000/subscriptions/find-paginated?embedMember=true&page=1&dateFrom=${dateFrom}&dateTo=${dateTo}`)
+    setCurrentPage(1)
+    setHasMore(!!response.data.next)
+    setSubscriptions(response.data.data)
+  }
+
   return {
     hasMore,
     subscriptions,
@@ -52,6 +76,9 @@ export const useListSubscription = (): MemberListHooks => {
     deleteSubscriptionById,
     changeIdToDelete,
     idToDelete,
+    filterByFullname,
+    filterByDni,
+    filterByDate
   }
 }
 

@@ -5,6 +5,7 @@ import { useListSubscription } from "../hooks/useListSubscriptionHooks.ts";
 import {useEffect} from "react";
 import { StarsRounded } from "@mui/icons-material";
 import SubscriptionDeleteModal from "../components/SubscriptionDeleteModal.tsx";
+import SubscriptionTableFilter from "../components/SubscriptionTableFilter.tsx";
 
 const ListSubscriptionPage: React.FC = () => {
   const { findNextPage } = useListSubscription()
@@ -24,6 +25,7 @@ const ListSubscriptionPage: React.FC = () => {
       />
     </Box>
     <Typography level="h2" sx={{ color: "white" }}>Lista de Subscripciones</Typography>
+    <SubscriptionTableFilter />
     <SubscriptionTable />
     <SubscriptionDeleteModal />
   </>
