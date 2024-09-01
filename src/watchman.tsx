@@ -38,11 +38,12 @@ const WatchmanApp = () => {
     {
       daysDifference != null && daysDifference <= 0 && (
         <Grid container rowSpacing={0} marginBottom={2}>
-          <Grid xs={6} xsOffset={3}>
+          <Grid xs={8} xsOffset={2}>
             <Alert
               size='lg'
               color='danger'
               startDecorator={<WarningOutlined />}
+              style={{ fontSize: '25px' }}
             >
               Tu suscripción vencio el dia {dayjs(identifiedMember!.subscriptions![0].dateTo).format('DD/MM/YYYY')}
             </Alert>
@@ -50,14 +51,16 @@ const WatchmanApp = () => {
         </Grid> 
       )
     }
+
     {
       daysDifference != null && daysDifference > 0 && daysDifference <= 3 && (
         <Grid container rowSpacing={0} marginBottom={2}>
-          <Grid xs={6} xsOffset={3}>
+          <Grid xs={8} xsOffset={2}>
             <Alert
               size='lg'
               color='warning'
               startDecorator={<WarningOutlined />}
+              style={{ fontSize: '25px' }}
             >
               Tu suscripción vence en {daysDifference} {daysDifference > 1 ? 'días' : 'día'}
             </Alert>
@@ -65,6 +68,7 @@ const WatchmanApp = () => {
         </Grid> 
       )
     }
+
     <Grid container spacing={2}>
       <Grid xs={8} xsOffset={2}>
         <Card
@@ -74,12 +78,12 @@ const WatchmanApp = () => {
           <Box display='flex' flexDirection='row'>
             {
               daysDifference != null && daysDifference > 0 && (
-                <Check style={{ fontSize: '72px' }} />
+                <Check style={{ fontSize: '100px' }} />
               )
             }
             {
               daysDifference != null && daysDifference <= 0 && (
-                <Close color='error' style={{ fontSize: '72px' }} />
+                <Close color='error' style={{ fontSize: '100px' }} />
               )
             }
             <Box>
