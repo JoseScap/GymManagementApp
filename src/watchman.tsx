@@ -4,9 +4,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { SocketProvider } from './socket/SocketContext';
 import { useWatchman, WatchmanProvider } from './watchman/WatchmanContext';
-import { Alert, AspectRatio, Avatar, Box, Button, Card, Divider, Grid, Sheet, Typography } from '@mui/joy';
-import AppBreadcrumbs from './modules/common/components/AppBreadcrumbs';
-import { CalendarMonthOutlined, Check, Close, GroupRounded, PersonOutline, ScreenShare, TimerOutlined, WarningOutlined } from '@mui/icons-material';
+import { Alert, AspectRatio, Avatar, Box, Button, Card, Divider, Grid, Typography } from '@mui/joy';
+import { CalendarMonthOutlined, Check, Close, PersonOutline, ScreenShare, TimerOutlined, WarningOutlined } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import fondo1 from "./assets/fondo2.jpg"
 
@@ -67,7 +66,7 @@ const WatchmanApp = () => {
       )
     }
     <Grid container spacing={2}>
-      <Grid xs={6} xsOffset={3}>
+      <Grid xs={8} xsOffset={2}>
         <Card
           variant='soft'
           sx={{ p: 2, display: 'flex', flexDirection: 'column', rowGap: 1 }}
@@ -84,34 +83,17 @@ const WatchmanApp = () => {
               )
             }
             <Box>
-              <Typography color='success' level='h2'>Bienvenido de nuevo</Typography>
-              <Typography level='h3'>
+              <Typography color='success' level='h1'>Bienvenido de nuevo</Typography>
+              <Typography level='h2'>
                 {
                   !!identifiedMember
-                    ? identifiedMember.fullName
-                    : 'N/A'
+                    ? identifiedMember.fingerprint?.id - identifiedMember.fullName
+                    : '0 - N/A'
                 }
               </Typography>
             </Box>
           </Box>
           <Divider />
-          <Box display='flex' flexDirection='column'>
-            <Box display='flex' columnGap={2}>
-              <Avatar color='success' size='lg'>
-                <PersonOutline />
-              </Avatar>
-              <Box display='flex' flexDirection='column'>
-                <Typography level='h4'>Numero de socío</Typography>
-                <Typography>
-                  {
-                    !!identifiedMember?.fingerprint
-                      ? identifiedMember.fingerprint.id
-                      : 'N/A'
-                  }
-                </Typography>
-              </Box>
-            </Box>
-          </Box>
           <Box display='flex' flexDirection='column'>
             <Box display='flex' columnGap={2}>
               <Avatar color='primary' size='lg'>

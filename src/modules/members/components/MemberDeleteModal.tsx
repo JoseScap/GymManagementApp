@@ -28,30 +28,26 @@ const MemberDeleteModal: React.FC = () => {
 
   return (
     <>
-      {
-        open && (
-          <Modal open={open} onClose={() => changeIdToDelete(null)}>
-            <ModalDialog variant="outlined" role="alertdialog">
-              <DialogTitle>
-                <WarningRoundedIcon />
-                Atención
-              </DialogTitle>
-              <Divider />
-              <DialogContent>
-                ¿Estás seguro que quieres eliminar al miembro {fullName}?
-              </DialogContent>
-              <DialogActions>
-                <Button variant="solid" color="danger" onClick={handleDelete}>
-                  Eliminar Miembro
-                </Button>
-                <Button variant="plain" color="neutral" onClick={() => changeIdToDelete(null)}>
-                  Cancelar
-                </Button>
-              </DialogActions>
-            </ModalDialog>
-          </Modal>
-        )
-      }
+      <Modal open={open} onClose={() => changeIdToDelete(null)}>
+        <ModalDialog variant="outlined" role="alertdialog">
+          <DialogTitle>
+            <WarningRoundedIcon />
+            Atención
+          </DialogTitle>
+          <Divider />
+          <DialogContent>
+            ¿Estás seguro que quieres eliminar al miembro {fullName}?
+          </DialogContent>
+          <DialogActions>
+            <Button variant="solid" color="danger" onClick={handleDelete}>
+              Eliminar Miembro
+            </Button>
+            <Button variant="plain" color="neutral" onClick={() => changeIdToDelete(null)}>
+              Cancelar
+            </Button>
+          </DialogActions>
+        </ModalDialog>
+      </Modal>
     </>
   )
 }
