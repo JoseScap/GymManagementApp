@@ -18,6 +18,8 @@ const HomePage: React.FC = () => {
   const [day, setDay] = useState<Summary | null>(null)
   const [calendarDayOfWeek, setCalendarDayOfWeek] = useState<Dayjs | null>(null)
   const [week, setWeek] = useState<WeekSummary | null>(null)
+  const [calendarDayOfMonth, setCalendarDayOfMonth] = useState<Dayjs | null>(null)
+  const [month, setMonth] = useState<WeekSummary | null>(null)
   const [signModal, setSignModal] = useState<boolean>(false)
 
   const findToday = async () => {
@@ -58,7 +60,9 @@ const HomePage: React.FC = () => {
       const response: AxiosResponse<Summary> = await axios.get(`http://localhost:3000/summaries/day?day=${date.toISOString()}`)
       setDay(response.data)
     } catch (error) {
-      setDay(null)      
+      setDay(null)     
+      const typifiedError = error as AxiosError
+      if (typifiedError?.response?.status === 404) toast.success('Este día no cuenta con cierres')   
     }
   }
 
@@ -74,6 +78,25 @@ const HomePage: React.FC = () => {
       setWeek(response.data)
     } catch (error) {
       setWeek(null)      
+      const typifiedError = error as AxiosError
+      if (typifiedError?.response?.status === 404) toast.success('Esta semana no cuenta con cierres')  
+    }
+  }
+
+  const handleChangeCalendarDayOfmonth = async (date: Dayjs | null) => {
+    setCalendarDayOfMonth(date)
+    if (!date) {
+      setMonth(null)
+      return
+    }
+
+    try {
+      const response: AxiosResponse<WeekSummary> = await axios.get(`http://localhost:3000/summaries/month?day=${date.toISOString()}`)
+      setMonth(response.data)
+    } catch (error) {
+      setMonth(null) 
+      const typifiedError = error as AxiosError
+      if (typifiedError?.response?.status === 404) toast.success('Este mes no cuenta con cierres')  
     }
   }
 
@@ -244,9 +267,9 @@ const HomePage: React.FC = () => {
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
-                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{day?.renewedMembersIncome ?? 0}</Typography>
-                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{day?.renewedMembersCashIncome ?? 0}</Typography>
-                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{day?.renewedMembersTransferIncome ?? 0}</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{day?.renewedMembersCashIncome ?? 0}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{day?.renewedMembersTransferIncome ?? 0}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{day?.renewedMembersIncome ?? 0}</Typography>
                 </Grid>
                 <Grid xs={4}>
                   <Typography level="body-lg" fontWeight='bold'>Total</Typography>
@@ -423,6 +446,118 @@ const HomePage: React.FC = () => {
             <Box display='flex' justifyContent='space-between'>
               <Typography level="h3" startDecorator={<DollarSign />}>Total de la semana</Typography>
               <Typography level="h3" startDecorator={<DollarSign />}>{week?.totalIncome ?? "0.00"}</Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </TabPanel>
+      <TabPanel value={3}>
+      <Grid container spacing={2}>
+          <Grid xs={12}>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" color="success" startDecorator={<AttachMoneyOutlined />}>
+                Ingresos del mes
+              </Typography>
+              <Box>
+                <FormLabel>Seleccion un día del mes</FormLabel>
+                <DatePicker
+                  value={calendarDayOfWeek}
+                  onChange={handleChangeCalendarDayOfmonth}
+                  format="DD/MM/YYYY"
+                  disableFuture
+                />
+              </Box>
+            </Box>
+          </Grid>
+          <Grid xs={12}>
+            <Card>
+              <Grid container spacing={2}>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Nuevos miembros</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{month?.newMembersCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Miembros viejos</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{month?.renewedMembersCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Clases</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{month?.gymClassesCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{month?.newMembersCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{month?.newMembersTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{month?.newMembersIncome ?? "0.00"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{month?.renewedMembersCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{month?.renewedMembersTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{month?.renewedMembersIncome ?? "0.00"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{month?.gymClassesCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{month?.gymClassesTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{month?.gymClassesIncome ?? "0.00"}</Typography>
+                </Grid>
+              </Grid>
+            </Card>
+          </Grid>
+          <Grid xs={12}>
+            <Typography level="h3" color="danger" startDecorator={<AttachMoneyOutlined />}>Cancelaciones del día</Typography>
+          </Grid>
+          <Grid xs={12}>
+            <Card color="danger">
+              <Grid container spacing={2}>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Nuevos miembros cancelados</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{month?.newMembersCanceledCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Miembros viejos</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{month?.renewedMembersCanceledCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Clases</Typography>
+                  <Typography level="body-lg" fontWeight='bold'>{month?.gymClassesCanceledCount ?? "0"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{month?.newMembersCanceledCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{month?.newMembersCanceledTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{month?.newMembersCanceledIncome ?? "0.00"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{month?.renewedMembersCanceledCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{month?.renewedMembersCanceledTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{month?.renewedMembersCanceledIncome ?? "0.00"}</Typography>
+                </Grid>
+                <Grid xs={4}>
+                  <Typography level="body-lg" fontWeight='bold'>Total</Typography>
+                  <Typography color="success" level="body-lg" fontWeight='bold' startDecorator={<LocalAtmRounded />}>{month?.gymClassesCanceledCashIncome ?? "0.00"}</Typography>
+                  <Typography color='warning' level="body-lg" fontWeight='bold' startDecorator={<AccountBalanceRounded />}>{month?.gymClassesCanceledTransferIncome ?? "0.00"}</Typography>
+                  <Typography level="body-lg" fontWeight='bold' startDecorator={<AttachMoneyOutlined />}>{month?.gymClassesCanceledIncome ?? "0.00"}</Typography>
+                </Grid>
+              </Grid>
+            </Card>
+          </Grid>
+          <Grid xs={12}>
+            <Divider />
+          </Grid>
+          <Grid xs={12}>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" color="success" startDecorator={<LocalAtmRounded />}>Total efectivo</Typography>
+              <Typography level="h3" color="success" startDecorator={<LocalAtmRounded />}>{month?.totalCashIncome ?? "0.00"}</Typography>
+            </Box>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" color="warning" startDecorator={<AccountBalanceRounded />}>Total transferencía</Typography>
+              <Typography level="h3" color="warning" startDecorator={<AccountBalanceRounded />}>{month?.totalTransferIncome ?? "0.00"}</Typography>
+            </Box>
+            <Box display='flex' justifyContent='space-between'>
+              <Typography level="h3" startDecorator={<DollarSign />}>Total de la semana</Typography>
+              <Typography level="h3" startDecorator={<DollarSign />}>{month?.totalIncome ?? "0.00"}</Typography>
             </Box>
           </Grid>
         </Grid>
