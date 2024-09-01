@@ -117,9 +117,11 @@ const MemberPage: React.FC = () => {
   const handleActiveEditSubscription = (amount: number, paymentMethod: PaymentMethod) => {
     setEditSubscription(prev => !prev);
 
-    if(editSubscription) {
+    if(!editSubscription) {
       setAmount(amount);
       setPaymentMethod(paymentMethod);
+    } else {
+      setAmount(0);
     }
   }
 
