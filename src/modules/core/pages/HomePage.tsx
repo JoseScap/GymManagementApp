@@ -460,7 +460,7 @@ const HomePage: React.FC = () => {
               <Box>
                 <FormLabel>Seleccion un día del mes</FormLabel>
                 <DatePicker
-                  value={calendarDayOfWeek}
+                  value={calendarDayOfMonth}
                   onChange={handleChangeCalendarDayOfmonth}
                   format="DD/MM/YYYY"
                   disableFuture

@@ -117,7 +117,7 @@ export const useMember = (): MemberHooks => {
   const createNewFingerprint = async (memberId: string, fingerTemplate: string, id: number) => {
     if (id > 0) {
       try {
-        const result: AxiosResponse<SingleApiResponse<CreateNewMember>> = await axios.patch(`http://localhost:3000/fingerprints/${fingerprintId}`, {
+        await axios.patch(`http://localhost:3000/fingerprints/${fingerprintId}`, {
           fingerTemplate
         })
         await getMemberById(memberId)

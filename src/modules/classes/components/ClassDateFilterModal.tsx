@@ -1,10 +1,15 @@
 import { Box, Button, DialogActions, DialogContent, DialogTitle, Divider, FormControl, Modal, ModalDialog } from "@mui/joy";
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs, { Dayjs } from "dayjs";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { useClassListHooks } from "../hooks/useClassListHooks";
 
-const ClassDateFilterModal = ({ open, setOpen }) => {
+interface Props {
+    open: boolean
+    setOpen: Dispatch<SetStateAction<boolean>>
+}
+
+const ClassDateFilterModal = ({ open, setOpen }: Props) => {
 
     const { filterByDate } = useClassListHooks();
 

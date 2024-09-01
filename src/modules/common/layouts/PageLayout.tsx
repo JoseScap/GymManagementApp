@@ -1,4 +1,4 @@
-import { PropsWithChildren, useCallback, useEffect, useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import {
   AspectRatio,
   Box,

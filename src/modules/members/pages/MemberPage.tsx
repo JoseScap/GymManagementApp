@@ -117,11 +117,9 @@ const MemberPage: React.FC = () => {
   }
 
   const handleChangePaymentMethod = (
-    event: React.SyntheticEvent | null,
-    newValue: PaymentMethod,
+    newValue: PaymentMethod | null,
   ) => {
-    event?.preventDefault();
-    setPaymentMethod(newValue)
+    if (paymentMethod !== null) setPaymentMethod(newValue!)
   }
 
   const handleActiveEdit = () => {
@@ -374,7 +372,10 @@ const MemberPage: React.FC = () => {
                                 placeholder="Seleccione un método de pago"
                                 variant="outlined"
                                 value={paymentMethod ? paymentMethod : sub.paymentMethod}
-                                onChange={handleChangePaymentMethod}
+                                onChange={(event, value) => {
+                                  event?.preventDefault()
+                                  handleChangePaymentMethod(value)
+                                }}
                               >
                                 <Option value="Efectivo">Efectivo</Option>
                                 <Option value="Transferencia">Transferencia</Option>

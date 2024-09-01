@@ -1,6 +1,6 @@
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { SocketProvider } from './socket/SocketContext';
 import { useWatchman, WatchmanProvider } from './watchman/WatchmanContext';
@@ -23,7 +23,7 @@ const WatchmanApp = () => {
       // Reproduce el sonido
       sound.play();
     }
-  }, [daysDifference, identifiedMember])
+  }, [daysDifference, identifiedMember, sound])
   
   const handleSwitchScreens = () => {
     window.electron.ipcRenderer.send('switch-screens');

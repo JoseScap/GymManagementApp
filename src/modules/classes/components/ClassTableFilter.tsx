@@ -1,5 +1,5 @@
 import { Button, FormControl, Grid, IconButton, Input } from "@mui/joy";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import { useClassListHooks } from "../hooks/useClassListHooks";
 import CleaningServicesOutlinedIcon from '@mui/icons-material/CleaningServicesOutlined';
 import ClassDateFilterModal from "./ClassDateFilterModal";
