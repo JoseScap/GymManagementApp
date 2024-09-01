@@ -69,6 +69,7 @@ const WatchmanApp = () => {
       )
     }
 
+    {identifiedMember !== null && (
     <Grid container spacing={2}>
       <Grid xs={8} xsOffset={2}>
         <Card
@@ -78,7 +79,7 @@ const WatchmanApp = () => {
           <Box display='flex' flexDirection='row'>
             {
               daysDifference != null && daysDifference > 0 && (
-                <Check style={{ fontSize: '100px' }} />
+                <Check style={{ fontSize: '100px' }} color='success' />
               )
             }
             {
@@ -90,9 +91,7 @@ const WatchmanApp = () => {
               <Typography color='success' level='h1'>Bienvenido de nuevo</Typography>
               <Typography level='h2'>
                 {
-                  !!identifiedMember
-                    ? identifiedMember.fingerprint?.id - identifiedMember.fullName
-                    : '0 - N/A'
+                  `${identifiedMember?.fingerprint?.id ?? 0} - ${identifiedMember?.fullName ?? "N/A"}`
                 }
               </Typography>
             </Box>
@@ -135,6 +134,7 @@ const WatchmanApp = () => {
         </Card>
       </Grid>
     </Grid>
+    )}
   </Box>
 };
 
