@@ -20,8 +20,9 @@ export const useWatchman = () => {
 };
 
 export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { socket } = useSocket()
-  const [member, setMember] = useState<Member | null>(null)
+  const { socket } = useSocket();
+  const [member, setMember] = useState<Member | null>(null);
+
   const daysDifference = useMemo<number | null>(() => {
     if (member === null) return null
     if (member.subscriptions === undefined) return null
@@ -30,17 +31,30 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const target = dayjs(member.subscriptions[0].dateTo)
     const today = dayjs()
 
-    return target.diff(today, 'day') + 1
+    const days = target.diff(today, 'day') + 1
+
+    return days
   }, [member])
 
   useEffect(() => {
     if (socket) {
-        console.log("Escuchar App:Identify")
-        socket.on("App:Identify", (data: Member) => {
-            setMember(data)
-        })
+      console.log("Escuchar App:Identify")
+      socket.on("App:Identify", (data: Member) => {
+        setMember(data)
+      })
     }
   }, [socket])
+
+  useEffect(() => {
+    if (member !== null) {
+      const timeoutId = setTimeout(() => {
+        setMember(null);
+      }, 10000);
+
+      // Cleanup timeout if the component unmounts or if member changes
+      return () => clearTimeout(timeoutId);
+    }
+  }, [member]);
 
   return (
     <WatchmanContext.Provider value={{ identifiedMember: member, daysDifference }}>
@@ -48,3 +62,4 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     </WatchmanContext.Provider>
   );
 };
+

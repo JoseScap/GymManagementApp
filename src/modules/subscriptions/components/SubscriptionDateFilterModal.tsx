@@ -1,10 +1,15 @@
 import { Box, Button, DialogActions, DialogContent, DialogTitle, Divider, FormControl, Modal, ModalDialog } from "@mui/joy";
-import { DatePicker, dateTimePickerToolbarClasses } from "@mui/x-date-pickers";
-import { useState } from "react";
+import { DatePicker } from "@mui/x-date-pickers";
+import { Dispatch, SetStateAction, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import { useListSubscription } from "../hooks/useListSubscriptionHooks";
 
-const SubscriptionDateFilterModal = ({ open, setOpen }) => {
+interface Props {
+    open: boolean
+    setOpen: Dispatch<SetStateAction<boolean>>
+}
+
+const SubscriptionDateFilterModal = ({ open, setOpen }: Props) => {
 
     const { filterByDate } = useListSubscription();
 

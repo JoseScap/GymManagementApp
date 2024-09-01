@@ -7,11 +7,15 @@ import ListItemContent from '@mui/joy/ListItemContent';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import { AttachMoneyOutlined, StarsRounded} from "@mui/icons-material";
+import { AttachMoneyOutlined, Close, StarsRounded} from "@mui/icons-material";
 import { useNavigate } from '../../../routers';
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
 
-export default function Sidebar() {
+interface Props {
+  onLock: () => void
+}
+
+export default function Sidebar({ onLock }: Props) {
   const navigate = useNavigate();
 
   return (
@@ -107,7 +111,16 @@ export default function Sidebar() {
             <ListItemButton onClick={() => navigate('Class:List')}>
               <ClassOutlinedIcon />
               <ListItemContent>
-                <Typography level="title-sm">Clases</Typography>
+                <Typography level="title-sm">Lista de Clases</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem>
+            <ListItemButton onClick={onLock}>
+              <Close />
+              <ListItemContent>
+                <Typography level="title-sm">Bloquear</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

@@ -5,7 +5,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
 import { useNavigate } from "../../../routers";
-import { AccountBalanceOutlined, AttachMoneyOutlined, Check, LocalAtmOutlined, PersonOutlineRounded, PhoneAndroidOutlined, PhoneIphoneOutlined } from "@mui/icons-material";
+import { AccountBalanceOutlined, AttachMoneyOutlined, Check, PersonOutlineRounded, PhoneIphoneOutlined } from "@mui/icons-material";
 import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
 import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -260,12 +260,31 @@ const SubscriptionMemberForm: React.FC = () => {
           </Box>
           <Divider />
           <Grid container spacing={2}>
-            <Grid xs={2}><Button fullWidth disabled={fingerTemplate != null} color="success" onClick={() => changeCaptureStep(1)}>Iniciar registro</Button></Grid>
+            <Grid xs={2}>
+              <Button
+                fullWidth
+                disabled={fingerTemplate != null}
+                color={
+                  fingerTemplate !== null
+                    ? 'neutral'
+                    : captureStep > 0
+                    ? 'danger'
+                    : 'success' 
+                }
+                onClick={() => {
+                  if (captureStep === 0) changeCaptureStep(1)
+                  else changeCaptureStep(0)
+                }}
+              >
+                {
+                  captureStep > 0 ? "Cancelar registro" : "Iniciar registro"
+                }
+              </Button>
+            </Grid>
             {(captureStep >= 1 || fingerTemplate != null) &&
               <Grid xs={10}>
                 <Stepper>
                   <Step
-                    key={step}
                     indicator={
                       <StepIndicator
                         variant={captureStep < 2 && fingerTemplate == null ? 'soft' : 'solid'}
@@ -278,7 +297,6 @@ const SubscriptionMemberForm: React.FC = () => {
                     <Typography>Primera huella</Typography>
                   </Step>
                   <Step
-                    key={step}
                     indicator={
                       <StepIndicator
                         variant={captureStep < 3 && fingerTemplate == null ? 'soft' : 'solid'}
@@ -291,7 +309,6 @@ const SubscriptionMemberForm: React.FC = () => {
                     <Typography>Segunda huella</Typography>
                   </Step>
                   <Step
-                    key={step}
                     indicator={
                       <StepIndicator
                         variant={fingerTemplate == null ? 'soft' : 'solid'}
@@ -418,7 +435,7 @@ const SubscriptionMemberForm: React.FC = () => {
               <Button size="sm" variant="outlined" color="neutral">
                 Cancelar
               </Button>
-              <Button size="sm" variant="solid" color="success" type="submit" disabled={amount > 0}>
+              <Button size="sm" variant="solid" color="success" type="submit" disabled={amount === 0}>
                 Guardar
               </Button>
             </CardActions>

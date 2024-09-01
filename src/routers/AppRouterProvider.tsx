@@ -7,6 +7,7 @@ const AppRouterProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [params, setParams] = useState<Params>(INITIAL_CONTEXT_VALUE.params)
 
   const navigate = (page: Page, params: Params = {}) => {
+    console.log("NAVEGAR")
     setPage(page)
     setParams(params)
   }
