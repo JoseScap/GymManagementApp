@@ -11,7 +11,7 @@ import FingerprintOutlinedIcon from '@mui/icons-material/FingerprintOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import WbSunny from "@mui/icons-material/WbSunny";
-import { Banknote, CalendarCheck } from "lucide-react";
+import { CalendarCheck } from "lucide-react";
 import { toast } from "react-toastify";
 
 const memberStatusOptions: MemberStatus[] = ['Día', 'Semana', 'Mes']
@@ -418,7 +418,7 @@ const SubscriptionMemberForm: React.FC = () => {
               <Button size="sm" variant="outlined" color="neutral">
                 Cancelar
               </Button>
-              <Button size="sm" variant="solid" color="success" type="submit">
+              <Button size="sm" variant="solid" color="success" type="submit" disabled={amount > 0}>
                 Guardar
               </Button>
             </CardActions>

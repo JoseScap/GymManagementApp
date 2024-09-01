@@ -7,6 +7,8 @@ import ClassTable from "../components/ClassTable.tsx";
 import ClassDeleteModal from "../components/ClassDeleteModal.tsx";
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import ClassCreate from "../components/ClassCreate.tsx";
+import ClassEditModal from "../components/ClassEditModal.tsx";
+import ClassTableFilter from "../components/ClassTableFilter.tsx";
 
 const ClassListPage: React.FC = () => {
   const { findNextPage, create, setCreate } = useClassListHooks()
@@ -45,8 +47,10 @@ const ClassListPage: React.FC = () => {
     {
       create && <ClassCreate/>
     }
+    <ClassTableFilter />
     <ClassTable />
     <ClassDeleteModal />
+    <ClassEditModal />
   </>
 }
 

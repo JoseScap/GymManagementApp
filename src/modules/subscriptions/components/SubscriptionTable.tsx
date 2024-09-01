@@ -18,7 +18,6 @@ import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import { NumbersOutlined, PersonOutlineRounded } from "@mui/icons-material";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
-import { toast } from "react-toastify";
 
 const startDecoratorDictionary: Record<MemberStatus, ReactNode> = {
   Inactivo: <InactiveIcon />,
@@ -45,7 +44,7 @@ const colorPaymentMethodDictionary: Record<PaymentMethod, ColorPaletteProp> = {
 }
 
 const SubscriptionTable: React.FC = () => {
-    const { hasMore, subscriptions, findNextPage, deleteSubscriptionById } = useListSubscription();
+    const { hasMore, subscriptions, findNextPage, changeIdToDelete } = useListSubscription();
     const navigate = useNavigate();
 
   return (
@@ -149,6 +148,18 @@ const SubscriptionTable: React.FC = () => {
                             <Box width="100%" height="100%" display="flex" alignItems="center">
                               <Typography startDecorator={<PersonOutlineRounded />}>
                                 {member!.fullName}
+                                {
+                                  isCanceled && (
+                                    <Chip
+                                      variant="soft"
+                                      size="sm"
+                                      color="danger"
+                                      startDecorator={<InactiveIcon />}
+                                      sx={{ marginLeft: '5px' }}
+                                    >
+                                    </Chip>
+                                  )
+                                }
                               </Typography>
                             </Box>
                           </td>
@@ -210,11 +221,7 @@ const SubscriptionTable: React.FC = () => {
                               <IconButton
                                 variant="outlined"
                                 color={!isCanceled ? "danger" : "success"}
-                                onClick={() => {
-                                  deleteSubscriptionById(id, isCanceled)
-                                  if(isCanceled) toast.success('Subscripción restaurada con éxito')
-                                  else toast.success('Subscripción desactivada con éxito')
-                                }}
+                                onClick={() => changeIdToDelete(id)}
                               >
                                 {!isCanceled ? <DeleteOutlineOutlinedIcon /> : <RestoreOutlinedIcon />}
                               </IconButton>

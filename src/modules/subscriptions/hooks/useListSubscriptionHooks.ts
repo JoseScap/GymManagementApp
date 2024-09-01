@@ -8,9 +8,14 @@ import { toast } from "react-toastify";
 // Interface that should be return by the hook
 interface MemberListHooks {
   hasMore: boolean
-  subscriptions: Subscription[]
+  subscriptions: Subscription[],
+  idToDelete: string,
   findNextPage: () => void
   deleteSubscriptionById: (id: string, isCanceled: boolean) => void
+  changeIdToDelete: (id: string) => void
+  filterByFullname: (fullName: string) => void
+  filterByDni: (dni: string) => void
+  filterByDate: (dateFrom: string, dateTo: string) => void
 }
 
 export const useListSubscription = (): MemberListHooks => {
@@ -18,9 +23,11 @@ export const useListSubscription = (): MemberListHooks => {
     currentPage,
     hasMore,
     subscriptions,
+    idToDelete,
     setCurrentPage,
     setHasMore,
-    setSubscriptions
+    setSubscriptions,
+    setIdToDelete,
   } = useContext(ListSubscriptionContext)
 
   const findNextPage = async () => {
@@ -37,11 +44,41 @@ export const useListSubscription = (): MemberListHooks => {
     else await axios.delete(`http://localhost:3000/subscriptions/remove/${id}`)
   }
 
+  const changeIdToDelete = async (id: string) => {
+    setIdToDelete(id)
+  }
+
+  const filterByFullname = async (fullName: string) => {
+    const response : AxiosResponse<PaginatedApiResponse<Subscription>> = await axios.get(`http://localhost:3000/subscriptions/find-paginated?embedMember=true&page=1&fullname=${fullName}`)
+    setCurrentPage(1)
+    setHasMore(!!response.data.next)
+    setSubscriptions(response.data.data)
+  }
+
+  const filterByDni = async (dni: string) => {
+    const response : AxiosResponse<PaginatedApiResponse<Subscription>> = await axios.get(`http://localhost:3000/subscriptions/find-paginated?embedMember=true&page=1&dni=${dni}`)
+    setCurrentPage(1)
+    setHasMore(!!response.data.next)
+    setSubscriptions(response.data.data)
+  }
+
+  const filterByDate = async (dateFrom: string, dateTo: string) => {
+    const response : AxiosResponse<PaginatedApiResponse<Subscription>> = await axios.get(`http://localhost:3000/subscriptions/find-paginated?embedMember=true&page=1&dateFrom=${dateFrom}&dateTo=${dateTo}`)
+    setCurrentPage(1)
+    setHasMore(!!response.data.next)
+    setSubscriptions(response.data.data)
+  }
+
   return {
     hasMore,
     subscriptions,
     findNextPage,
-    deleteSubscriptionById
+    deleteSubscriptionById,
+    changeIdToDelete,
+    idToDelete,
+    filterByFullname,
+    filterByDni,
+    filterByDate
   }
 }
 

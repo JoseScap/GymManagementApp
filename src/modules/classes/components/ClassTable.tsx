@@ -6,11 +6,13 @@ import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined';
 import AttachMoneyOutlinedIcon from '@mui/icons-material/AttachMoneyOutlined';
 import PeopleOutlineOutlinedIcon from '@mui/icons-material/PeopleOutlineOutlined';
 import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
-import RecyclingOutlinedIcon from '@mui/icons-material/RecyclingOutlined';
+import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
+import InactiveIcon from "@mui/icons-material/Block"
 import { Trash2 } from "lucide-react";
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
 const ClassTable: React.FC = () => {
-  const { classes, changeIdToDelete, findNextPage, hasMore } = useClassListHooks()
+  const { classes, changeIdToDelete, findNextPage, hasMore, changeIdToUpdate } = useClassListHooks()
 
   return (
     <Sheet
@@ -95,13 +97,17 @@ const ClassTable: React.FC = () => {
                       {
                         gymClass.className
                       }
-                      <Chip
-                        variant="soft"
-                        size="md"
-                        color={gymClass.isCanceled ? 'danger' : 'success'}
-                      >
-                        {gymClass.isCanceled ? 'Cancelada' : 'Activa'}
-                      </Chip>
+                      {
+                      gymClass.isCanceled && (
+                        <Chip
+                          variant="soft"
+                          size="md"
+                          color="danger"
+                          startDecorator={<InactiveIcon />}
+                        >
+                        </Chip>
+                      )
+                      }
                     </Box>
                   </td>
 
@@ -141,9 +147,16 @@ const ClassTable: React.FC = () => {
                       >
                         {
                           gymClass.isCanceled
-                            ? <RecyclingOutlinedIcon />
+                            ? <RestoreOutlinedIcon />
                             : <Trash2 />
                         }
+                      </IconButton>
+                      <IconButton
+                        variant="outlined"
+                        color="warning"
+                        onClick={() => changeIdToUpdate(gymClass.id)}
+                      >
+                        <EditRoundedIcon />
                       </IconButton>
                     </Box>
                   </td>
