@@ -31,7 +31,9 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const target = dayjs(member.subscriptions[0].dateTo)
     const today = dayjs()
 
-    return target.diff(today, 'day') + 1
+    const days = target.diff(today, 'day') + 1
+
+    return days
   }, [member])
 
   useEffect(() => {
@@ -47,7 +49,7 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (member !== null) {
       const timeoutId = setTimeout(() => {
         setMember(null);
-      }, 3000);
+      }, 10000);
 
       // Cleanup timeout if the component unmounts or if member changes
       return () => clearTimeout(timeoutId);

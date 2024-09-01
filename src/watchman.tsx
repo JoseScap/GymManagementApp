@@ -1,16 +1,29 @@
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import React from 'react';
+import React, { useCallback, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { SocketProvider } from './socket/SocketContext';
 import { useWatchman, WatchmanProvider } from './watchman/WatchmanContext';
 import { Alert, AspectRatio, Avatar, Box, Button, Card, Divider, Grid, Typography } from '@mui/joy';
-import { CalendarMonthOutlined, Check, Close, PersonOutline, ScreenShare, TimerOutlined, WarningOutlined } from '@mui/icons-material';
+import { CalendarMonthOutlined, Check, Close, ScreenShare, TimerOutlined, WarningOutlined } from '@mui/icons-material';
 import dayjs from 'dayjs';
 import fondo1 from "./assets/fondo2.jpg"
+import { Howl } from 'howler';
 
 const WatchmanApp = () => {
+  const sound = new Howl({
+    src: ['/notify.mp3'],
+    autoplay: false,
+    volume: 1.0,
+  });
   const { identifiedMember, daysDifference } = useWatchman()
+
+  useEffect(() => {
+    if (identifiedMember != null && daysDifference != null && daysDifference <= 0) {
+      // Reproduce el sonido
+      sound.play();
+    }
+  }, [daysDifference, identifiedMember])
   
   const handleSwitchScreens = () => {
     window.electron.ipcRenderer.send('switch-screens');
@@ -103,8 +116,8 @@ const WatchmanApp = () => {
                 <CalendarMonthOutlined />
               </Avatar>
               <Box display='flex' flexDirection='column'>
-                <Typography level='h4'>Inicio de suscripción</Typography>
-                <Typography>
+                <Typography level='h2' fontWeight='bold'>Inicio de suscripción</Typography>
+                <Typography level='h2' fontWeight='bold'>
                   {
                     !!identifiedMember?.subscriptions
                       ? dayjs(identifiedMember.subscriptions[0].dateFrom).format('DD/MM/YYYY')
@@ -120,8 +133,8 @@ const WatchmanApp = () => {
                 <TimerOutlined />
               </Avatar>
               <Box display='flex' flexDirection='column'>
-                <Typography level='h4'>Fin de suscripción</Typography>
-                <Typography>
+                <Typography level='h2' fontWeight='bold'>Fin de suscripción</Typography>
+                <Typography level='h2' fontWeight='bold'>
                   {
                     !!identifiedMember?.subscriptions
                       ? dayjs(identifiedMember.subscriptions[0].dateTo).format('DD/MM/YYYY')
