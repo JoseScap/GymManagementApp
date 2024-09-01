@@ -285,7 +285,6 @@ const SubscriptionMemberForm: React.FC = () => {
               <Grid xs={10}>
                 <Stepper>
                   <Step
-                    key={step}
                     indicator={
                       <StepIndicator
                         variant={captureStep < 2 && fingerTemplate == null ? 'soft' : 'solid'}
@@ -298,7 +297,6 @@ const SubscriptionMemberForm: React.FC = () => {
                     <Typography>Primera huella</Typography>
                   </Step>
                   <Step
-                    key={step}
                     indicator={
                       <StepIndicator
                         variant={captureStep < 3 && fingerTemplate == null ? 'soft' : 'solid'}
@@ -311,7 +309,6 @@ const SubscriptionMemberForm: React.FC = () => {
                     <Typography>Segunda huella</Typography>
                   </Step>
                   <Step
-                    key={step}
                     indicator={
                       <StepIndicator
                         variant={fingerTemplate == null ? 'soft' : 'solid'}

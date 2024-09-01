@@ -16,6 +16,9 @@ import {
   Grid,
   Input,
   ListItemContent,
+  Step,
+  StepIndicator,
+  Stepper,
   Typography
 } from "@mui/joy";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
@@ -24,13 +27,14 @@ import { ReactNode, useEffect, useState } from "react";
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { useMember } from "../hooks/useMemberHooks.ts";
 import { useParams } from "../../../routers";
-import { AccountBalanceRounded, CancelRounded, LocalAtmRounded, StarRounded } from "@mui/icons-material";
+import { AccountBalanceRounded, CancelOutlined, CancelRounded, FingerprintOutlined, LocalAtmRounded, StarRounded } from "@mui/icons-material";
 import dayjs from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
 import AbcOutlinedIcon from '@mui/icons-material/AbcOutlined';
 import { toast } from "react-toastify";
+import { Check } from "lucide-react";
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
   Efectivo: <LocalAtmRounded />,
@@ -56,7 +60,20 @@ const GetBadge = (status: PaymentMethod) => {
 }
 
 const MemberPage: React.FC = () => {
-  const { member, subscriptions, getMemberById, resetValues, changeFullName, changeDni, changePhoneNumber, editMember } = useMember();
+  const {
+    member,
+    subscriptions,
+    captureStep,
+    fingerTemplate,
+    getMemberById,
+    resetValues,
+    changeFullName,
+    changeDni,
+    changePhoneNumber,
+    editMember,
+    changeCaptureStep,
+    createNewFingerprint
+  } = useMember();
 
   const [edit, setEdit] = useState(false);
   const [index, setIndex] = useState(-1);
@@ -181,7 +198,90 @@ const MemberPage: React.FC = () => {
         </CardOverflow>
       </form>
     </Card>
-    <Typography level="h3" sx={{color: "white" }}>Historial</Typography>
+    <Card>
+      <Box sx={{ mb: 1 }}>
+        <Box display="flex" gap="5px">
+          {member.fingerprintId > 0 ? (
+            <FingerprintOutlined />
+          ) : (
+            <CancelOutlined />
+          )}
+          <Typography level="title-lg" color={member.fingerprintId > 0 ? "success" : "danger"}>Identificacion por huella.</Typography>
+        </Box>
+        <Typography level="body-md">{member.fingerprintId > 0 ? "El usuario tiene huella activa" : "El usuario no tiene huella activa"}</Typography>
+      </Box>
+      <Divider />
+      <Grid container spacing={2}>
+        <Grid xs={2}>
+        <Button
+          fullWidth
+          disabled={fingerTemplate != null}
+          color={
+            fingerTemplate !== null
+              ? 'neutral'
+              : captureStep > 0
+              ? 'danger'
+              : 'success' 
+          }
+          onClick={() => {
+            if (captureStep === 0) changeCaptureStep(1)
+            else changeCaptureStep(0)
+          }}
+        >
+          {
+            captureStep > 0 ? "Cancelar registro" : "Iniciar registro"
+          }
+        </Button>
+        </Grid>
+        {(captureStep >= 1 || fingerTemplate != null) &&
+        <>
+          <Grid xs={8}>
+            <Stepper>
+              <Step
+                indicator={
+                  <StepIndicator
+                    variant={captureStep < 2 && fingerTemplate == null ? 'soft' : 'solid'}
+                    color={captureStep < 2 && fingerTemplate == null ? 'neutral' : 'success'}
+                  >
+                    {captureStep < 2 && fingerTemplate == null ? 1 : <Check />}
+                  </StepIndicator>
+                }
+              >
+                <Typography>Primera huella</Typography>
+              </Step>
+              <Step
+                indicator={
+                  <StepIndicator
+                    variant={captureStep < 3 && fingerTemplate == null ? 'soft' : 'solid'}
+                    color={captureStep < 3 && fingerTemplate == null ? 'neutral' : 'success'}
+                  >
+                    {captureStep < 3 && fingerTemplate == null ? 2 : <Check />}
+                  </StepIndicator>
+                }
+              >
+                <Typography>Segunda huella</Typography>
+              </Step>
+              <Step
+                indicator={
+                  <StepIndicator
+                    variant={fingerTemplate == null ? 'soft' : 'solid'}
+                    color={fingerTemplate == null ? 'neutral' : 'success'}
+                  >
+                    {fingerTemplate == null ? 3 : <Check />}
+                  </StepIndicator>
+                }
+              >
+                <Typography>Huella registrada</Typography>
+              </Step>
+            </Stepper>
+          </Grid>
+          <Grid xs={2}>
+            <Button fullWidth color="success" disabled={!memberId || !fingerTemplate} onClick={() => createNewFingerprint(memberId!, fingerTemplate!, member.fingerprintId ?? 0)}>Cargar nueva huella</Button>
+          </Grid>
+        </>
+        }
+      </Grid>
+    </Card>
     <Card>
       <Grid container spacing={2}>
         <Grid xs={8}>
