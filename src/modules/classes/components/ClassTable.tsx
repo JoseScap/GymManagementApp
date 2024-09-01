@@ -9,9 +9,10 @@ import PermIdentityOutlinedIcon from '@mui/icons-material/PermIdentityOutlined';
 import RestoreOutlinedIcon from '@mui/icons-material/RestoreOutlined';
 import InactiveIcon from "@mui/icons-material/Block"
 import { Trash2 } from "lucide-react";
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
 
 const ClassTable: React.FC = () => {
-  const { classes, changeIdToDelete, findNextPage, hasMore } = useClassListHooks()
+  const { classes, changeIdToDelete, findNextPage, hasMore, changeIdToUpdate } = useClassListHooks()
 
   return (
     <Sheet
@@ -104,7 +105,6 @@ const ClassTable: React.FC = () => {
                           color="danger"
                           startDecorator={<InactiveIcon />}
                         >
-                          Cancelada
                         </Chip>
                       )
                       }
@@ -150,6 +150,13 @@ const ClassTable: React.FC = () => {
                             ? <RestoreOutlinedIcon />
                             : <Trash2 />
                         }
+                      </IconButton>
+                      <IconButton
+                        variant="outlined"
+                        color="warning"
+                        onClick={() => changeIdToUpdate(gymClass.id)}
+                      >
+                        <EditRoundedIcon />
                       </IconButton>
                     </Box>
                   </td>
