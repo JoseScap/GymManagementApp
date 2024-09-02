@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import { useSocket } from '../socket/SocketContext';
 import { Member } from '../modules/common/types/members';
 import dayjs from 'dayjs';
+import { toast } from 'react-toastify';
 
 interface WatchmanContextType {
     identifiedMember: Member | null
@@ -38,10 +39,29 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {
     if (socket) {
-      console.log("Escuchar App:Identify")
-      socket.on("App:Identify", (data: Member) => {
-        setMember(data)
-      })
+      console.log("Escuchar");
+    
+      // Verificar si ya existe un listener
+      const listeners = socket.listeners("App:Identify");
+      if (listeners.length === 0) {
+        socket.on("App:Identify", (data: Member) => {
+          setMember(data);
+          if (data === null) {
+            toast.error(`No se identifico el miembro`, { autoClose: 10000 });
+            return null;
+          }
+          if (data.subscriptions === undefined) return null;
+          if (data.subscriptions.length === 0) return null;
+    
+          const target = dayjs(data.subscriptions[0].dateTo);
+          const today = dayjs();
+    
+          const days = target.diff(today, 'day') + 1;
+          if (days <= 0 && data?.fullName) {
+            toast.error(`${data?.fullName} no se encuentra activo`, { autoClose: 10000 });
+          }
+        });
+      }
     }
   }, [socket])
 

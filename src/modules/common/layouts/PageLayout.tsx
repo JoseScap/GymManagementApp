@@ -13,7 +13,7 @@ import fondo2 from "../../../assets/fondo2.jpg";
 import { PasswordOutlined } from "@mui/icons-material";
 
 const PageLayout: React.FC<PropsWithChildren> = ({ children }) => {
-  const [isLocked, setIsLocked] = useState(true);
+  const [isLocked, setIsLocked] = useState(false);
   const [pin, setPin] = useState<string>("");
 
   return (
