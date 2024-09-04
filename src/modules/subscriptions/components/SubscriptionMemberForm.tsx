@@ -66,6 +66,8 @@ const SubscriptionMemberForm: React.FC = () => {
   }
 
   const handleChangeAmount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (isNaN(+e.target.value)) return;
+
     changeAmount(+e.target.value)
   }
 
@@ -424,7 +426,7 @@ const SubscriptionMemberForm: React.FC = () => {
                 size="md"
                 value={amount}
                 onChange={handleChangeAmount}
-                type="number"
+                type="text"
                 required
                 style={{ fontWeight: 'bold' }}
               />

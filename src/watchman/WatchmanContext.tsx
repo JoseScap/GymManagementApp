@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 interface WatchmanContextType {
     identifiedMember: Member | null
+    unknownMember: boolean
     daysDifference: number | null
 }
 
@@ -23,6 +24,7 @@ export const useWatchman = () => {
 export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { socket } = useSocket();
   const [member, setMember] = useState<Member | null>(null);
+  const [unknownMember, setUnknownMember] = useState<boolean>(false);
 
   const daysDifference = useMemo<number | null>(() => {
     if (member === null) return null
@@ -47,12 +49,15 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         socket.on("App:Identify", (data: Member) => {
           setMember(data);
           if (data === null) {
+            setUnknownMember(true)
             toast.error(`No se identifico el miembro`, { autoClose: 10000 });
             return null;
           }
           if (data.subscriptions === undefined) return null;
           if (data.subscriptions.length === 0) return null;
     
+          setUnknownMember(false)
+          
           const target = dayjs(data.subscriptions[0].dateTo);
           const today = dayjs();
     
@@ -69,15 +74,26 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (member !== null) {
       const timeoutId = setTimeout(() => {
         setMember(null);
-      }, 10000);
+      }, 30000);
 
       // Cleanup timeout if the component unmounts or if member changes
       return () => clearTimeout(timeoutId);
     }
   }, [member]);
 
+  useEffect(() => {
+    if (unknownMember) {
+      const timeoutId = setTimeout(() => {
+        setUnknownMember(false);
+      }, 30000);
+
+      // Cleanup timeout if the component unmounts or if member changes
+      return () => clearTimeout(timeoutId);
+    }
+  }, [unknownMember]);
+
   return (
-    <WatchmanContext.Provider value={{ identifiedMember: member, daysDifference }}>
+    <WatchmanContext.Provider value={{ identifiedMember: member, daysDifference, unknownMember }}>
       {children}
     </WatchmanContext.Provider>
   );

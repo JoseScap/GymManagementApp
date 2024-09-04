@@ -146,7 +146,7 @@ const SubscriptionTable: React.FC = () => {
                         <tr key={id} >
                           <td scope="col">
                             <Box width="100%" height="100%" display="flex" alignItems="center">
-                              <Typography startDecorator={<PersonOutlineRounded />}>
+                              <Typography startDecorator={<PersonOutlineRounded />} fontWeight='bold'>
                                 {member!.fullName}
                                 {
                                   isCanceled && (

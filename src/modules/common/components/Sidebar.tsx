@@ -7,9 +7,10 @@ import ListItemContent from '@mui/joy/ListItemContent';
 import Typography from '@mui/joy/Typography';
 import Sheet from '@mui/joy/Sheet';
 import GroupRoundedIcon from "@mui/icons-material/GroupRounded";
-import { AttachMoneyOutlined, Close, StarsRounded} from "@mui/icons-material";
+import { AttachMoneyOutlined, Close, PersonOutlineRounded, StarsRounded} from "@mui/icons-material";
 import { useNavigate } from '../../../routers';
 import ClassOutlinedIcon from '@mui/icons-material/ClassOutlined';
+import { Divider } from '@mui/joy';
 
 interface Props {
   onLock: () => void
@@ -117,10 +118,21 @@ export default function Sidebar({ onLock }: Props) {
           </ListItem>
 
           <ListItem>
-            <ListItemButton onClick={onLock}>
+            <ListItemButton onClick={() => navigate('Core:MiSocio')}>
+              <PersonOutlineRounded />
+              <ListItemContent>
+                <Typography level="title-sm">Mi Socio</Typography>
+              </ListItemContent>
+            </ListItemButton>
+          </ListItem>
+
+          <Divider />
+
+          <ListItem>
+            <ListItemButton onClick={onLock} >
               <Close />
               <ListItemContent>
-                <Typography level="title-sm">Bloquear</Typography>
+                <Typography level="title-sm" color='danger' fontWeight='bold'>Bloquear</Typography>
               </ListItemContent>
             </ListItemButton>
           </ListItem>

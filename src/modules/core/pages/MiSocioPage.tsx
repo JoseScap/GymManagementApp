@@ -1,11 +1,12 @@
-import { Box, Card, Chip, Grid, Typography } from "@mui/joy";
+import { Alert, Avatar, Box, Card, Divider, Grid, Typography } from "@mui/joy";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs.tsx";
-import { CalendarMonthRounded, GroupRounded, PersonRounded } from "@mui/icons-material";
+import { CalendarMonthOutlined, Check, Close, GroupRounded, TimerOutlined, WarningOutlined } from "@mui/icons-material";
 import { useWatchman } from "../../../watchman/WatchmanContext.tsx";
 import { useEffect } from "react";
+import dayjs from "dayjs";
 
 const MiSocioPage: React.FC = () => {
-  const { identifiedMember } = useWatchman()
+  const { identifiedMember, daysDifference, unknownMember } = useWatchman()
   
   useEffect(() => {
     console.log(identifiedMember)
@@ -21,74 +22,102 @@ const MiSocioPage: React.FC = () => {
       />
     </Box>
     <Typography level="h1" sx={{ color: "white" }}>Mi Socio</Typography>
-    <Card>
-      <Grid container spacing={2}>
-        <Grid xs={12}>
-          <Box sx={{ mb: 1 }}>
-            <Typography level="h1" color="primary">¡Hola de nuevo!</Typography>
-            <Typography level="h2" fontWeight="normal">Te saluda Orellana GYM. Este es el estado de tu ultima suscripción.</Typography>
+    {daysDifference != null && daysDifference <= 0 && (
+      <Grid container rowSpacing={0} marginBottom={2}>
+        <Grid xs={8} xsOffset={2}>
+          <Alert
+            size='lg'
+            color='danger'
+            startDecorator={<WarningOutlined />}
+            style={{ fontSize: '25px' }}
+          >
+            El socio no se encuentra activo, su suscripcion vencío el día {dayjs(identifiedMember!.subscriptions![0].dateTo).format('DD/MM/YYYY')}
+          </Alert>
+        </Grid>
+      </Grid> 
+    )}
+
+    {unknownMember && (
+      <Grid container rowSpacing={0} marginBottom={2}>
+        <Grid xs={8} xsOffset={2}>
+          <Alert
+            size='lg'
+            color='danger'
+            startDecorator={<WarningOutlined />}
+            style={{ fontSize: '25px' }}
+          >
+            No se identifico el miembro.
+          </Alert>
+        </Grid>
+      </Grid> 
+    )}
+
+    {identifiedMember !== null && (
+    <Grid container spacing={2}>
+      <Grid xs={8} xsOffset={2}>
+        <Card
+          variant='soft'
+          sx={{ p: 2, display: 'flex', flexDirection: 'column', rowGap: 1 }}
+        >
+          <Box display='flex' flexDirection='row'>
+            {
+              daysDifference != null && daysDifference > 0 && (
+                <Check style={{ fontSize: '100px' }} color='success' />
+              )
+            }
+            {
+              daysDifference != null && daysDifference <= 0 && (
+                <Close color='error' style={{ fontSize: '100px' }} />
+              )
+            }
+            <Box>
+              <Typography color='success' level='h1'>Bienvenido de nuevo</Typography>
+              <Typography level='h2'>
+                {
+                  `${identifiedMember?.fingerprint?.id ?? 0} - ${identifiedMember?.fullName ?? "N/A"}`
+                }
+              </Typography>
+            </Box>
           </Box>
-        </Grid>
-        <Grid xs={12}>
-          <Card>
-            <Grid container spacing={2}>
-              <Grid xs={3} display="flex" gap="8px" flexDirection="column">
-                <Typography level="h4">Socio numero</Typography>
-                <Chip
-                  variant="soft"
-                  size="lg"
-                  startDecorator={<PersonRounded />}
-                  color="success"
-                  style={{ fontWeight: 'bold' }}
-                >
-                  {identifiedMember?.fingerprint?.id}
-                </Chip>
-              </Grid>
-              <Grid xs={3} display="flex" gap="8px" flexDirection="column">
-                <Typography level="h4">Nombre</Typography>
-                <Chip
-                  variant="soft"
-                  size="lg"
-                  startDecorator={<PersonRounded />}
-                  color="success"
-                  style={{ fontWeight: 'bold' }}
-                >
-                  {identifiedMember?.fullName}
-                </Chip>
-              </Grid>
-              <Grid xs={3} display="flex" gap="8px" flexDirection="column">
-                <Typography level="h4">Fecha de inicio</Typography>
-                <Chip
-                  variant="soft"
-                  size="lg"
-                  startDecorator={<CalendarMonthRounded />}
-                  color="neutral"
-                  style={{ fontWeight: 'bold' }}
-                >
+          <Divider />
+          <Box display='flex' flexDirection='column'>
+            <Box display='flex' columnGap={2}>
+              <Avatar color='primary' size='lg'>
+                <CalendarMonthOutlined />
+              </Avatar>
+              <Box display='flex' flexDirection='column'>
+                <Typography level='h2' fontWeight='bold'>Inicio de suscripción</Typography>
+                <Typography level='h2' fontWeight='bold'>
                   {
-                    // dayjs(identifiedMember.subscriptions[0].dateFrom).format("DD/MM/YYYY")
+                    !!identifiedMember?.subscriptions
+                      ? dayjs(identifiedMember.subscriptions[0].dateFrom).format('DD/MM/YYYY')
+                      : 'N/A'
                   }
-                </Chip>
-              </Grid>
-              <Grid xs={3} display="flex" gap="8px" flexDirection="column">
-                <Typography level="h4">Fecha de fin</Typography>
-                <Chip
-                  variant="soft"
-                  size="lg"
-                  startDecorator={<CalendarMonthRounded />}
-                  color="neutral"
-                  style={{ fontWeight: 'bold' }}
-                >
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+          <Box display='flex' flexDirection='column'>
+            <Box display='flex' columnGap={2}>
+              <Avatar color='danger' size='lg'>
+                <TimerOutlined />
+              </Avatar>
+              <Box display='flex' flexDirection='column'>
+                <Typography level='h2' fontWeight='bold'>Fin de suscripción</Typography>
+                <Typography level='h2' fontWeight='bold'>
                   {
-                    // dayjs(identifiedMember.subscriptions[0].dateTo).format("DD/MM/YYYY")
+                    !!identifiedMember?.subscriptions
+                      ? dayjs(identifiedMember.subscriptions[0].dateTo).format('DD/MM/YYYY')
+                      : 'N/A'
                   }
-                </Chip>
-              </Grid>
-            </Grid>
-          </Card>
-        </Grid>
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Card>
       </Grid>
-    </Card>
+    </Grid>
+    )}
   </>
 }
 
