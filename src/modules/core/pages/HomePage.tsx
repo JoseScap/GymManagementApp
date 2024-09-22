@@ -57,6 +57,13 @@ const HomePage: React.FC = () => {
 
   const handlePendingCLose = async () => {
     setPendingModal(false)
+    try {
+      await axios.post('http://localhost:3000/summaries/lastDay')
+      toast.success('El dia fue cerrado correctamente')
+      findToday()
+    } catch (error) {
+      toast.success('Ocurrio un error, no se pudo cerrar el dia')
+    }
   }
 
   const handleChangeCalendarDay = async (date: Dayjs | null) => {
