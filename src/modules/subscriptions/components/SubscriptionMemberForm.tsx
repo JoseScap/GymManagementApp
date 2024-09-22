@@ -41,6 +41,7 @@ const SubscriptionMemberForm: React.FC = () => {
     changeSelectedMember,
     changeSelectedMemberProp,
     subscribeMember,
+    changeFilters,
     changeStep
   } = useCreateSubscription()
 
@@ -163,6 +164,7 @@ const SubscriptionMemberForm: React.FC = () => {
                 onChange={
                   (_, newValue) => changeSelectedMember(newValue as Member)
                 }
+                onInputChange={(_, value) => changeFilters('dni', value)}
                 required
               />
             </Grid>
@@ -179,6 +181,7 @@ const SubscriptionMemberForm: React.FC = () => {
                 onChange={
                   (_, newValue) => changeSelectedMember(newValue as Member)
                 }
+                onInputChange={(_, value) => changeFilters('fullName', value)}
                 required
               />
             </Grid>

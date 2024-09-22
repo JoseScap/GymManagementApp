@@ -1,5 +1,5 @@
 import { Member, MemberField, MemberFieldValue, MemberStatus } from "../../common/types/members";
-import { SetStateAction, useContext, useEffect } from "react";
+import { SetStateAction, useContext, useEffect, useState } from "react";
 import axios, { AxiosResponse } from "axios";
 import { CreateSubscriptionContext } from "../contexts/CreateSubscriptionContext.tsx";
 import { Dayjs } from "dayjs";
@@ -32,6 +32,7 @@ interface CreateSubscriptionHooks {
   changeSelectedMember: (member: SetStateAction<Member | null>) => void
   changeSelectedMemberProp: <K extends MemberField>(field: K, value: MemberFieldValue<K>) => void
   changeStep: (step: SetStateAction<number>) => void
+  changeFilters: (kind: 'dni' | 'fullName', value: string) => void
   findAllInactiveMembers: () => Promise<void>
   subscribeMember: () => Promise<void>
 }
@@ -61,6 +62,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     setSelectedMember,
     setStep
   } = useContext(CreateSubscriptionContext)
+  const [filters, setFilters] = useState({ dni: "", fullName: "" })
   const { socket } = useSocket()
 
   const changeAmount = (amount: SetStateAction<number>) => {
@@ -108,9 +110,14 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     setStep(step)
   }
 
+  const changeFilters = (kind: 'dni' | 'fullName', value: string) => {
+    if (kind === 'dni') setFilters({ ...filters, dni: value })
+    else if (kind === 'fullName') setFilters({ ...filters, fullName: value })
+  }
+
   const findAllInactiveMembers = async () => {
-    const response: AxiosResponse<PaginatedApiResponse<Member>> = await axios.get(`http://localhost:3000/members/find-paginated?embedSubscriptions=false`)
-    setMembers(response.data.data)
+    const response: AxiosResponse<Member[]> = await axios.get(`http://localhost:3000/members/find-active?dni=${filters.dni}&fullName=${filters.fullName}`)
+    setMembers(response.data)
   }
 
   const subscribeMember = async () => {
@@ -152,6 +159,10 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     }
   }, [])
 
+  useEffect(() => {
+    findAllInactiveMembers()
+  }, [filters])
+
   return {
     amount,
     captureStep,
@@ -174,6 +185,7 @@ export const useCreateSubscription = (): CreateSubscriptionHooks => {
     changeSelectedMember,
     changeSelectedMemberProp,
     changeStep,
+    changeFilters,
     findAllInactiveMembers,
     subscribeMember
   }
