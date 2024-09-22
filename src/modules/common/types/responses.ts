@@ -64,3 +64,8 @@ export type WeekSummary = {
     totalCanceled: string
     totalAmount: string
 }
+
+export type Closure = {
+    kind: 'NoSubscriptions' | 'Today' | 'Closed' | 'PendingClosure'
+    date: string
+}

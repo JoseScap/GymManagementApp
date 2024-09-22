@@ -1,12 +1,12 @@
-import {Box, Button, Card, Chip, DialogActions, DialogContent, DialogTitle, Divider, FormLabel, Grid, Modal, ModalDialog, Tab, TabList, TabPanel, Tabs, Typography} from "@mui/joy";
+import {Alert, Box, Button, Card, Chip, DialogActions, DialogContent, DialogTitle, Divider, FormLabel, Grid, Modal, ModalDialog, Tab, TabList, TabPanel, Tabs, Typography} from "@mui/joy";
 import { DollarSign } from "lucide-react";
 import AppBreadcrumbs from "../../common/components/AppBreadcrumbs";
 import { useEffect, useState } from "react";
-import { TodaySummary, WeekSummary } from "../../common/types/responses";
+import { Closure, TodaySummary, WeekSummary } from "../../common/types/responses";
 import axios, { AxiosError, AxiosResponse } from "axios";
-import { AccountBalanceRounded, AttachMoneyOutlined, WarningRounded } from "@mui/icons-material";
+import { AccountBalanceRounded, AttachMoneyOutlined, WarningOutlined, WarningRounded } from "@mui/icons-material";
 import { DatePicker } from "@mui/x-date-pickers";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { Summary } from "../../common/types/summary";
 import { toast } from "react-toastify";
 import LocalAtmRounded from "@mui/icons-material/LocalAtmRounded";
@@ -14,6 +14,8 @@ import LocalAtmRounded from "@mui/icons-material/LocalAtmRounded";
 const HomePage: React.FC = () => {
   const [today, setToday] = useState<TodaySummary | null>(null)
   const [todayIsClosed, setTodayIsClosed] = useState<boolean>(false)
+  const [pendingClosure, setPendingClosure] = useState<boolean>(false)
+  const [pendingClosureDate, setPendingClosureDate] = useState<Dayjs | null>(null)
   const [calendarDay, setCalendarDay] = useState<Dayjs | null>(null)
   const [day, setDay] = useState<Summary | null>(null)
   const [calendarDayOfWeek, setCalendarDayOfWeek] = useState<Dayjs | null>(null)
@@ -21,12 +23,16 @@ const HomePage: React.FC = () => {
   const [calendarDayOfMonth, setCalendarDayOfMonth] = useState<Dayjs | null>(null)
   const [month, setMonth] = useState<WeekSummary | null>(null)
   const [signModal, setSignModal] = useState<boolean>(false)
+  const [pendingModal, setPendingModal] = useState<boolean>(false)
 
   const findToday = async () => {
     try {
-      const date = new Date()
-      await axios.get(`http://localhost:3000/summaries/day?day=${date.toISOString()}`)
-      setTodayIsClosed(true)
+      const response: AxiosResponse<Closure> = await axios.get(`http://localhost:3000/summaries/verify`)
+      if (response.data.kind === 'Closed') setTodayIsClosed(true)
+      else if (response.data.kind === 'PendingClosure') {
+        setPendingClosure(true)
+        setPendingClosureDate(dayjs(response.data.date!))
+      }
     } catch (error) {
       const customError = error as AxiosError<{ message: string, statusCode: number }>
       if (customError.response?.status === 404) {
@@ -47,6 +53,10 @@ const HomePage: React.FC = () => {
     } catch (error) {
       toast.success('Ocurrio un error, no se pudo cerrar el dia')
     }
+  }
+
+  const handlePendingCLose = async () => {
+    setPendingModal(false)
   }
 
   const handleChangeCalendarDay = async (date: Dayjs | null) => {
@@ -103,6 +113,49 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     findToday()
   }, [])
+
+  if (pendingClosure && pendingClosureDate !== null) return <>
+    <Box>
+      <AppBreadcrumbs
+        items={[
+          <DollarSign color="white"/>,
+          <Typography fontWeight="bold" style={{ color: 'white' }}>Caja</Typography>
+        ]}
+      />
+    </Box>
+    <Typography level="h2" style={{ color: 'white' }}>Resumenes de caja</Typography>
+    <Alert
+      size='lg'
+      color='danger'
+      startDecorator={<WarningOutlined />}
+      style={{ fontSize: '25px' }}
+    >
+      No cerraste la caja el dia {pendingClosureDate.format('DD/MM/YYYY')}
+    </Alert>
+    <Button color="danger" size="lg" onClick={() => setPendingModal(true)}>Cerrar día</Button>
+    <Modal
+      open={pendingModal}
+    >
+      <ModalDialog variant="outlined" role="alertdialog">
+        <DialogTitle>
+          <WarningRounded />
+          Atención
+        </DialogTitle>
+        <Divider />
+        <DialogContent>
+          ¿Estás seguro que quieres cerrar el dia pendiente ({pendingClosureDate?.format("DD/MM/YYYY")})?
+        </DialogContent>
+        <DialogActions>
+          <Button variant="solid" color="danger" onClick={handlePendingCLose}>
+            Cerrar dia
+          </Button>
+          <Button variant="plain" color="neutral" onClick={() => setPendingModal(false)}>
+            Cancelar
+          </Button>
+        </DialogActions>
+      </ModalDialog>
+    </Modal>
+  </>
 
   return <>
     <Box>
