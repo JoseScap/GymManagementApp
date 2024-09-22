@@ -58,11 +58,11 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     
           setUnknownMember(false)
           
-          const target = dayjs(data.subscriptions[0].dateTo);
-          const today = dayjs();
+          const target = dayjs(data.subscriptions[0].dateTo).startOf('day');
+          const today = dayjs().startOf('day');
     
-          const days = target.diff(today, 'day') + 1;
-          if (days <= 0 && data?.fullName) {
+          const days = target.diff(today, 'day');
+          if (days < 0 && data?.fullName) {
             toast.error(`${data?.fullName} no se encuentra activo`, { autoClose: 10000 });
           }
         });
