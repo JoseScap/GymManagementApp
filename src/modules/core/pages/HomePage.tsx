@@ -28,7 +28,7 @@ const HomePage: React.FC = () => {
   const findToday = async () => {
     try {
       const response: AxiosResponse<Closure> = await axios.get(`http://localhost:3000/summaries/verify`)
-      if (response.data.kind === 'Closed') setTodayIsClosed(true)
+      if (response.data.kind === 'ClosedToday') setTodayIsClosed(true)
       else if (response.data.kind === 'PendingClosure') {
         setPendingClosure(true)
         setPendingClosureDate(dayjs(response.data.date!))

@@ -66,6 +66,6 @@ export type WeekSummary = {
 }
 
 export type Closure = {
-    kind: 'NoSubscriptions' | 'Opened' | 'Closed' | 'PendingClosure'
+    kind: 'NoSubscriptions' | 'ClosedToday' | 'OpenedToday' | 'ClosedAnotherDay' | 'PendingClosure'
     date: string
 }
