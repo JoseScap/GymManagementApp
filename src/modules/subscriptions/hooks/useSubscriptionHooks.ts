@@ -24,7 +24,7 @@ interface SubscriptionHooks {
   deleteSubscriptionById: () => Promise<void>;
   changeSubscriptionAmount: (amount: number) => void;
   alternateModal: () => void;
-  updateSubscriptionById: (id: string, amount: number, paymentMethod: PaymentMethod) => Promise<void>
+  updateSubscriptionById: (id: string, amount: number, paymentMethod: PaymentMethod, dateFrom?: string, dateTo?: string) => Promise<void>
 }
 
 export const useSubscriptionHooks = (): SubscriptionHooks => {
@@ -86,7 +86,7 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
     
   };
 
-  const updateSubscriptionById = async (id: string, amount: number, paymentMethod: PaymentMethod) => {
+  const updateSubscriptionById = async (id: string, amount: number, paymentMethod: PaymentMethod, dateFrom?: string, dateTo?: string) => {
     if (!id) {
       return;
     }
@@ -95,6 +95,8 @@ export const useSubscriptionHooks = (): SubscriptionHooks => {
       {
         paymentMethod,
         amount,
+        dateFrom,
+        dateTo
       }
     );
   }

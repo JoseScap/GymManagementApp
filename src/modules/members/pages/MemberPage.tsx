@@ -29,7 +29,7 @@ import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import { useMember } from "../hooks/useMemberHooks.ts";
 import { AccountBalanceRounded, CancelOutlined, CancelRounded, FingerprintOutlined, LocalAtmRounded, StarRounded } from "@mui/icons-material";
 import { useNavigate, useParams } from "../../../routers";
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import BadgeOutlinedIcon from '@mui/icons-material/BadgeOutlined';
@@ -38,6 +38,7 @@ import { toast } from "react-toastify";
 import { Check } from "lucide-react";
 import { Select } from "@mui/joy";
 import { useSubscriptionHooks } from "../../subscriptions/hooks/useSubscriptionHooks.ts";
+import { DatePicker } from "@mui/x-date-pickers";
 
 const startDecoratorPaymentMethod: Record<PaymentMethod, ReactNode> = {
   Efectivo: <LocalAtmRounded />,
@@ -85,6 +86,8 @@ const MemberPage: React.FC = () => {
   const [index, setIndex] = useState(-1);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("Efectivo")
   const [amount, setAmount] = useState(0);
+  const [dateFrom, setDateFrom] = useState<Dayjs | null>(null);
+  const [dateTo, setDateTo] = useState<Dayjs | null>(null);
 
 
   const { id: memberId } = useParams(); 
@@ -107,7 +110,7 @@ const MemberPage: React.FC = () => {
 
   const handleEditSubscription = (id: string): void => {
 
-    updateSubscriptionById(id, amount, paymentMethod)
+    updateSubscriptionById(id, amount, paymentMethod, dateFrom?.toISOString(), dateTo?.toISOString())
     .finally(
       () => {
         toast.success("Suscripción editada correctamente")
@@ -129,12 +132,14 @@ const MemberPage: React.FC = () => {
     }
   }
 
-  const handleActiveEditSubscription = (amount: number, paymentMethod: PaymentMethod) => {
+  const handleActiveEditSubscription = (amount: number, paymentMethod: PaymentMethod, dateFrom: string, dateTo: string) => {
     setEditSubscription(prev => !prev);
 
     if(!editSubscription) {
       setAmount(amount);
       setPaymentMethod(paymentMethod);
+      setDateFrom(dayjs(dateFrom))
+      setDateTo(dayjs(dateTo))
     } else {
       setAmount(0);
     }
@@ -353,7 +358,7 @@ const MemberPage: React.FC = () => {
                   <Grid xs={4} display="flex" gap="8px" sx={{ justifyContent: 'flex-end', alignItems: 'center' }}>
                     <Button
                       variant="outlined"
-                      onClick={() => { handleActiveEditSubscription(sub.amount, sub.paymentMethod) }}
+                      onClick={() => { handleActiveEditSubscription(sub.amount, sub.paymentMethod, sub.dateFrom, sub.dateTo) }}
                       color={editSubscription ? 'danger' : 'success'}
                       endDecorator={editSubscription ? <CancelRounded /> : <EditRoundedIcon />}
                     >
@@ -402,28 +407,22 @@ const MemberPage: React.FC = () => {
                       </FormControl>
                     </Grid>
                     <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-                      <FormLabel>Fecha de Inicio de la Subscripción</FormLabel>
-                      <FormControl
-                        sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
-                      >
-                        <Input
-                          size="sm"
-                          value={dayjs(sub.dateFrom).format("DD/MM/YYYY")}
-                          disabled={true}
-                        />
-                      </FormControl>
+                      <FormLabel>Fecha de Inicio</FormLabel>
+                      <DatePicker
+                        value={!editSubscription ? dayjs(sub.dateFrom) : dateFrom}
+                        onChange={(date: Dayjs | null) => setDateFrom(date)}
+                        format="DD/MM/YYYY"
+                        disabled={!editSubscription}
+                      />
                     </Grid>
                     <Grid xs={6} display="flex" gap="8px" flexDirection="column">
-                      <FormLabel>Fecha de Finalización de la Subscripción</FormLabel>
-                      <FormControl
-                        sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
-                      >
-                        <Input
-                          size="sm"
-                          value={dayjs(sub.dateTo).format("DD/MM/YYYY")}
-                          disabled={true}
-                        />
-                      </FormControl>
+                      <FormLabel>Fecha de Vencimiento</FormLabel>
+                      <DatePicker
+                        value={!editSubscription ? dayjs(sub.dateTo) : dateTo}
+                        onChange={(date: Dayjs | null) => setDateTo(date)}
+                        format="DD/MM/YYYY"
+                        disabled={!editSubscription}
+                      />
                     </Grid>
                   </Grid>
                   <CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
