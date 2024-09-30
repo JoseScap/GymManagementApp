@@ -54,6 +54,10 @@ const SubscriptionMemberForm: React.FC = () => {
   const handleChangeDateFrom = (date: Dayjs | null) => {
     let newDateTo = date === null ? date : date.clone()
 
+    if (memberStatus === 'Día' && newDateTo !== null) {
+      newDateTo = newDateTo.add(1, 'day')
+    }
+
     if (memberStatus === 'Semana' && newDateTo !== null) {
       newDateTo = newDateTo.add(1, 'week')
     }
@@ -377,7 +381,7 @@ const SubscriptionMemberForm: React.FC = () => {
               />
             </Grid>
             <Grid xs={4} display="flex" gap="8px" flexDirection="column">
-              <Typography style={{ fontWeight: 'bold' }} startDecorator={<CalendarCheck />}>Fecha de vencimiento (Último dia permitido)</Typography>
+              <Typography style={{ fontWeight: 'bold' }} startDecorator={<CalendarCheck />}>Fecha de vencimiento</Typography>
               <DatePicker
                 value={dateTo}
                 onChange={(newValue) => changeDateTo(newValue)}

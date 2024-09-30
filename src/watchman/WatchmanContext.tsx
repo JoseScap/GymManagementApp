@@ -31,10 +31,10 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (member.subscriptions === undefined) return null
     if (member.subscriptions.length === 0) return null
 
-    const target = dayjs(member.subscriptions[0].dateTo)
-    const today = dayjs()
+    const target = dayjs(member.subscriptions[0].dateTo).startOf('day')
+    const today = dayjs().startOf('day')
 
-    const days = target.diff(today, 'day') + 1
+    const days = target.diff(today, 'day')
 
     return days
   }, [member])
@@ -60,9 +60,9 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
           
           const target = dayjs(data.subscriptions[0].dateTo).startOf('day');
           const today = dayjs().startOf('day');
-    
+          
           const days = target.diff(today, 'day');
-          if (days < 0 && data?.fullName) {
+          if (days <= 0 && data?.fullName) {
             toast.error(`${data?.fullName} no se encuentra activo`, { autoClose: 10000 });
           }
         });

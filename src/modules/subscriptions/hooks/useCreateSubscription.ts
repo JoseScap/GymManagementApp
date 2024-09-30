@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from "axios";
 import { CreateSubscriptionContext } from "../contexts/CreateSubscriptionContext.tsx";
 import { Dayjs } from "dayjs";
 import { PaymentMethod } from "../../common/types/subscription";
-import { PaginatedApiResponse, SingleApiResponse } from "../../common/types/api";
+import { SingleApiResponse } from "../../common/types/api";
 import { CreateMemberWithSubRequest, CreateSubRequest } from "../../common/types/requests.ts";
 import { useSocket } from "../../../socket/SocketContext.tsx";
 import { CreateNewMember } from "../../common/types/responses.ts";
